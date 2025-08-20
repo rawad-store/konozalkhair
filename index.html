@@ -4,43 +4,136 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>مؤسسة كنوز الخير للتنمية</title>
-  <!-- ربط ملف التنسيقات -->
   <link rel="stylesheet" href="style.css">
-  <!-- أيقونات Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- خطوط جوجل -->
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="logo">
+      <img src="logo.png" alt="كنوز الخير">
+    </div>
     <h1>مؤسسة كنوز الخير للتنمية</h1>
-    <p>خير يدوم بإذن الله</p>
+    <p>نعمل معًا لبناء مستقبل أفضل للمجتمع المصري من خلال التنمية المستدامة والعمل الخيري</p>
+    <span class="sub-text">مؤسسة مشهرة برقم 3625 لسنة 2021</span>
+    <div class="buttons">
+      <a href="#projects" class="btn primary">ادعم مشاريعنا</a>
+      <a href="#volunteer" class="btn secondary">كن متطوعًا</a>
+    </div>
   </header>
 
-  <main>
-    <section>
-      <h2>عن المؤسسة</h2>
-      <p>
-        مؤسسة كنوز الخير للتنمية المشهرة برقم 3625 لسنة 2021، نعمل بإخلاص ونهتم بالمجتمع المصري
-        من خلال التنمية المستدامة والخدمات الإنسانية والاجتماعية.
-      </p>
-    </section>
+  <!-- About Section -->
+  <section class="about">
+    <h2>عن المؤسسة</h2>
+    <p>
+      نعمل بإخلاص ونهتم بالمجتمع المصري ونقدم المساعدات والخدمات الإنسانية والاجتماعية للفئات الأكثر احتياجًا.
+      تأسست مؤسسة كنوز الخير للتنمية سنة 2021 بهدف تحقيق التنمية المستدامة والعمل الخيري.
+    </p>
+  </section>
 
-    <section>
-      <h2>أنشطتنا ومجالات عملنا</h2>
-      <ul>
-        <li><i class="fa-solid fa-hand-holding-heart"></i> المساعدات الإنسانية</li>
-        <li><i class="fa-solid fa-users"></i> تنمية المجتمع المحلي</li>
-        <li><i class="fa-solid fa-graduation-cap"></i> دعم التعليم</li>
-      </ul>
-    </section>
-  </main>
+  <!-- Activities Section -->
+  <section class="activities" id="projects">
+    <h2>أنشطتنا ومجالات عملنا</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>تنمية المجتمع المحلي</h3>
+        <p>المساهمة في تطوير المجتمعات المحلية من خلال المشروعات التنموية والخدمية المدعومة.</p>
+      </div>
+      <div class="card">
+        <h3>المساعدات الإنسانية</h3>
+        <p>تقديم المساعدات الإنسانية والرعاية للأسر المحتاجة والأطفال.</p>
+      </div>
+      <div class="card">
+        <h3>دعم التعليم</h3>
+        <p>تشجيع التعليم ومحو الأمية وتقديم الدعم للطلاب المحتاجين.</p>
+      </div>
+    </div>
+  </section>
 
+  <!-- Volunteer Section -->
+  <section class="volunteer" id="volunteer">
+    <h2>انضم إلينا</h2>
+    <p>كن جزءًا من رحلتنا وساهم في تحسين المجتمع. انضم إلينا كمتطوع الآن!</p>
+    <a href="#" class="btn primary">سجل كمتطوع</a>
+  </section>
+
+  <!-- Footer -->
   <footer>
-    <p>جميع الحقوق محفوظة © مؤسسة كنوز الخير للتنمية 2025</p>
+    <p>© جميع الحقوق محفوظة - مؤسسة كنوز الخير للتنمية 2025</p>
   </footer>
-
-  <!-- ربط ملف الجافاسكربت -->
-  <script src="script.js"></script>
 </body>
 </html>
+/* About Section */
+.about {
+  padding: 60px 20px;
+  background: #f8f8f8;
+  color: #333;
+}
+
+.about h2 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.about p {
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+/* Activities Section */
+.activities {
+  padding: 60px 20px;
+  background: #fff;
+  color: #333;
+}
+
+.activities h2 {
+  font-size: 28px;
+  margin-bottom: 30px;
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: #215732;
+  color: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  width: 280px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+/* Volunteer Section */
+.volunteer {
+  padding: 60px 20px;
+  background: #1c4429;
+  color: #fff;
+}
+
+.volunteer h2 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.volunteer p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+/* Footer */
+footer {
+  padding: 20px;
+  background: #111;
+  color: #ccc;
+  text-align: center;
+  font-size: 14px;
+}
