@@ -1,139 +1,1536 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مؤسسة كنوز الخير للتنمية</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مؤسسة كنوز الخير للتنمية - خير يدوم بإذن الله</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-green: #2d6a4f;
+            --dark-green: #1b4332;
+            --light-green: #40916c;
+            --accent-green: #52b788;
+            --gold: #ffd60a;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --text-dark: #2b2d42;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--light-bg);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 214, 10, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 214, 10, 0.1) 0%, transparent 50%);
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 60px 20px;
+            width: 100%;
+        }
+
+        .logo {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 20px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-lg);
+            animation: float 6s ease-in-out infinite;
+            position: relative;
+            padding: 10px;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        .logo-content {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .logo-content h2 {
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .logo-content p {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .header h1 {
+            font-family: 'Amiri', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .registration-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            font-weight: 600;
+            animation: pulse 2s infinite;
+            margin-bottom: 30px;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        /* Navigation */
+        .nav {
+            background: rgba(27, 67, 50, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .nav.scrolled {
+            padding: 10px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Amiri', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo i {
+            margin-left: 10px;
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-family: 'Amiri', serif;
+            font-size: 2.8rem;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--accent-green));
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            border-top: 4px solid var(--accent-green);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,214,10,0.05) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .stat-label {
+            color: #666;
+            font-weight: 600;
+        }
+
+        /* Services Section */
+        .services {
+            background: var(--white);
+            position: relative;
+        }
+
+        .services::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%231b4332' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            position: relative;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, var(--light-bg) 0%, var(--white) 100%);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-green), var(--accent-green));
+        }
+
+        .service-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 0 50px 50px;
+            border-color: transparent transparent var(--primary-green) transparent;
+            opacity: 0.1;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover::after {
+            border-width: 0 0 80px 80px;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-green);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .service-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            display: block;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+        }
+
+        .service-desc {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .service-link {
+            display: inline-block;
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .service-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-green);
+            transition: width 0.3s ease;
+        }
+
+        .service-link:hover::after {
+            width: 100%;
+        }
+
+        /* Projects Section */
+        .projects {
+            background: linear-gradient(to bottom, var(--light-bg) 0%, var(--white) 100%);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .project-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+            color: white;
+        }
+
+        .project-content {
+            padding: 25px;
+        }
+
+        .project-title {
+            font-family: 'Amiri', serif;
+            font-size: 1.5rem;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+        }
+
+        .project-desc {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .project-link i {
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .project-link:hover i {
+            transform: translateX(-5px);
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
+            color: var(--white);
+            position: relative;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+            position: relative;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            margin-left: 15px;
+            color: var(--gold);
+            flex-shrink: 0;
+        }
+
+        .contact-details {
+            flex: 1;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, var(--gold) 0%, #ffed4a 100%);
+            color: var(--dark-green);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-btn:hover {
+            background: var(--gold);
+            color: var(--dark-green);
+            transform: translateY(-3px);
+        }
+
+        /* Donate Section */
+        .donate {
+            text-align: center;
+            padding: 80px 0;
+            background: linear-gradient(135deg, rgba(255,214,10,0.1) 0%, rgba(45,106,79,0.1) 100%);
+        }
+
+        .donate-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .donate-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .donate-option {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .donate-option:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .donate-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary-green);
+        }
+
+        .donate-title {
+            font-size: 1.5rem;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+        }
+
+        .donate-desc {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .donate-info {
+            background: var(--light-bg);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-weight: 600;
+            direction: ltr;
+            text-align: center;
+        }
+
+        .copy-btn {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: var(--dark-green);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-green);
+            color: var(--white);
+            padding: 60px 0 30px;
+            border-top: 4px solid var(--gold);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-family: 'Amiri', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-logo i {
+            margin-left: 10px;
+            color: var(--gold);
+        }
+
+        .footer-desc {
+            line-height: 1.8;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        .footer-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--gold);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: 15px;
+        }
+
+        .footer-link a {
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-link a i {
+            margin-left: 10px;
+            font-size: 0.8rem;
+        }
+
+        .footer-link a:hover {
+            opacity: 1;
+            transform: translateX(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-bottom p {
+            opacity: 0.8;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-green);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--dark-green);
+            transform: translateY(-5px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .header .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: var(--dark-green);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: all 0.5s ease;
+                z-index: 1000;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-toggle {
+                display: block;
+                z-index: 1001;
+            }
+            
+            .section {
+                padding: 70px 0;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .social-buttons {
+                justify-content: center;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-title::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .logo {
+                width: 150px;
+                height: 150px;
+            }
+
+            .logo::after {
+                width: 170px;
+                height: 170px;
+            }
+
+            .logo-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .logo-content p {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Loading Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Scroll Animation */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease-out;
+        }
+
+        .scroll-animate.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Quran Verse */
+        .quran-verse {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(27, 67, 50, 0.05);
+            border-radius: 15px;
+            margin: 40px 0;
+            font-family: 'Amiri', serif;
+            font-size: 1.5rem;
+            line-height: 2;
+            color: var(--primary-green);
+            position: relative;
+        }
+
+        .quran-verse::before,
+        .quran-verse::after {
+            content: '"';
+            font-size: 3rem;
+            color: var(--gold);
+            position: absolute;
+        }
+
+        .quran-verse::before {
+            top: 10px;
+            right: 20px;
+        }
+
+        .quran-verse::after {
+            bottom: 10px;
+            left: 20px;
+            transform: rotate(180deg);
+        }
+
+        .verse-reference {
+            display: block;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+            margin-top: 15px;
+            color: var(--dark-green);
+        }
+    </style>
 </head>
 <body>
-  <!-- Hero Section -->
-  <header class="hero">
-    <div class="logo">
-      <img src="logo.png" alt="كنوز الخير">
-    </div>
-    <h1>مؤسسة كنوز الخير للتنمية</h1>
-    <p>نعمل معًا لبناء مستقبل أفضل للمجتمع المصري من خلال التنمية المستدامة والعمل الخيري</p>
-    <span class="sub-text">مؤسسة مشهرة برقم 3625 لسنة 2021</span>
-    <div class="buttons">
-      <a href="#projects" class="btn primary">ادعم مشاريعنا</a>
-      <a href="#volunteer" class="btn secondary">كن متطوعًا</a>
-    </div>
-  </header>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content fade-in">
+                <div class="logo">
+                    <div class="logo-content">
+                        <h2>كنوز الخير</h2>
+                        <p>خيرك لكل الناس</p>
+                    </div>
+                </div>
+                <h1>مؤسسة كنوز الخير للتنمية</h1>
+                <p class="subtitle">نعمل معًا لبناء مستقبل أفضل للمجتمع المصري من خلال التنمية المستدامة والعمل الخيري</p>
+                <div class="registration-badge">
+                    مؤسسة مشهرة برقم 3625 لسنة 2021
+                </div>
+                <div class="header-buttons">
+                    <a href="#donate" class="btn">ادعم مشاريعنا</a>
+                    <a href="#contact" class="btn btn-outline">كن متطوعًا</a>
+                </div>
+            </div>
+        </div>
+    </header>
 
-  <!-- About Section -->
-  <section class="about">
-    <h2>عن المؤسسة</h2>
-    <p>
-      نعمل بإخلاص ونهتم بالمجتمع المصري ونقدم المساعدات والخدمات الإنسانية والاجتماعية للفئات الأكثر احتياجًا.
-      تأسست مؤسسة كنوز الخير للتنمية سنة 2021 بهدف تحقيق التنمية المستدامة والعمل الخيري.
-    </p>
-  </section>
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="container">
+            <div class="nav-container">
+                <a href="#" class="nav-logo"><i class="fas fa-gem"></i> كنوز الخير</a>
+                <div class="nav-links" id="navLinks">
+                    <a href="#about" class="nav-link">عن المؤسسة</a>
+                    <a href="#services" class="nav-link">أنشطتنا</a>
+                    <a href="#projects" class="nav-link">مشاريعنا</a>
+                    <a href="#donate" class="nav-link">التبرعات</a>
+                    <a href="#contact" class="nav-link">اتصل بنا</a>
+                </div>
+                <button class="nav-toggle" id="navToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
 
-  <!-- Activities Section -->
-  <section class="activities" id="projects">
-    <h2>أنشطتنا ومجالات عملنا</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>تنمية المجتمع المحلي</h3>
-        <p>المساهمة في تطوير المجتمعات المحلية من خلال المشروعات التنموية والخدمية المدعومة.</p>
-      </div>
-      <div class="card">
-        <h3>المساعدات الإنسانية</h3>
-        <p>تقديم المساعدات الإنسانية والرعاية للأسر المحتاجة والأطفال.</p>
-      </div>
-      <div class="card">
-        <h3>دعم التعليم</h3>
-        <p>تشجيع التعليم ومحو الأمية وتقديم الدعم للطلاب المحتاجين.</p>
-      </div>
-    </div>
-  </section>
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-header scroll-animate">
+                <h2 class="section-title">عن المؤسسة</h2>
+                <p class="section-subtitle">
+                    نعمل بإخلاص وتفان لخدمة المجتمع وتقديم يد العون للمحتاجين
+                </p>
+            </div>
+            <div class="about-content">
+                <div class="about-text scroll-animate">
+                    <p>
+                        مؤسسة كنوز الخير للتنمية هي مؤسسة خيرية تنموية مشهرة برقم 3625 لسنة 2021، 
+                        تأسست بهدف المساهمة في تنمية المجتمع المصري وتقديم المساعدات والخدمات 
+                        الإنسانية والاجتماعية للفئات الأكثر احتياجًا.
+                    </p>
+                    <p>
+                        نؤمن بأن العمل الخيري والتنموي هو استثمار في مستقبل أفضل لبلدنا، 
+                        ونسعى جاهدين لتحقيق التنمية المستدامة من خلال مشاريعنا ومبادراتنا المتنوعة.
+                    </p>
+                    <p>
+                        نعمل في مختلف محافظات مصر مع التركيز على المناطق الأكثر احتياجًا، 
+                        حيث نقدم برامج متنوعة تشمل الرعاية الصحية، التعليم، التمكين الاقتصادي، 
+                        والمساعدات الإنسانية.
+                    </p>
+                </div>
+                <div class="about-stats scroll-animate">
+                    <div class="stat-card">
+                        <span class="stat-number">2021</span>
+                        <span class="stat-label">سنة التأسيس</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">3625</span>
+                        <span class="stat-label">رقم الإشهار</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">عائلة مستفيدة</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">25+</span>
+                        <span class="stat-label">مشروع تنموي</span>
+                    </div>
+                </div>
+            </div>
 
-  <!-- Volunteer Section -->
-  <section class="volunteer" id="volunteer">
-    <h2>انضم إلينا</h2>
-    <p>كن جزءًا من رحلتنا وساهم في تحسين المجتمع. انضم إلينا كمتطوع الآن!</p>
-    <a href="#" class="btn primary">سجل كمتطوع</a>
-  </section>
+            <div class="quran-verse scroll-animate">
+                "مَّثَلُ الَّذِينَ يُنفِقُونَ أَمْوَالَهُمْ فِي سَبِيلِ اللَّهِ كَمَثَلِ حَبَّةٍ أَنبَتَتْ سَبْعَ سَنَابِلَ فِي كُلِّ سُنْبُلَةٍ مِّائَةُ حَبَّةٍ وَاللَّهُ يُضَاعِفُ لِمَن يَشَاءُ وَاللَّهُ وَاسِعٌ عَلِيمٌ"
+                <span class="verse-reference">سورة البقرة - الآية 261</span>
+            </div>
+        </div>
+    </section>
 
-  <!-- Footer -->
-  <footer>
-    <p>© جميع الحقوق محفوظة - مؤسسة كنوز الخير للتنمية 2025</p>
-  </footer>
+    <!-- Services Section -->
+    <section id="services" class="section services">
+        <div class="container">
+            <div class="section-header scroll-animate">
+                <h2 class="section-title">أنشطتنا ومجالات عملنا</h2>
+                <p class="section-subtitle">
+                    نقدم خدماتنا في مختلف المجالات التنموية والخيرية
+                </p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card scroll-animate">
+                    <span class="service-icon">🏘️</span>
+                    <h3 class="service-title">تنمية المجتمع المحلي</h3>
+                    <p class="service-desc">
+                        المساهمة في تطوير المجتمعات المحلية من خلال المشاريع التنموية والخدمية المتنوعة
+                    </p>
+                    <a href="#contact" class="service-link">المزيد من التفاصيل</a>
+                </div>
+                <div class="service-card scroll-animate">
+                    <span class="service-icon">🤝</span>
+                    <h3 class="service-title">المساعدات الإنسانية</h3>
+                    <p class="service-desc">
+                        تقديم المساعدات العينية والمالية للأسر المحتاجة والفئات الأكثر احتياجًا
+                    </p>
+                    <a href="#contact" class="service-link">المزيد من التفاصيل</a>
+                </div>
+                <div class="service-card scroll-animate">
+                    <span class="service-icon">📚</span>
+                    <h3 class="service-title">المشاريع التعليمية</h3>
+                    <p class="service-desc">
+                        دعم التعليم وتوفير المستلزمات الدراسية للطلاب من الأسر الفقيرة
+                    </p>
+                    <a href="#contact" class="service-link">المزيد من التفاصيل</a>
+                </div>
+                <div class="service-card scroll-animate">
+                    <span class="service-icon">🏥</span>
+                    <h3 class="service-title">الخدمات الصحية</h3>
+                    <p class="service-desc">
+                        تنظيم قوافل طبية مجانية وتوفير الأدوية والمستلزمات الطبية
+                    </p>
+                    <a href="#contact" class="service-link">المزيد من التفاصيل</a>
+                </div>
+                <div class="service-card scroll-animate">
+                    <span class="service-icon">🎯</span>
+                    <h3 class="service-title">المبادرات الاجتماعية</h3>
+                    <p class="service-desc">
+                        المشاركة في المبادرات المجتمعية والحملات التوعوية المختلفة
+                    </p>
+                    <a href="#contact" class="service-link">المزيد من التفاصيل</a>
+                </div>
+                <div class="service-card scroll-animate">
+                    <span class="service-icon">💼</span>
+                    <h3 class="service-title">التمكين الاقتصادي</h3>
+                    <p class="service-desc">
+                        دعم المشاريع الصغيرة وتوفير فرص عمل للشباب والأسر المنتجة
+                    </p>
+                    <a href="#contact" class="service-link">المزيد من التفاصيل</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section projects">
+        <div class="container">
+            <div class="section-header scroll-animate">
+                <h2 class="section-title">مشاريعنا البارزة</h2>
+                <p class="section-subtitle">
+                    بعض المشاريع التي نفخر بتنفيذها لخدمة المجتمع
+                </p>
+            </div>
+            
+            <div class="projects-grid">
+                <div class="project-card scroll-animate">
+                    <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');">
+                        <div class="project-overlay">
+                            <h3>هدم وبناء منزل</h3>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">هدم وبناء منزل</h3>
+                        <p class="project-desc">
+                            مشروع متكامل لهدم وبناء منزل لأسرة محتاجة في منطقة الصوة بمحافظة الشرقية، 
+                            حيث تم توفير سكن آمن ولائق للأسرة بعد أن كان منزلهم القديم غير صالح للسكن.
+                        </p>
+                        <a href="https://www.facebook.com/share/v/1FwrKq1e8Q/" target="_blank" class="project-link">
+                            شاهد المشروع على فيسبوك <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="project-card scroll-animate">
+                    <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');">
+                        <div class="project-overlay">
+                            <h3>حضانة كنوز كيدز</h3>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">حضانة كنوز كيدز</h3>
+                        <p class="project-desc">
+                            إنشاء حضانة نموذجية لتقديم خدمة تعليمية وتربوية متميزة لأطفال المنطقة 
+                            بأسعار رمزية، مع تقديم منح مجانية للأسر الأكثر احتياجًا.
+                        </p>
+                        <a href="https://www.facebook.com/share/v/1Hfd3ud5vX/" target="_blank" class="project-link">
+                            شاهد المشروع على فيسبوك <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="project-card scroll-animate">
+                    <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');">
+                        <div class="project-overlay">
+                            <h3>أعمال متنوعة 2023</h3>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">أعمال متنوعة 2023</h3>
+                        <p class="project-desc">
+                            مجموعة من المشاريع والأنشطة المتنوعة التي تم تنفيذها خلال عام 2023، 
+                            شملت مساعدات عينية ومالية، كفالات أيتام، وأنشطة تنموية مختلفة.
+                        </p>
+                        <a href="https://www.facebook.com/share/1C4Et3kH9M/" target="_blank" class="project-link">
+                            شاهد الأعمال على فيسبوك <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donate Section -->
+    <section id="donate" class="section donate">
+        <div class="container">
+            <div class="section-header scroll-animate">
+                <h2 class="section-title">ادعم أعمالنا الخيرية</h2>
+                <p class="section-subtitle">
+                    تبرعك يساهم في استمرار أعمال الخير والتنمية
+                </p>
+            </div>
+            
+            <div class="donate-content scroll-animate">
+                <div class="quran-verse">
+                    "مَنْ ذَا الَّذِي يُقْرِضُ اللَّهَ قَرْضًا حَسَنًا فَيُضَاعِفَهُ لَهُ أَضْعَافًا كَثِيرَةً وَاللَّهُ يَقْبِضُ وَيَبْسُطُ وَإِلَيْهِ تُرْجَعُونَ"
+                    <span class="verse-reference">سورة البقرة - الآية 245</span>
+                </div>
+                
+                <div class="donate-options">
+                    <div class="donate-option">
+                        <div class="donate-icon">🏦</div>
+                        <h3 class="donate-title">التبرع عبر البنك</h3>
+                        <p class="donate-desc">
+                            يمكنك التبرع عبر الحساب البنكي للمؤسسة
+                        </p>
+                        <div class="donate-info">
+                            بنك مصر: 2520001000010071
+                            <button class="copy-btn" onclick="copyToClipboard('2520001000010071')">نسخ</button>
+                        </div>
+                    </div>
+                    
+                    <div class="donate-option">
+                        <div class="donate-icon">📱</div>
+                        <h3 class="donate-title">التبرع الإلكتروني</h3>
+                        <p class="donate-desc">
+                            تبرع بسهولة عبر فودافون كاش
+                        </p>
+                        <div class="donate-info">
+                            فودafون كاش: 01098707936
+                            <button class="copy-btn" onclick="copyToClipboard('01098707936')">نسخ</button>
+                        </div>
+                    </div>
+                    
+                    <div class="donate-option">
+                        <div class="donate-icon">🤝</div>
+                        <h3 class="donate-title">كفالة متكاملة</h3>
+                        <p class="donate-desc">
+                            كن شريكًا في كفالة أسرة أو يتيم بشكل شهري
+                        </p>
+                        <a href="#contact" class="btn">كفل الآن</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <div class="section-header scroll-animate">
+                <h2 class="section-title" style="color: white;">تواصل معنا</h2>
+                <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">
+                    نسعد بتواصلكم ومشاركتكم في أعمال الخير والتنمية
+                </p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info scroll-animate">
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <div class="contact-details">
+                            <strong>العنوان:</strong><br>
+                            شارع الطبابلة القديم بجوار معمل الزهرة<br>
+                            الصوة - أبوحماد - محافظة الشرقية
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📞</span>
+                        <div class="contact-details">
+                            <strong>الهاتف والواتساب:</strong><br>
+                            +20 10 91866443
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">🌐</span>
+                        <div class="contact-details">
+                            <strong>تابعونا على وسائل التواصل:</strong>
+                            <div class="social-buttons">
+                                <a href="https://wa.me/201091866443" target="_blank" class="social-btn">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                                <a href="https://www.facebook.com/share/1FzKsPMMsG/" target="_blank" class="social-btn">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="social-btn">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="social-btn">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="scroll-animate">
+                    <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 40px; border-radius: 20px; text-align: center;">
+                        <h3 style="margin-bottom: 20px; font-size: 1.5rem;">كن جزءًا من رحلتنا</h3>
+                        <p style="margin-bottom: 30px; line-height: 1.8;">
+                            انضم إلينا في مسيرة الخير والعطاء، ساهم معنا في بناء مستقبل أفضل 
+                            لمجتمعنا الغالي من خلال مشاريعنا التنموية والخيرية المتنوعة.
+                        </p>
+                        <a href="https://wa.me/201091866443" target="_blank" class="btn" style="font-size: 1.1rem; padding: 20px 40px;">
+                            <i class="fas fa-hands-helping"></i> تطوع معنا الآن
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo"><i class="fas fa-gem"></i> كنوز الخير</div>
+                    <p class="footer-desc">
+                        مؤسسة خيرية تنموية تهدف إلى خدمة المجتمع وتقديم المساعدات 
+                        للفئات الأكثر احتياجًا في مختلف محافظات مصر.
+                    </p>
+                    <div class="social-buttons">
+                        <a href="https://www.facebook.com/share/1FzKsPMMsG/" target="_blank" class="social-btn">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-btn">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-btn">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/201091866443" target="_blank" class="social-btn">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="footer-title">روابط سريعة</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#about"><i class="fas fa-arrow-left"></i> عن المؤسسة</a></li>
+                        <li class="footer-link"><a href="#services"><i class="fas fa-arrow-left"></i> أنشطتنا</a></li>
+                        <li class="footer-link"><a href="#projects"><i class="fas fa-arrow-left"></i> مشاريعنا</a></li>
+                        <li class="footer-link"><a href="#donate"><i class="fas fa-arrow-left"></i> التبرعات</a></li>
+                        <li class="footer-link"><a href="#contact"><i class="fas fa-arrow-left"></i> اتصل بنا</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="footer-title">طريقة التبرع</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#donate"><i class="fas fa-arrow-left"></i> التبرع عبر البنك</a></li>
+                        <li class="footer-link"><a href="#donate"><i class="fas fa-arrow-left"></i> التبرع الإلكتروني</a></li>
+                        <li class="footer-link"><a href="#donate"><i class="fas fa-arrow-left"></i> كفالة الأيتam</a></li>
+                        <li class="footer-link"><a href="#donate"><i class="fas fa-arrow-left"></i> كفالة الأسرة</a></li>
+                        <li class="footer-link"><a href="#donate"><i class="fas fa-arrow-left"></i> التبرع العيني</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>جميع الحقوق محفوظة © مؤسسة كنوز الخير للتنمية 2025</p>
+                <p style="margin-top: 10px; opacity: 0.8;">"وَمَا تُقَدِّمُوا لِأَنفُسِكُم مِّنْ خَيْرٍ تَجِدُوهُ عِندَ اللَّهِ"</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // Close mobile menu if open
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+
+        // Mobile menu toggle
+        document.getElementById('navToggle').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+
+        // Scroll animation observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all scroll-animate elements
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add floating animation to service cards
+        document.querySelectorAll('.service-card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('nav');
+            const backToTop = document.getElementById('backToTop');
+            
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+                backToTop.classList.add('show');
+            } else {
+                nav.classList.remove('scrolled');
+                backToTop.classList.remove('show');
+            }
+        });
+
+        // Back to top button
+        document.getElementById('backToTop').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // WhatsApp integration
+        window.addEventListener('load', () => {
+            // Add click tracking for WhatsApp buttons
+            document.querySelectorAll('a[href*="wa.me"]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    console.log('WhatsApp contact initiated');
+                });
+            });
+        });
+
+        // Copy to clipboard function
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('تم نسخ الرقم: ' + text);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
 </body>
 </html>
-/* About Section */
-.about {
-  padding: 60px 20px;
-  background: #f8f8f8;
-  color: #333;
-}
-
-.about h2 {
-  font-size: 28px;
-  margin-bottom: 15px;
-}
-
-.about p {
-  font-size: 18px;
-  line-height: 1.8;
-}
-
-/* Activities Section */
-.activities {
-  padding: 60px 20px;
-  background: #fff;
-  color: #333;
-}
-
-.activities h2 {
-  font-size: 28px;
-  margin-bottom: 30px;
-}
-
-.cards {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.card {
-  background: #215732;
-  color: #fff;
-  padding: 20px;
-  border-radius: 15px;
-  width: 280px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  transition: transform 0.3s;
-}
-
-.card:hover {
-  transform: translateY(-10px);
-}
-
-/* Volunteer Section */
-.volunteer {
-  padding: 60px 20px;
-  background: #1c4429;
-  color: #fff;
-}
-
-.volunteer h2 {
-  font-size: 28px;
-  margin-bottom: 15px;
-}
-
-.volunteer p {
-  font-size: 18px;
-  margin-bottom: 20px;
-}
-
-/* Footer */
-footer {
-  padding: 20px;
-  background: #111;
-  color: #ccc;
-  text-align: center;
-  font-size: 14px;
-}
