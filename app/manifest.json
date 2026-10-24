@@ -47,6 +47,16 @@
   ],
   "shortcuts": [
     {
+      "name": "الحالات",
+      "url": "./#cases",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
       "name": "تبرّع الآن",
       "url": "./#give",
       "icons": [
