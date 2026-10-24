@@ -577,49 +577,63 @@ function share(){
 }
 ['#share','#share2','#share3'].forEach(function(s){ if($(s)) $(s).addEventListener('click', share); });
 
-/* ===== CASES (JSON) ===== */
+/* ===== CASES (JSON + LocalStorage) ===== */
 function loadCases(){
   var box = document.getElementById('cases-container');
   var countEl = document.getElementById('cases-count');
   if(!box) return;
   
-  fetch('./cases.json?t=' + Date.now())
-    .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
-    .then(function(list){
-      if(!list || !list.length){
-        box.innerHTML = '<div class="cases-empty">لا توجد حالات حالياً 🌱<br><small>كن أول من يساهم في الخير</small></div>';
-        if(countEl) countEl.textContent = '0';
-        return;
-      }
-      if(countEl) countEl.textContent = list.length;
-      box.innerHTML = '';
-      list.forEach(function(c){
-        var card = document.createElement('div');
-        card.className = 'case-card' + (c.urgent ? ' urgent' : '');
-        card.innerHTML =
-          '<h3>' + (c.title || 'حالة') + '</h3>' +
-          '<p>' + (c.description || '') + '</p>' +
-          '<div class="case-meta">' +
-            (c.needed ? '<span>💰 ' + c.needed + '</span>' : '') +
-            (c.location ? '<span>📍 ' + c.location + '</span>' : '') +
-          '</div>' +
-          '<button class="btn" data-case="' + (c.id || '') + '">🤲 تبرّع لهذه الحالة</button>';
-        box.appendChild(card);
-      });
-      
-      box.querySelectorAll('[data-case]').forEach(function(btn){
-        btn.addEventListener('click', function(){
-          var id = btn.getAttribute('data-case');
-          var item = list.find(function(x){ return String(x.id) === String(id); });
-          var msg = 'السلام عليكم، أرغب في التبرع للحالة التالية:\n' +
-            (item ? (item.title + '\n' + (item.description || '') + '\nالمبلغ المطلوب: ' + (item.needed || 'حسب الاستطاعة')) : 'حالة رقم ' + id);
-          wa(msg);
-        });
-      });
-    })
-    .catch(function(){
-      box.innerHTML = '<div class="cases-empty">تعذر تحميل الحالات حالياً</div>';
+  // البحث أولاً في التخزين المحلي (إذا تم التعديل من لوحة التحكم)
+  var localCases = null;
+  try {
+    localCases = JSON.parse(localStorage.getItem('admin_cases'));
+  } catch(e) {}
+
+  function renderCases(list) {
+    if(!list || !list.length){
+      box.innerHTML = '<div class="cases-empty">لا توجد حالات حالياً 🌱<br><small>كن أول من يساهم في الخير</small></div>';
+      if(countEl) countEl.textContent = '0';
+      return;
+    }
+    if(countEl) countEl.textContent = list.length;
+    box.innerHTML = '';
+    list.forEach(function(c){
+      var card = document.createElement('div');
+      card.className = 'case-card' + (c.urgent ? ' urgent' : '');
+      card.innerHTML =
+        '<h3>' + (c.title || 'حالة') + '</h3>' +
+        '<p>' + (c.description || '') + '</p>' +
+        '<div class="case-meta">' +
+          (c.needed ? '<span>💰 ' + c.needed + '</span>' : '') +
+          (c.location ? '<span>📍 ' + c.location + '</span>' : '') +
+        '</div>' +
+        '<button class="btn" data-case="' + (c.id || '') + '">🤲 تبرّع لهذه الحالة</button>';
+      box.appendChild(card);
     });
+    
+    box.querySelectorAll('[data-case]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var id = btn.getAttribute('data-case');
+        var item = list.find(function(x){ return String(x.id) === String(id); });
+        var msg = 'السلام عليكم، أرغب في التبرع للحالة التالية:\n' +
+          (item ? (item.title + '\n' + (item.description || '') + '\nالمبلغ المطلوب: ' + (item.needed || 'حسب الاستطاعة')) : 'حالة رقم ' + id);
+        wa(msg);
+      });
+    });
+  }
+
+  if (localCases && Array.isArray(localCases)) {
+    // إذا وجدت حالات معدلة محلياً
+    renderCases(localCases);
+  } else {
+    // إذا لم توجد، اجلب الملف الأصلي
+    fetch('./cases.json?t=' + Date.now())
+      .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
+      .then(renderCases)
+      .catch(function(){
+        box.innerHTML = '<div class="cases-empty">تعذر تحميل الحالات حالياً</div>';
+      });
+  }
 }
 
 /* ===== SERVICE WORKER & UPDATES ===== */
