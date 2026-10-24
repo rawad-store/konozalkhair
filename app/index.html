@@ -79,7 +79,7 @@ nav button.on{background:rgba(255,255,255,.14);color:var(--wheat)}
 
 /* الواجهة الرئيسية */
 .hero{background:var(--pine) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cpath d='M32 5l7 16 16-7-7 16 16 7-16 7 7 16-16-7-7 16-7-16-16 7 7-16-16-7 16-7-7-16 16 7z' fill='none' stroke='%23d6a21e' stroke-opacity='.2' stroke-width='1.2'/%3E%3C/svg%3E");border-radius:0 0 28px 28px;overflow:hidden}
-.hero>img{display:block;width:100%;height:auto;max-height:74vh;object-fit:cover;object-position:top center}
+.hero>img{display:block;width:100%;height:auto;max-height:74vh;object-fit:contain;margin:auto}
 .hero-fb{padding:56px 24px 40px;color:#fff;max-width:1080px;margin:auto}
 .hero-fb h1{font-size:clamp(2.6rem,9vw,4.4rem);line-height:1.25;color:var(--wheat)}
 .hero-fb p{opacity:.92;max-width:30ch;margin-top:8px;font-size:1.05rem}
@@ -104,7 +104,7 @@ h2{font-size:1.65rem;line-height:1.4;color:var(--pine);margin:36px 0 4px}
 .case .bd .inl{display:inline-block;background:var(--alert);color:#fff;font:700 .78rem "IBM Plex Sans Arabic",sans-serif;padding:0 10px;border-radius:999px;margin-bottom:6px}
 .case p{font-size:.92rem;color:var(--mute);line-height:1.8;margin-top:4px;white-space:pre-line;overflow-wrap:anywhere}
 .case p.cl{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.more{background:none;border:0;color:var(--leaf);font-weight:700;cursor:pointer;padding:4px 0;align-self:flex-start;min-height:36px}
+.more{background:none;border:0;color:var(--leaf);font-weight:700;cursor:pointer;padding:8px 0;align-self:flex-start;min-height:44px}
 .meta{display:flex;justify-content:space-between;gap:10px;align-items:flex-end;margin-top:auto;padding-top:14px;font-size:.85rem;color:var(--mute)}
 .meta b{display:block;color:var(--ink);font:700 1.35rem/1.3 "Aref Ruqaa",serif}
 .cf{display:flex;gap:8px;margin-top:12px}
@@ -186,12 +186,12 @@ footer{text-align:center;color:var(--mute);font-size:.84rem;margin:30px 0 0}
   .ttl{flex:0 0 auto;margin-inline-end:12px}
   .acts{order:3;margin-inline-start:auto}
   .hero{max-width:1044px;margin:18px auto 0;border-radius:28px}
-  .hero>img{max-height:480px}
+  .hero>img{max-height:540px}
   .toast{bottom:28px}
 }
 @media (min-width:1100px){.cases{grid-template-columns:repeat(3,1fr)}}
-@media (max-width:359px){.ttl small{display:none}.amts{grid-template-columns:repeat(2,1fr)}.cta{flex-direction:column}}
-@media (max-height:480px) and (orientation:landscape){nav{max-width:420px}.hero>img{max-height:60vh}}
+@media (max-width:359px){nav button{font-size:.66rem}nav{left:6px;right:6px}.ttl small{display:none}.amts{grid-template-columns:repeat(2,1fr)}.cta{flex-direction:column}}
+@media (max-height:480px) and (orientation:landscape){nav{max-width:460px}.hero>img{max-height:70vh}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 @media print{header,nav,.toast,.cta,.cf{display:none!important}body{padding:0}}
 </style>
@@ -204,6 +204,7 @@ footer{text-align:center;color:var(--mute);font-size:.84rem;margin:30px 0 0}
     <div class="ttl"><b>كنوز الخير</b><small>مؤسسة مشهرة برقم 3625 لسنة 2021</small></div>
     <nav aria-label="التنقل الرئيسي">
       <button type="button" data-go="home" class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>الرئيسية</button>
+      <button type="button" data-go="cases"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg>الحالات</button>
       <button type="button" data-go="give"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z"/></svg>تبرّع</button>
       <button type="button" data-go="help"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M16 14.2c2.9 0 5 2.2 5 5"/></svg>شارك</button>
       <button type="button" data-go="more"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>تواصل</button>
@@ -232,9 +233,10 @@ footer{text-align:center;color:var(--mute);font-size:.84rem;margin:30px 0 0}
     </div>
     <div class="instbar" id="instbar" hidden><p>ثبّت كنوز الخير على شاشتك لتصل إلى الحالات بنقرة واحدة.</p><button class="btn gold sm" type="button" id="instb">ثبّت</button><button class="x" type="button" id="instx" aria-label="إخفاء">×</button></div>
 
-    <h2>حالات تحتاج دعمك</h2>
+    <h2>أحدث الحالات</h2>
     <p class="sub" id="cases-count">جاري التحميل...</p>
     <div class="cases" id="cases-container" aria-live="polite"><div class="sk"></div><div class="sk"></div></div>
+    <button class="btn line" type="button" id="allcases" data-go="cases" style="margin-top:16px" hidden>عرض كل الحالات</button>
 
     <div class="two">
       <div>
@@ -257,6 +259,13 @@ footer{text-align:center;color:var(--mute);font-size:.84rem;margin:30px 0 0}
     </div>
   </div>
 </section>
+
+<section class="tab" id="t-cases"><div class="wrap">
+  <h2>حالات تحتاج دعمك</h2>
+  <p class="sub" id="cases-count2">جاري التحميل...</p>
+  <div class="cases" id="cases-all" aria-live="polite"><div class="sk"></div><div class="sk"></div></div>
+  <p class="note" style="margin-top:18px">لا تجد حالتك؟ <a href="#help" style="color:var(--leaf);font-weight:700">أبلغنا عن أسرة تحتاج</a>.</p>
+</div></section>
 
 <section class="tab" id="t-give"><div class="wrap narrow">
   <h2>تبرّع</h2>
@@ -382,9 +391,10 @@ $('#theme').addEventListener('click',function(){
 });
 
 /* التنقل */
-var TABS=['home','give','help','more'];
+var TABS=['home','cases','give','help','more'];
+var TITLES={home:'كنوز الخير — خيرٌ لكل الناس',cases:'الحالات — كنوز الخير',give:'تبرّع — كنوز الخير',help:'شارك في الخير — كنوز الخير',more:'تواصل — كنوز الخير'};
 function setSub(s){$$('.seg button').forEach(function(b){var on=b.dataset.sub===s;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});$('#s-case').hidden=s!=='case';$('#s-vol').hidden=s!=='vol'}
-function show(t){$$('.tab').forEach(function(e){e.classList.toggle('on',e.id==='t-'+t)});$$('nav button').forEach(function(b){var on=b.dataset.go===t;b.classList.toggle('on',on);if(on)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')})}
+function show(t){document.title=TITLES[t]||TITLES.home;$$('.tab').forEach(function(e){e.classList.toggle('on',e.id==='t-'+t)});$$('nav button').forEach(function(b){var on=b.dataset.go===t;b.classList.toggle('on',on);if(on)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')})}
 function cur(){var h=(location.hash||'').slice(1);return TABS.indexOf(h)>-1?h:'home'}
 function go(t,sub){
   if(sub)setSub(sub);
@@ -394,7 +404,7 @@ function go(t,sub){
 $$('[data-go]').forEach(function(b){b.addEventListener('click',function(){go(b.dataset.go,b.dataset.sub)})});
 $$('.seg button').forEach(function(b){b.addEventListener('click',function(){setSub(b.dataset.sub)})});
 window.addEventListener('popstate',function(){show(cur())});
-window.addEventListener('hashchange',function(){show(cur())});
+window.addEventListener('hashchange',function(){show(cur());window.scrollTo(0,0)});
 show(cur());
 
 function net(){$('#off').hidden=navigator.onLine}
@@ -512,14 +522,15 @@ function money(v){
   return v;
 }
 var ICON_SHARE='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3m0 0L7.5 7.5M12 3l4.5 4.5M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>';
-function renderCases(list){
-  var box=$('#cases-container'),cnt=$('#cases-count');box.innerHTML='';
+function renderCases(list,box,cnt,limit){
+  box.innerHTML='';
   if(!Array.isArray(list)||!list.length){
     cnt.textContent='لا توجد حالات مفتوحة الآن';
     box.innerHTML='<div class="empty"><b>لا توجد حالات معروضة حاليًا</b>يمكنك إبلاغنا عن أسرة تحتاج مساعدة.<br><button class="btn line sm" type="button" style="margin-top:12px">أبلغ عن حالة</button></div>';
     box.querySelector('button').addEventListener('click',function(){go('help','case')});return;
   }
   cnt.textContent=list.length===1?'حالة واحدة مفتوحة':list.length===2?'حالتان مفتوحتان':list.length+(list.length<11?' حالات مفتوحة':' حالة مفتوحة');
+  var more=limit&&list.length>limit;if(limit)list=list.slice(0,limit);
   list.forEach(function(c){
     if(!c||typeof c!=='object')return;
     var el=document.createElement('article'),img=safeImg(c.image),desc=String(c.description||''),long=desc.length>130,need=money(c.needed);
@@ -541,16 +552,21 @@ function renderCases(list){
     box.appendChild(el);
   });
 }
+function renderAll(list){
+  renderCases(list,$('#cases-container'),$('#cases-count'),2);
+  renderCases(list,$('#cases-all'),$('#cases-count2'));
+  $('#allcases').hidden=!(Array.isArray(list)&&list.length>2);
+}
 var loading=false;
 function loadCases(){
   if(loading)return;loading=true;
   fetch('./cases.json?v='+Date.now(),{cache:'no-store'})
     .then(function(r){if(!r.ok)throw new Error('x');return r.json()})
-    .then(function(d){if(!Array.isArray(d))throw new Error('x');renderCases(d);try{localStorage.setItem('kk_cases_cache',JSON.stringify(d))}catch(e){}})
+    .then(function(d){if(!Array.isArray(d))throw new Error('x');renderAll(d);try{localStorage.setItem('kk_cases_cache',JSON.stringify(d))}catch(e){}})
     .catch(function(){
       var c=store.get('kk_cases_cache',null);
-      if(Array.isArray(c))renderCases(c);
-      else{$('#cases-count').textContent='تعذر تحميل الحالات';$('#cases-container').innerHTML='<div class="empty">تحقق من اتصالك بالإنترنت ثم أعد المحاولة.<br><button class="btn line sm" type="button" style="margin-top:12px">إعادة المحاولة</button></div>';$('#cases-container button').addEventListener('click',loadCases)}
+      if(Array.isArray(c))renderAll(c);
+      else{['#cases-container','#cases-all'].forEach(function(id){$(id).innerHTML='<div class="empty">تحقق من اتصالك بالإنترنت ثم أعد المحاولة.<br><button class="btn line sm" type="button" style="margin-top:12px">إعادة المحاولة</button></div>';$(id+' button').addEventListener('click',loadCases)});$('#cases-count').textContent=$('#cases-count2').textContent='تعذر تحميل الحالات'}
     }).then(function(){loading=false});
 }
 loadCases();
@@ -569,7 +585,7 @@ function doInstall(){
   var b=$('#iosb');
   b.innerHTML=isIOS
     ?'<p class="note">في Safari:</p><ol><li>اضغط زر المشاركة في شريط المتصفح.</li><li>اختر «إضافة إلى الشاشة الرئيسية».</li><li>اضغط «إضافة».</li></ol>'
-    :'<p class="note">افتح قائمة المتصفح ثم اختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية». إن لم يظهر الخيار فجرّب متصفح Chrome أو Edge أو Safari.</p><br>';
+    :'<p class="note">افتح قائمة المتصفح ثم اختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية». إن لم يظهر الخيار فجرّب متصفح Chrome أو Edge أو Safari.</p>';
   openM('#ios');
 }
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dp=e;refreshInstall()});
