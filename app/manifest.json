@@ -13,13 +13,13 @@
   "dir": "rtl",
   "icons": [
     {
-      "src": "./preview.jpg",
+      "src": "./app-icon.jpg",
       "sizes": "192x192",
       "type": "image/jpeg",
       "purpose": "any"
     },
     {
-      "src": "./preview.jpg",
+      "src": "./app-icon.jpg",
       "sizes": "512x512",
       "type": "image/jpeg",
       "purpose": "any"
