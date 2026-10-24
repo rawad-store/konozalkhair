@@ -50,7 +50,7 @@ button:hover{opacity:.9}button:disabled{opacity:.6;cursor:wait}
   <input id="gh-path" dir="ltr" autocomplete="off">
   <label for="gh-token">مفتاح الوصول (Token)</label>
   <input type="password" id="gh-token" dir="ltr" placeholder="ghp_xxxxxxxxxxxx" autocomplete="off">
-  <p class="hint">يُحفظ المفتاح في هذا المتصفح فقط. لا تفتح اللوحة على جهاز عام، ويفضّل Fine-grained token بصلاحية Contents: Read and write لهذا المستودع فقط.</p>
+  <p class="hint">يُحفظ المفتاح تلقائياً في هذا المتصفح بمجرد كتابته. لا تفتح اللوحة على جهاز عام.</p>
 </div>
 
 <div class="card">
@@ -99,6 +99,14 @@ function lsSet(k,v){try{localStorage.setItem(k,v);return true}catch(e){return fa
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 function toast(m,err){var t=$('toast');t.textContent=m;t.className='show'+(err?' error':'');clearTimeout(t._t);t._t=setTimeout(function(){t.className=''},3200)}
 
+/* === حفظ الإعدادات تلقائياً === */
+function saveSettings() {
+  lsSet('gh_owner', $('gh-owner').value.trim());
+  lsSet('gh_repo', $('gh-repo').value.trim());
+  lsSet('gh_path', $('gh-path').value.trim());
+  lsSet('gh_token', $('gh-token').value.trim());
+}
+
 function guess(){
   var o='rawad-store',r='konozalkhair',p='app/cases.json';
   if(/github\.io$/.test(location.hostname)){
@@ -108,13 +116,20 @@ function guess(){
   }
   return {o:o,r:r,p:p};
 }
-/* رابط ملف الحالات المنشور بالنسبة لمكان هذه الصفحة (داخل app/ أو خارجه) */
+
+/* رابط ملف الحالات المنشور بالنسبة لمكان هذه الصفحة */
 var CASES_URL=/\/app\/(admin\.html)?$/.test(location.pathname)?'./cases.json':'./app/cases.json';
 var g=guess();
 $('gh-owner').value=lsGet('gh_owner',g.o);
 $('gh-repo').value=lsGet('gh_repo',g.r);
 $('gh-path').value='app/cases.json';
 $('gh-token').value=lsGet('gh_token','');
+
+// ربط الحفظ التلقائي بمجرد الخروج من أي حقل
+['gh-owner','gh-repo','gh-path','gh-token'].forEach(function(id) {
+  $(id).addEventListener('change', saveSettings);
+  $(id).addEventListener('blur', saveSettings);
+});
 
 function saveCases(){
   if(!lsSet('admin_cases',JSON.stringify(cases))) toast('تعذر الحفظ المحلي (المساحة ممتلئة). انشر على GitHub الآن.',true);
@@ -220,6 +235,7 @@ function b64(str){
   return btoa(bin);
 }
 async function publish(){
+  saveSettings(); // حفظ الإعدادات قبل النشر
   var owner=$('gh-owner').value.trim(),repo=$('gh-repo').value.trim(),path=$('gh-path').value.trim().replace(/^\/+/,''),token=$('gh-token').value.trim();
   if(!owner||!repo||!path||!token){toast('أكمل بيانات GitHub أولًا',true);return}
   if(!cases.length&&!confirm('القائمة فارغة، سيتم نشر ملف بلا حالات. متابعة؟'))return;
