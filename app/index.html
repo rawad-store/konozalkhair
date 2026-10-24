@@ -594,6 +594,47 @@ if ('serviceWorker' in navigator && location.protocol !== 'file:') {
 document.addEventListener('DOMContentLoaded', loadCases);
 
 })();
+<script>
+/* نظام إدارة التحديثات وإظهارها للمستخدم */
+if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('./sw.js', { scope: './' })
+      .then(function (reg) {
+        // التحقق من وجود تحديثات كل 30 دقيقة (في حال ترك التطبيق مفتوحاً)
+        setInterval(function () { reg.update(); }, 30 * 60 * 1000);
+
+        // عندما يتم اكتشاف نسخة جديدة
+        reg.addEventListener('updatefound', function () {
+          var newWorker = reg.installing;
+          if (!newWorker) return;
+          newWorker.addEventListener('statechange', function () {
+            // إذا تم تثبيت النسخة الجديدة وكان هناك نسخة قديمة تعمل
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              // إظهار إشعار للمستخدم
+              var t = document.getElementById('toast');
+              if (t) {
+                t.textContent = 'تم تحديث التطبيق بنجاح! ✨';
+                t.classList.add('on');
+              }
+              // إعادة تحميل الصفحة بعد ثانيتين لتطبيق التحديث
+              setTimeout(function () {
+                window.location.reload();
+              }, 2000);
+            }
+          });
+        });
+      })
+      .catch(function (e) { console.log('SW registration failed:', e); });
+  });
+
+  // إذا تغير الـ Service Worker (تم التحديث)، أعد تحميل الصفحة
+  var refreshing;
+  navigator.serviceWorker.addEventListener('controllerchange', function () {
+    if (refreshing) return;
+    refreshing = true;
+    window.location.reload();
+  });
+}
 </script>
 </body>
 </html>
