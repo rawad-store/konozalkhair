@@ -1,28 +1,70 @@
 {
   "id": "./",
-  "name": "مؤسسة كنوز الخير للتنمية",
+  "name": "كنوز الخير — خيرٌ لكل الناس",
   "short_name": "كنوز الخير",
-  "description": "تبرّع، أبلغ عن حالة تحتاج مساعدة، أو تطوّع معنا. خيرٌ لكل الناس.",
-  "start_url": "./index.html",
-  "scope": "./",
-  "display": "standalone",
-  "background_color": "#13402f",
-  "theme_color": "#13402f",
-  "orientation": "portrait-primary",
+  "description": "تبرّع، أبلغ عن حالة تحتاج مساعدة، أو تطوّع مع مؤسسة كنوز الخير للتنمية.",
   "lang": "ar",
   "dir": "rtl",
+  "start_url": "./?source=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "any",
+  "background_color": "#13402f",
+  "theme_color": "#13402f",
+  "categories": [
+    "lifestyle",
+    "social"
+  ],
   "icons": [
     {
-      "src": "./preview.jpg",
+      "src": "icons/icon-192.png",
       "sizes": "192x192",
-      "type": "image/jpeg",
+      "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "./preview.jpg",
+      "src": "icons/icon-512.png",
       "sizes": "512x512",
-      "type": "image/jpeg",
+      "type": "image/png",
       "purpose": "any"
+    },
+    {
+      "src": "icons/maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "تبرّع الآن",
+      "url": "./#give",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "أبلغ عن حالة",
+      "url": "./#help",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ]
 }
