@@ -1,4 +1,4 @@
-const CACHE_NAME = 'konoz-v6';
+const CACHE_NAME = 'konoz-v7';
 
 const CORE = [
   './',
