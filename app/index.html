@@ -194,6 +194,72 @@ footer{text-align:center;color:var(--mute);font-size:.84rem;margin:30px 0 0}
 @media (max-height:480px) and (orientation:landscape){nav{max-width:460px}.hero>img{max-height:70vh}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 @media print{header,nav,.toast,.cta,.cf{display:none!important}body{padding:0}}
+/* ===== تصميم قسم التبرع الجديد ===== */
+.custom-amount-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.custom-amount-wrap span {
+  color: var(--mute);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.custom-amount-wrap .in {
+  margin-bottom: 0;
+}
+
+/* تحسين شكل أزرار المبالغ لتصبح شبكة متناسقة */
+.amts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.amts button {
+  background: var(--paper);
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 4px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--ink);
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.amts button small {
+  font-size: 0.7rem;
+  color: var(--mute);
+  font-weight: 500;
+  margin-top: 2px;
+}
+.amts button.on {
+  border-color: var(--gold);
+  background: var(--tint);
+  box-shadow: 0 0 0 2px var(--gold) inset;
+}
+.amts button:hover:not(.on) {
+  border-color: var(--pine);
+}
+
+/* تحسين شكل الملخص (الرسالة التي تظهر قبل الإرسال) */
+.sum {
+  background: var(--tint);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+  margin: 24px 0 16px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--pine);
+  line-height: 1.6;
+}
 </style>
 </head>
 <body>
@@ -268,21 +334,34 @@ footer{text-align:center;color:var(--mute);font-size:.84rem;margin:30px 0 0}
 </div></section>
 
 <section class="tab" id="t-give"><div class="wrap narrow">
-  <h2>تبرّع</h2>
-  <p class="sub">اختر ما يناسبك، وسنرسل لك بيانات التحويل على واتساب.</p>
+  <h2>تبرّع بسهولة</h2>
+  <p class="sub">اختر نوع التبرع والمبلغ، وسنرسل لك بيانات التحويل عبر واتساب فوراً.</p>
+  
   <div class="panel">
+    <!-- 1. نوع التبرع -->
     <label class="f" id="lt">نوع التبرع</label>
-    <div class="chips" id="types" role="group" aria-labelledby="lt"></div>
+    <div class="chips" id="types" role="group" aria-labelledby="lt" style="margin-bottom: 24px;"></div>
+
+    <!-- 2. المبلغ -->
     <label class="f" for="amt">المبلغ بالجنيه المصري</label>
     <div class="amts" id="amts" role="group" aria-label="مبالغ جاهزة"></div>
-    <input class="in" id="amt" type="number" inputmode="numeric" min="1" max="10000000" step="1" placeholder="أو اكتب مبلغًا آخر">
+    
+    <div class="custom-amount-wrap">
+      <span>أو</span>
+      <input class="in" id="amt" type="number" inputmode="numeric" min="1" max="10000000" step="1" placeholder="اكتب مبلغاً آخر..." aria-label="مبلغ مخصص">
+    </div>
+
+    <!-- 3. الاسم -->
     <label class="f" for="dn">اسمك (اختياري)</label>
-    <input class="in" id="dn" autocomplete="name" maxlength="60">
+    <input class="in" id="dn" autocomplete="name" maxlength="60" placeholder="للتواصل وتأكيد التبرع">
+
+    <!-- 4. الملخص والزر -->
     <div class="sum" id="sum" aria-live="polite"></div>
     <button class="btn gold" id="gv" type="button">أرسل تبرعي عبر واتساب</button>
     <a class="btn line" href="tel:+201091866443" style="margin-top:10px">اتصل بنا للتبرع</a>
   </div>
-  <p class="verse" style="font-size:1.15rem">﴿مَنْ ذَا الَّذِي يُقْرِضُ اللَّهَ قَرْضًا حَسَنًا فَيُضَاعِفَهُ لَهُ أَضْعَافًا كَثِيرَةً﴾<small>البقرة: 245</small></p>
+
+  <p class="verse" style="font-size:1.15rem; margin-top: 24px;">﴿مَنْ ذَا الَّذِي يُقْرِضُ اللَّهَ قَرْضًا حَسَنًا فَيُضَاعِفَهُ لَهُ أَضْعَافًا كَثِيرَةً﴾<small>البقرة: 245</small></p>
 </div></section>
 
 <section class="tab" id="t-help"><div class="wrap narrow">
