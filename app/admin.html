@@ -11,24 +11,38 @@
   h1 { color: var(--g); text-align: center; }
   .card { background: var(--card); padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid var(--ln); }
   label { display: block; margin: 10px 0 5px; font-weight: 600; }
-  input, textarea, select { width: 100%; padding: 10px; border: 1px solid var(--ln); border-radius: 8px; font-family: inherit; }
+  input, textarea, select { width: 100%; padding: 10px; border: 1px solid var(--ln); border-radius: 8px; font-family: inherit; box-sizing: border-box; }
   button { background: var(--g); color: #fff; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 700; width: 100%; margin-top: 15px; transition: 0.2s; }
   button:hover { opacity: 0.9; }
   .btn-danger { background: #e74c3c; padding: 6px 12px; width: auto; margin: 0; font-size: 0.85rem; }
   .btn-edit { background: #f39c12; padding: 6px 12px; width: auto; margin: 0; font-size: 0.85rem; }
   .btn-export { background: #2980b9; margin-bottom: 20px; }
+  .btn-github { background: #24292e; }
   .case-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--ln); padding: 10px 0; }
   .case-item:last-child { border-bottom: none; }
   .case-info h3 { margin: 0; font-size: 1.1rem; }
   .case-info p { margin: 5px 0; font-size: 0.85rem; color: #666; }
   .actions { display: flex; gap: 5px; }
+  .config-box { background: #fff3cd; border: 1px solid #ffeeba; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
 </style>
 </head>
 <body>
 
 <h1>لوحة تحكم الحالات</h1>
 
-<button class="btn-export" onclick="exportData()">⬇️ تصدير cases.json (لرفعه على GitHub)</button>
+<!-- إعدادات GitHub -->
+<div class="card config-box">
+  <h3>⚙️ إعدادات الاتصال بـ GitHub (للتحديث المباشر)</h3>
+  <label>اسم المستخدم (Owner)</label>
+  <input type="text" id="gh-owner" placeholder="rawad-store" value="rawad-store">
+  
+  <label>اسم المستودع (Repo)</label>
+  <input type="text" id="gh-repo" placeholder="konozalkhair" value="konozalkhair">
+  
+  <label>مفتاح الوصول (Token)</label>
+  <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxx">
+  <small style="color:#856404;">يتم حفظ المفتاح في متصفحك فقط ولا يُرسل لأي مكان آخر.</small>
+</div>
 
 <!-- نموذج الإضافة/التعديل -->
 <div class="card">
@@ -51,7 +65,17 @@
     حالة عاجلة؟
   </label>
 
-  <button onclick="saveCase()">💾 حفظ الحالة</button>
+  <button onclick="saveCase()">💾 حفظ الحالة (محلياً)</button>
+</div>
+
+<!-- أزرار التحديث -->
+<div class="card">
+  <h2>تحديث الموقع</h2>
+  <p style="font-size: 0.9rem; color: #666;">بعد إضافة الحالات، استخدم أحد الخيارين:</p>
+  
+  <button class="btn-export" onclick="exportData()">⬇️ تصدير cases.json (يدوياً)</button>
+  
+  <button class="btn-github" onclick="updateGitHub()">🚀 تحديث مباشر على GitHub (بدون رفع يدوي)</button>
 </div>
 
 <!-- قائمة الحالات -->
@@ -61,8 +85,14 @@
 </div>
 
 <script>
-// تحميل البيانات من LocalStorage أو من الملف الأصلي
+// تحميل البيانات
 let cases = JSON.parse(localStorage.getItem('admin_cases')) || [];
+let editingIndex = -1;
+
+// تحميل إعدادات GitHub المحفوظة
+document.getElementById('gh-owner').value = localStorage.getItem('gh_owner') || 'rawad-store';
+document.getElementById('gh-repo').value = localStorage.getItem('gh_repo') || 'konozalkhair';
+document.getElementById('gh-token').value = localStorage.getItem('gh_token') || '';
 
 function renderList() {
   const list = document.getElementById('cases-list');
@@ -91,7 +121,7 @@ function renderList() {
 function saveCase() {
   const id = document.getElementById('case-id').value;
   const newCase = {
-    id: id ? parseInt(id) : Date.now(), // استخدام الوقت كمعرف فريد للحالات الجديدة
+    id: id ? parseInt(id) : Date.now(),
     title: document.getElementById('title').value,
     description: document.getElementById('description').value,
     needed: document.getElementById('needed').value,
@@ -105,22 +135,21 @@ function saveCase() {
     return;
   }
 
-  if (id) {
-    // تعديل حالة موجودة
-    const index = cases.findIndex(c => c.id === parseInt(id));
-    if (index > -1) cases[index] = newCase;
+  if (editingIndex > -1) {
+    cases[editingIndex] = newCase;
+    editingIndex = -1;
   } else {
-    // إضافة حالة جديدة
     cases.push(newCase);
   }
 
   localStorage.setItem('admin_cases', JSON.stringify(cases));
   clearForm();
   renderList();
-  alert('تم الحفظ بنجاح! لا تنسى تصدير الملف.');
+  alert('تم الحفظ محلياً! الآن يمكنك التحديث المباشر.');
 }
 
 function editCase(index) {
+  editingIndex = index;
   const c = cases[index];
   document.getElementById('form-title').innerText = 'تعديل الحالة';
   document.getElementById('case-id').value = c.id;
@@ -151,10 +180,6 @@ function clearForm() {
 }
 
 function exportData() {
-  if (cases.length === 0) {
-    alert('لا توجد بيانات لتصديرها');
-    return;
-  }
   const dataStr = JSON.stringify(cases, null, 2);
   const blob = new Blob([dataStr], { type: "application/json" });
   const url = URL.createObjectURL(blob);
@@ -165,7 +190,74 @@ function exportData() {
   URL.revokeObjectURL(url);
 }
 
-// محاولة جلب الحالات الحالية من الموقع لملء اللوحة في المرة الأولى
+// ===== التحديث المباشر عبر GitHub API =====
+async function updateGitHub() {
+  const owner = document.getElementById('gh-owner').value.trim();
+  const repo = document.getElementById('gh-repo').value.trim();
+  const token = document.getElementById('gh-token').value.trim();
+  const path = 'cases.json'; // المسار داخل المستودع
+
+  if (!owner || !repo || !token) {
+    alert('يرجى ملء بيانات GitHub (المستخدم، المستودع، والمفتاح) أولاً.');
+    return;
+  }
+
+  // حفظ الإعدادات للمرة القادمة
+  localStorage.setItem('gh_owner', owner);
+  localStorage.setItem('gh_repo', repo);
+  localStorage.setItem('gh_token', token);
+
+  if (cases.length === 0) {
+    alert('لا توجد حالات لتحديثها.');
+    return;
+  }
+
+  const content = JSON.stringify(cases, null, 2);
+  const base64Content = btoa(unescape(encodeURIComponent(content))); // ترميز UTF-8 إلى Base64
+
+  const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+  try {
+    // 1. جلب الـ SHA الحالي للملف (إذا كان موجوداً)
+    let sha = null;
+    const getRes = await fetch(apiUrl, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    if (getRes.ok) {
+      const fileData = await getRes.json();
+      sha = fileData.sha;
+    }
+
+    // 2. إرسال الطلب لتحديث الملف
+    const body = {
+      message: 'تحديث الحالات من لوحة التحكم',
+      content: base64Content,
+      branch: 'main' // أو الفرع الذي تستخدمه
+    };
+    if (sha) body.sha = sha; // ضروري للتحديث
+
+    const putRes = await fetch(apiUrl, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/vnd.github+json'
+      },
+      body: JSON.stringify(body)
+    });
+
+    if (putRes.ok) {
+      alert('✅ تم تحديث ملف cases.json على GitHub بنجاح! سيظهر التغيير للجميع خلال دقائق (بعد تحديث الكاش).');
+    } else {
+      const err = await putRes.json();
+      alert('❌ فشل التحديث: ' + (err.message || 'تأكد من صحة المفتاح والصلاحيات.'));
+    }
+  } catch (e) {
+    alert('❌ خطأ في الاتصال: ' + e.message);
+  }
+}
+
+// تحميل الحالات عند فتح الصفحة
 if (cases.length === 0) {
   fetch('./cases.json')
     .then(r => r.json())
