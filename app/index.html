@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="مؤسسة كنوز الخير للتنمية: تبرّع، أبلغ عن حالة تحتاج مساعدة، أو تطوّع معنا. خيرٌ لكل الناس.">
+<meta name="theme-color" content="#12392b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="كنوز الخير">
+<link rel="canonical" href="https://rawad-store.github.io/konozalkhair/">
+<meta property="og:title" content="مؤسسة كنوز الخير للتنمية — خيرٌ لكل الناس">
+<meta property="og:description" content="تبرّع، أبلغ عن حالة، أو تطوّع معنا. مؤسسة خيرية تنموية مشهرة.">
+<meta property="og:url" content="https://rawad-store.github.io/konozalkhair/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ar_EG">
+<meta property="og:site_name" content="مؤسسة كنوز الخير للتنمية">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="مؤسسة كنوز الخير للتنمية">
+<meta name="twitter:description" content="خيرٌ لكل الناس">
+<title>كنوز الخير — خيرٌ لكل الناس</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
+<style>
+:root{--bg:#f0f5f2;--card:#ffffff;--tx:#1a2e24;--mu:#5f7268;--g:#2d6a4f;--dg:#12392b;--lf:#52b788;--gold:#d4a017;--ln:#d8e5dd;--on:#fff;--shadow:0 4px 20px rgba(18,57,43,.08);--radius:20px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1814;--card:#16251f;--tx:#e8f1ec;--mu:#9db0a6;--g:#52b788;--dg:#0a2219;--ln:#243a31}}
+:root[data-theme="dark"]{--bg:#0e1814;--card:#16251f;--tx:#e8f1ec;--mu:#9db0a6;--g:#52b788;--dg:#0a2219;--ln:#243a31}
+*{box-sizing:border-box;margin:0}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--tx);font:400 16px/1.8 Cairo,system-ui,sans-serif;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px));max-width:560px;margin:auto}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+header{display:flex;align-items:center;gap:12px;padding:12px 16px;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5}
+header img{width:44px;height:44px;border-radius:50%;border:2px solid var(--gold);object-fit:cover}
+header b{font:700 1.15rem Amiri,serif;line-height:1.2;flex:1}
+header small{display:block;font-size:.72rem;color:var(--mu);font-weight:400}
+.ic{width:42px;height:42px;border-radius:50%;border:1px solid var(--ln);background:var(--card);cursor:pointer;font-size:1.1rem}
+main{padding:0 16px}
+.tab{display:none}.tab.on{display:block}
+.hero{background:linear-gradient(155deg,#2d6a4f 0%,#1a4a36 55%,#12392b 100%);color:#fff;border-radius:28px;padding:24px 22px 0;overflow:hidden;position:relative;box-shadow:0 12px 32px rgba(18,57,43,.22)}
+.hero h1{font:700 1.7rem/1.5 Amiri,serif}
+.hero p{opacity:.9;max-width:26ch}
+.hero svg{display:block;margin:6px auto 0;width:210px;height:170px}
+.meter{display:flex;gap:8px;justify-content:center;background:rgba(0,0,0,.22);margin:0 -20px;padding:12px;font-weight:600;font-size:.92rem}
+.meter span{white-space:nowrap}
+h2{font:700 1.25rem/1.5 Amiri,serif;margin:26px 0 10px}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:var(--radius);padding:18px;margin-bottom:14px;box-shadow:var(--shadow);transition:transform .2s}
+.verse{font:400 1.2rem/2.1 Amiri,serif;text-align:center;color:var(--g)}
+.verse small{display:block;font:400 .85rem Cairo,sans-serif;color:var(--mu)}
+.deeds label{display:flex;gap:12px;align-items:center;padding:10px 4px;border-bottom:1px solid var(--ln);cursor:pointer}
+.deeds label:last-child{border:0}
+.deeds input{width:24px;height:24px;accent-color:var(--g);flex-shrink:0}
+.deeds i{font-style:normal;font-size:.85rem;color:var(--mu);display:block;line-height:1.5}
+.deeds input:checked+span b{text-decoration:line-through;opacity:.6}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.act{background:var(--card);border:1.5px solid var(--ln);border-radius:18px;padding:20px 12px;text-align:center;cursor:pointer;font-weight:700;box-shadow:var(--shadow);transition:transform .2s,border-color .2s}.act:active{transform:scale(.97)}
+.act span{display:block;font-size:1.7rem;line-height:1.4}
+.stats{display:flex;justify-content:space-around;text-align:center;font-size:.85rem;color:var(--mu)}
+.stats b{display:block;font-size:1.5rem;color:var(--g);line-height:1.3}
+.btn{display:block;width:100%;border:0;border-radius:16px;padding:15px;background:var(--g);color:var(--on);font-weight:700;text-align:center;text-decoration:none;cursor:pointer;box-shadow:0 6px 16px rgba(45,106,79,.25);transition:transform .2s,opacity .2s}.btn:active{transform:scale(.98);opacity:.93}
+.btn.gold{background:var(--gold);color:#1b2a23}
+.btn.o{background:none;border:2px solid var(--g);color:var(--g)}
+:root[data-theme="dark"] .btn,:root:not([data-theme="light"]) .btn{--on:#0a2219}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 12px}
+.chips button{flex:1;min-width:64px;padding:10px;border-radius:12px;border:2px solid var(--ln);background:var(--card);font-weight:700;cursor:pointer}
+.chips button.on{border-color:var(--g);background:var(--g);color:var(--on)}
+label.f{display:block;font-weight:600;margin:10px 0 4px;font-size:.92rem}
+.in{width:100%;padding:12px;border-radius:12px;border:1.5px solid var(--ln);background:var(--bg)}
+textarea.in{min-height:96px}
+.seg{display:flex;background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:4px;margin-bottom:12px}
+.seg button{flex:1;border:0;background:none;padding:10px;border-radius:10px;font-weight:700;cursor:pointer;color:var(--mu)}
+.seg button.on{background:var(--g);color:var(--on)}
+.note{font-size:.85rem;color:var(--mu)}
+.pj h3{font:700 1.1rem Amiri,serif}
+.pj a{color:var(--g);font-weight:700}
+nav{position:fixed;bottom:0;left:0;right:0;background:color-mix(in srgb,var(--card) 94%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--ln);display:flex;max-width:560px;margin:auto;padding-bottom:env(safe-area-inset-bottom,0px);z-index:20;box-shadow:0 -4px 20px rgba(0,0,0,.04)}
+nav button{flex:1;border:0;background:none;padding:9px 0 7px;font-size:.78rem;font-weight:600;color:var(--mu);cursor:pointer;line-height:1.4}
+nav button span{display:block;font-size:1.35rem}
+nav button.on{color:var(--g)}
+.toast{position:fixed;bottom:calc(100px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%) translateY(10px);background:var(--dg);color:#fff;padding:12px 22px;border-radius:40px;border:1.5px solid var(--gold);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:30;max-width:88%;text-align:center;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.18)}.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.on{opacity:1}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+<img src="data:image/jpeg;base64,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" alt="شعار مؤسسة كنوز الخير">
+<b>كنوز الخير<small>مؤسسة مشهرة برقم 3625 لسنة 2021</small></b>
+<button class="ic" id="share" aria-label="شارك التطبيق">↗</button>
+</header>
+<main>
+
+<section class="tab on" id="t-home">
+<div class="hero">
+<h1>فرصتك اليوم لفعل الخير</h1>
+<p>خطوة صغيرة اليوم تصنع فرقًا كبيرًا لغيرك.</p>
+<svg id="plant" viewBox="0 0 210 170" aria-hidden="true"><ellipse cx="105" cy="154" rx="70" ry="12" fill="#0a2219" opacity=".5"/><g id="pl" stroke-linecap="round"></g></svg>
+<div class="meter"><span id="m1">🔥 0 يوم</span><span id="m2">🌱 0 عمل خير</span></div>
+</div>
+
+<h2>أعمال اليوم</h2>
+<div class="card deeds" id="deeds"></div>
+
+<div class="card"><p class="verse" id="v"></p></div>
+
+<h2>ماذا تريد أن تفعل؟</h2>
+<div class="grid">
+<button class="act" data-go="give"><span>🤲</span>تبرّع الآن</button>
+<button class="act" data-go="help" data-sub="case"><span>📍</span>أبلغ عن حالة</button>
+<button class="act" data-go="help" data-sub="vol"><span>🙋</span>تطوّع معنا</button>
+<button class="act" id="share2"><span>📣</span>شارك الخير</button>
+</div>
+
+<h2>أثرنا</h2>
+<div class="card stats">
+<div><b>2021</b>سنة التأسيس</div><div><b>+500</b>عائلة مستفيدة</div><div><b>+25</b>مشروع تنموي</div>
+</div>
+</section>
+
+<section class="tab" id="t-give">
+<h2>تبرّع بسهولة</h2>
+<div class="card">
+<p class="verse" style="font-size:1.1rem">﴿مَنْ ذَا الَّذِي يُقْرِضُ اللَّهَ قَرْضًا حَسَنًا فَيُضَاعِفَهُ لَهُ أَضْعَافًا كَثِيرَةً وَاللَّهُ يَقْبِضُ وَيَبْسُطُ وَإِلَيْهِ تُرْجَعُونَ﴾<small>البقرة: 245</small></p>
+</div>
+<div class="card">
+<label class="f">نوع التبرع</label>
+<div class="chips" id="types" role="group" aria-label="نوع التبرع"></div>
+<label class="f">المبلغ (جنيه مصري)</label>
+<div class="chips" id="amts" role="group" aria-label="المبلغ"></div>
+<input class="in" id="amt" type="number" inputmode="numeric" min="1" placeholder="أو اكتب مبلغًا آخر">
+<label class="f" for="dn">اسمك (اختياري)</label>
+<input class="in" id="dn" autocomplete="name">
+<p class="note" style="margin:10px 0">بعد الضغط يُفتح واتساب برسالة جاهزة إلى المؤسسة، ويردّ عليك الفريق ببيانات التحويل. يمكنك أيضًا الاتصال بنا مباشرة.</p>
+<button class="btn gold" id="gv">أرسل تبرعي عبر واتساب</button>
+<a class="btn o" href="tel:+201091866443" style="margin-top:10px">اتصل بنا للتبرع</a>
+</div>
+<div class="card"><p class="note">تعمل المؤسسة في تنمية المجتمع المحلي، والمساعدات الإنسانية، والتعليم، والخدمات الصحية، والمبادرات الاجتماعية، والتمكين الاقتصادي.</p></div>
+</section>
+
+<section class="tab" id="t-help">
+<h2>شارك في الخير</h2>
+<div class="seg"><button data-sub="case" class="on">أبلغ عن حالة</button><button data-sub="vol">تطوّع</button></div>
+
+<div id="s-case">
+<div class="card">
+<label class="f" for="ct">نوع الحاجة</label>
+<select class="in" id="ct"><option>مساعدة إنسانية (غذاء / ملابس)</option><option>سكن يحتاج بناء أو ترميم</option><option>علاج وأدوية</option><option>تعليم ومستلزمات دراسية</option><option>كفالة يتيم أو أسرة</option><option>مشروع صغير يحتاج دعمًا</option></select>
+<label class="f" for="ca">المنطقة / العنوان</label>
+<input class="in" id="ca" placeholder="مثال: الصوة - أبوحماد - الشرقية">
+<label class="f" for="cd">تفاصيل الحالة</label>
+<textarea class="in" id="cd" placeholder="اكتب ما تعرفه عن الحالة بأمانة ووضوح"></textarea>
+<label class="f" for="cn">اسمك للتواصل</label>
+<input class="in" id="cn" autocomplete="name">
+<p class="note" style="margin:10px 0">تصل الحالة إلى فريق المؤسسة عبر واتساب. تجنّب نشر بيانات الأسرة علنًا حفاظًا على كرامتها.</p>
+<button class="btn" id="cs">أرسل الحالة عبر واتساب</button>
+</div>
+<div class="card">
+<p class="verse" style="font-size:1.15rem">«وَتُمِيطُ الأَذَى عَنِ الطَّرِيقِ صَدَقَةٌ»<small>رواه مسلم (1009)</small></p>
+<p class="note">إذا رأيت عائقًا خطيرًا في الطريق فأبلغ الجهات المختصة، ولا تعرّض نفسك أو غيرك للخطر.</p>
+</div>
+</div>
+
+<div id="s-vol" hidden>
+<div class="card">
+<label class="f" for="vn">اسمك</label>
+<input class="in" id="vn" autocomplete="name">
+<label class="f" for="vi">أين تحب أن تساهم؟</label>
+<select class="in" id="vi"><option>زيارات الأسر وتوصيل المساعدات</option><option>التعليم والدروس</option><option>القوافل الطبية</option><option>التصميم والإعلام</option><option>جمع التبرعات</option><option>أي مجال يحتاجه الفريق</option></select>
+<label class="f" for="vt">وقتك المناسب</label>
+<input class="in" id="vt" placeholder="مثال: الجمعة والسبت">
+<button class="btn" id="vs" style="margin-top:14px">سجّلني متطوعًا عبر واتساب</button>
+</div>
+</div>
+
+<h2>من مشاريعنا</h2>
+<div class="card pj"><h3>هدم وبناء منزل</h3><p class="note">سكن آمن ولائق لأسرة محتاجة في الصوة بمحافظة الشرقية.</p><a href="https://www.facebook.com/share/v/1FwrKq1e8Q/" target="_blank" rel="noopener noreferrer">شاهد المشروع على فيسبوك</a></div>
+<div class="card pj"><h3>حضانة كنوز كيدز</h3><p class="note">حضانة نموذجية بأسعار رمزية ومنح مجانية للأسر الأكثر احتياجًا.</p><a href="https://www.facebook.com/share/v/1Hfd3ud5vX/" target="_blank" rel="noopener noreferrer">شاهد المشروع على فيسبوك</a></div>
+<div class="card pj"><h3>أعمال متنوعة 2023</h3><p class="note">مساعدات عينية ومالية، كفالات أيتام، وأنشطة تنموية مختلفة.</p><a href="https://www.facebook.com/share/1C4Et3kH9M/" target="_blank" rel="noopener noreferrer">شاهد الأعمال على فيسبوك</a></div>
+</section>
+
+<section class="tab" id="t-more">
+<h2>تواصل معنا</h2>
+<div class="card"><b>العنوان</b><p class="note">شارع الطبابلة القديم بجوار معمل الزهرة، الصوة - أبوحماد - محافظة الشرقية</p></div>
+<a class="btn" href="https://wa.me/201091866443" target="_blank" rel="noopener noreferrer" style="margin-bottom:10px">واتساب</a>
+<a class="btn o" href="tel:+201091866443" style="margin-bottom:10px"><span dir="ltr">+20 10 91866443</span></a>
+<a class="btn o" href="https://www.facebook.com/share/1FzKsPMMsG/" target="_blank" rel="noopener noreferrer" style="margin-bottom:10px">صفحتنا على فيسبوك</a>
+<a class="btn o" href="https://rawad-store.github.io/konozalkhair/" target="_blank" rel="noopener noreferrer">موقع المؤسسة</a>
+<h2>انشر الخير</h2>
+<div class="card"><p class="verse" style="font-size:1.15rem">﴿فَاسْتَبِقُوا الْخَيْرَاتِ﴾<small>البقرة: 148</small></p>
+<p class="note" style="margin:6px 0 12px">الدالّ على الخير كفاعله. أرسل التطبيق لمن تحب.</p>
+<button class="btn gold" id="share3">شارك مع أصدقائك</button></div>
+<p class="note" style="text-align:center;margin-top:16px">© مؤسسة كنوز الخير للتنمية</p>
+</section>
+
+</main>
+<nav>
+<button data-go="home" class="on"><span>🏠</span>الرئيسية</button>
+<button data-go="give"><span>🤲</span>تبرّع</button>
+<button data-go="help"><span>🤝</span>شارك</button>
+<button data-go="more"><span>📞</span>تواصل</button>
+</nav>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(function(){
+var $=function(s){return document.querySelector(s)},$$=function(s){return[].slice.call(document.querySelectorAll(s))};
+var PH='201091866443',SITE='https://rawad-store.github.io/konozalkhair/';
+function toast(m){var t=$('#toast');t.textContent=m;t.classList.add('on');setTimeout(function(){t.classList.remove('on')},2400)}
+function wa(m){var a=document.createElement('a');a.href='https://wa.me/'+PH+'?text='+encodeURIComponent(m);a.target='_blank';a.rel='noopener noreferrer';document.body.appendChild(a);a.click();a.remove()}
+function ymd(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
+var store={get:function(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* tabs */
+function go(t,sub){$$('.tab').forEach(function(e){e.classList.toggle('on',e.id==='t-'+t)});$$('nav button').forEach(function(b){var on=b.dataset.go===t;b.classList.toggle('on',on);if(on)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});if(sub)setSub(sub);window.scrollTo(0,0);try{location.hash=t}catch(e){}}
+function setSub(s){$$('.seg button').forEach(function(b){var on=b.dataset.sub===s;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});$('#s-case').hidden=s!=='case';$('#s-vol').hidden=s!=='vol'}
+$$('[data-go]').forEach(function(b){b.addEventListener('click',function(){go(b.dataset.go,b.dataset.sub)})});
+$$('.seg button').forEach(function(b){b.addEventListener('click',function(){setSub(b.dataset.sub)})});
+function fromHash(){var h=(location.hash||'').slice(1);if(['home','give','help','more'].indexOf(h)>-1&&!$('#t-'+h).classList.contains('on'))go(h)}
+window.addEventListener('hashchange',fromHash);fromHash();
+
+/* verse of the day */
+var V=[['﴿مَّثَلُ الَّذِينَ يُنفِقُونَ أَمْوَالَهُمْ فِي سَبِيلِ اللَّهِ كَمَثَلِ حَبَّةٍ أَنبَتَتْ سَبْعَ سَنَابِلَ فِي كُلِّ سُنْبُلَةٍ مِّائَةُ حَبَّةٍ وَاللَّهُ يُضَاعِفُ لِمَن يَشَاءُ وَاللَّهُ وَاسِعٌ عَلِيمٌ﴾','البقرة: 261'],['﴿فَاسْتَبِقُوا الْخَيْرَاتِ﴾','البقرة: 148'],['﴿وَمَا تُقَدِّمُوا لِأَنفُسِكُم مِّنْ خَيْرٍ تَجِدُوهُ عِندَ اللَّهِ﴾','البقرة: 110'],['«وَتُمِيطُ الأَذَى عَنِ الطَّرِيقِ صَدَقَةٌ»','رواه مسلم (1009)'],['﴿مَنْ ذَا الَّذِي يُقْرِضُ اللَّهَ قَرْضًا حَسَنًا فَيُضَاعِفَهُ لَهُ أَضْعَافًا كَثِيرَةً وَاللَّهُ يَقْبِضُ وَيَبْسُطُ وَإِلَيْهِ تُرْجَعُونَ﴾','البقرة: 245']];
+var nd=new Date(),vi=V[Math.floor((nd.getTime()-nd.getTimezoneOffset()*6e4)/864e5)%V.length];$('#v').innerHTML=vi[0]+'<small>'+vi[1]+'</small>';
+
+/* daily deeds + growing plant */
+var D=[['كلمة طيبة','ابتسم أو قل كلمة تجبر خاطر أحدهم'],['مساعدة بسيطة','أعن جارًا أو غريبًا قدّر حاجته'],['علم أو وقت','علّم شيئًا نافعًا أو امنح وقتك لمن يحتاج'],['إماطة الأذى','أزل ما يؤذي المارة من الطريق'],['صدقة ولو قليلة','تبرع بما تستطيع اليوم']];
+var today=ymd(new Date()),S=store.get('kk',{days:{},total:0});
+function render(){var d=S.days[today]||[];var box=$('#deeds');box.innerHTML='';D.forEach(function(x,i){var l=document.createElement('label'),c=document.createElement('input');c.type='checkbox';c.checked=d.indexOf(i)>-1;c.addEventListener('change',function(){var a=S.days[today]||[];if(c.checked){if(a.indexOf(i)<0){a.push(i);S.total++}toast('جزاك الله خيرًا')}else{a=a.filter(function(k){return k!==i});S.total=Math.max(0,S.total-1)}if(a.length)S.days[today]=a;else delete S.days[today];store.set('kk',S);meter()});var s=document.createElement('span');s.innerHTML='<b>'+x[0]+'</b><i>'+x[1]+'</i>';l.appendChild(c);l.appendChild(s);box.appendChild(l)});meter()}
+function meter(){var n=0,dt=new Date();if(!S.days[ymd(dt)])dt.setDate(dt.getDate()-1);while(S.days[ymd(dt)]){n++;dt.setDate(dt.getDate()-1)}
+$('#m1').textContent='🔥 '+n+' يوم متتالٍ';$('#m2').textContent='🌱 '+S.total+' عمل خير';plant(S.total)}
+function plant(t){var st=t<1?0:t<4?1:t<9?2:t<16?3:4,s='<path d="M105 148 C105 '+(148-st*22-10)+' 105 '+(148-st*22-10)+' 105 '+(148-st*22-14)+'" stroke="#8fd19e" stroke-width="5" fill="none"/>';var lf=function(x,y,r,f){return'<ellipse cx="'+x+'" cy="'+y+'" rx="17" ry="8" transform="rotate('+r+' '+x+' '+y+')" fill="'+(f||'#52b788')+'"/>'};
+if(st===0)s='<circle cx="105" cy="146" r="7" fill="#d9a71b"/>';if(st>=1)s+=lf(92,126,-30)+lf(118,122,30);if(st>=2)s+=lf(90,100,-35,'#74c69d')+lf(120,96,35,'#74c69d');if(st>=3)s+=lf(92,74,-35)+lf(118,70,35)+lf(105,52,-90,'#95d5b2');if(st>=4)s+='<circle cx="105" cy="34" r="12" fill="#ffd60a"/><circle cx="105" cy="34" r="5" fill="#fff"/>';$('#pl').innerHTML=s}
+render();
+
+/* donate */
+var T=['صدقة عامة','كفالة يتيم','كفالة أسرة','تبرع عيني','مشروع بناء بيت'],A=[50,100,200,500,1000],type=0;
+function chips(id,arr,fn,fmt){var c=$(id);arr.forEach(function(v,i){var b=document.createElement('button');b.textContent=fmt?fmt(v):v;b.setAttribute('aria-pressed','false');b.addEventListener('click',function(){$$(id+' button').forEach(function(x){x.classList.remove('on');x.setAttribute('aria-pressed','false')});b.classList.add('on');b.setAttribute('aria-pressed','true');fn(v,i)});c.appendChild(b)})}
+chips('#types',T,function(v,i){type=i});$('#types button').classList.add('on');$('#types button').setAttribute('aria-pressed','true');
+chips('#amts',A,function(v){$('#amt').value=v});$('#amt').addEventListener('input',function(){$$('#amts button').forEach(function(x){x.classList.remove('on');x.setAttribute('aria-pressed','false')})});
+$('#gv').addEventListener('click',function(){var m=parseInt($('#amt').value,10);m=m>0?m:'';var n=$('#dn').value.trim();wa('السلام عليكم ورحمة الله، أرغب في التبرع لمؤسسة كنوز الخير.\nنوع التبرع: '+T[type]+(m?'\nالمبلغ: '+m+' جنيه':'')+(n?'\nالاسم: '+n:'')+'\nأرجو إرسال بيانات التحويل.')});
+
+/* case + volunteer */
+$('#cs').addEventListener('click',function(){var d=$('#cd').value.trim(),a=$('#ca').value.trim();if(!d||!a){toast('اكتب المنطقة وتفاصيل الحالة أولًا');return}wa('السلام عليكم، أود الإبلاغ عن حالة تحتاج مساعدة.\nالنوع: '+$('#ct').value+'\nالمنطقة: '+a+'\nالتفاصيل: '+d+(($('#cn').value.trim())?'\nالمبلّغ: '+$('#cn').value.trim():''))});
+$('#vs').addEventListener('click',function(){var n=$('#vn').value.trim();if(!n){toast('اكتب اسمك أولًا');return}wa('السلام عليكم، أرغب في التطوع مع مؤسسة كنوز الخير.\nالاسم: '+n+'\nمجال المساهمة: '+$('#vi').value+(($('#vt').value.trim())?'\nالوقت المناسب: '+$('#vt').value.trim():''))});
+
+/* share */
+function share(){var x={title:'مؤسسة كنوز الخير للتنمية',text:'شارك في الخير مع مؤسسة كنوز الخير: تبرّع، أبلغ عن حالة تحتاج مساعدة، أو تطوّع. الدالّ على الخير كفاعله.',url:SITE};if(navigator.share){navigator.share(x).catch(function(){})}else if(navigator.clipboard){navigator.clipboard.writeText(x.text+' '+x.url).then(function(){toast('تم نسخ رسالة المشاركة')},function(){toast(x.url)})}else toast(x.url)}
+['#share','#share2','#share3'].forEach(function(s){$(s).addEventListener('click',share)});
+})();
+</script>
+
+
+
+
+
+
+<script>
+/* تسجيل Service Worker للعمل بدون إنترنت */
+(function () {
+  if (!('serviceWorker' in navigator)) return;
+
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('./sw.js', { scope: './' })
+      .then(function (reg) {
+        console.log('✅ التطبيق جاهز للعمل بدون إنترنت');
+
+        // التحقق من وجود تحديثات
+        reg.addEventListener('updatefound', function () {
+          var newWorker = reg.installing;
+          if (!newWorker) return;
+          newWorker.addEventListener('statechange', function () {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              // يوجد تحديث جديد
+              console.log('يوجد تحديث جديد للتطبيق');
+            }
+          });
+        });
+      })
+      .catch(function (err) {
+        console.log('فشل تسجيل Service Worker:', err);
+      });
+
+    // إعادة التحميل عند تفعيل نسخة جديدة
+    var refreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', function () {
+      if (refreshing) return;
+      refreshing = true;
+      window.location.reload();
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
