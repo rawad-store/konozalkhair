@@ -66,43 +66,15 @@ main{padding:0 16px}
 }
 .hero-image-container{
   width:100%;
-  height: 420px; /* الارتفاع المناسب للشاشات */
+  height: 480px; /* زيادة الارتفاع قليلاً ليتناسب مع أبعاد الصورة */
   position:relative;
-  background-image: url('hero-bg.jpg'); /* اسم الصورة التي ستحفظها */
+  background-image: url('hero-bg.jpg'); /* اسم الصورة */
   background-size: cover;
-  background-position: center;
-  display:flex;flex-direction:column;justify-content:space-between;
+  background-position: top center; /* تثبيت الصورة من الأعلى */
 }
-/* تدرج لوني لضمان قراءة النص */
-.hero-image-container::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(180deg, rgba(13,40,24,0.7) 0%, rgba(13,40,24,0.1) 40%, rgba(13,40,24,0.85) 100%);
-  z-index:1;
-}
-.hero-top{
-  padding:32px 24px 12px;
-  position:relative;z-index:2;text-align:center;
-}
-.hero-badge{
-  display:inline-block;
-  background:rgba(13,40,24,0.6);
-  border:1.5px solid var(--gold-light);
-  backdrop-filter:blur(4px);
-  color:var(--gold-light);
-  font-size:.8rem;font-weight:700;
-  padding:6px 18px;border-radius:24px;
-  margin-bottom:16px;letter-spacing:.04em;
-  box-shadow:0 4px 12px rgba(0,0,0,0.2);
-}
-.hero-top h1{
-  font:700 1.9rem/1.4 Amiri,serif;
-  margin-bottom:10px;
-  text-shadow:0 2px 16px rgba(0,0,0,0.6);
-}
-.hero-top p{
-  opacity:1;font-size:.95rem;line-height:1.75;
-  max-width:32ch;margin:0 auto;
-  text-shadow:0 2px 8px rgba(0,0,0,0.7);
+/* إخفاء النصوص القديمة لأنها مدمجة في الصورة */
+.hero-top {
+  display: none !important; 
 }
 
 /* شريط الإحصائيات أسفل الصورة */
@@ -207,13 +179,7 @@ nav button.on{color:var(--g)}
 <section class="tab on" id="t-home">
   <!-- الهوية البصرية الجديدة بالصورة -->
   <div class="hero">
-    <div class="hero-image-container">
-      <div class="hero-top">
-        <div class="hero-badge">مؤسسة كنوز الخير للتنمية</div>
-        <h1>فرصتك اليوم لفعل الخير</h1>
-        <p>خطوة صغيرة اليوم تصنع فرقًا كبيرًا لغيرك.<br>كن مفتاحًا للخير، وانشر ما ينفع الناس.</p>
-      </div>
-    </div>
+    <div class="hero-image-container"></div>
     <!-- شريط الإحصائيات أسفل الصورة مباشرة -->
     <div class="meter">
       <span id="m1">🔥 0 يوم متتالٍ</span>
