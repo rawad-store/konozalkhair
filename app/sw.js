@@ -1,97 +1,74 @@
-/* Service Worker قوي - مؤسسة كنوز الخير */
-const CACHE_NAME = 'konoz-offline-v5';
+const CACHE_NAME = 'konoz-v6';
 
-// الملفات الأساسية التي تُحفظ فور التثبيت
-const CORE_ASSETS = [
+const CORE = [
   './',
   './index.html',
-  './manifest.json'
+  './manifest.json',
+  './cases.json'
 ];
 
-// ===== التثبيت =====
 self.addEventListener('install', (event) => {
+  self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('[SW] Caching core assets');
-        return cache.addAll(CORE_ASSETS);
-      })
-      .then(() => self.skipWaiting()) // تفعيل فوري
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(CORE))
   );
 });
 
-// ===== التفعيل وتنظيف الكاش القديم =====
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) => {
-      return Promise.all(
-        keys
-          .filter((key) => key !== CACHE_NAME)
-          .map((key) => {
-            console.log('[SW] Removing old cache:', key);
-            return caches.delete(key);
-          })
-      );
-    }).then(() => self.clients.claim())
+    caches.keys().then((keys) =>
+      Promise.all(
+        keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k))
+      )
+    ).then(() => self.clients.claim())
   );
 });
 
-// ===== استراتيجية: Cache First مع تحديث في الخلفية =====
 self.addEventListener('fetch', (event) => {
   const req = event.request;
-
-  // نتجاهل الطلبات غير GET
   if (req.method !== 'GET') return;
 
-  // نتجاهل طلبات الامتدادات والتحليلات
   const url = new URL(req.url);
-  if (url.protocol !== 'http:' && url.protocol !== 'https:') return;
 
-  event.respondWith(
-    caches.match(req).then((cachedResponse) => {
-      // إذا وُجد في الكاش → نرجعه فورًا
-      if (cachedResponse) {
-        // نحاول التحديث في الخلفية (Stale-While-Revalidate)
-        event.waitUntil(
-          fetch(req).then((networkResponse) => {
-            if (networkResponse && networkResponse.status === 200) {
-              return caches.open(CACHE_NAME).then((cache) => {
-                cache.put(req, networkResponse.clone());
-              });
-            }
-          }).catch(() => {}) // تجاهل أخطاء الشبكة في الخلفية
-        );
-        return cachedResponse;
-      }
+  const isAppFile =
+    req.mode === 'navigate' ||
+    url.pathname.endsWith('index.html') ||
+    url.pathname.endsWith('/') ||
+    url.pathname.endsWith('manifest.json') ||
+    url.pathname.endsWith('sw.js') ||
+    url.pathname.endsWith('cases.json');
 
-      // إذا لم يوجد في الكاش → نحاول الشبكة
-      return fetch(req)
-        .then((networkResponse) => {
-          // نحفظ النسخة الجديدة
-          if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
-            const responseClone = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(req, responseClone);
-            });
+  if (isAppFile) {
+    event.respondWith(
+      fetch(req)
+        .then((networkRes) => {
+          if (networkRes && networkRes.status === 200) {
+            const clone = networkRes.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(req, clone));
           }
-          return networkResponse;
+          return networkRes;
         })
         .catch(() => {
-          // فشل الشبكة → نرجع الصفحة الرئيسية كبديل
-          if (req.mode === 'navigate' || req.destination === 'document') {
-            return caches.match('./index.html');
-          }
-          // لباقي الملفات نرجع استجابة فارغة لتجنب الأخطاء
-          return new Response('', {
-            status: 503,
-            statusText: 'Offline'
-          });
-        });
+          return caches.match(req).then((cached) => cached || caches.match('./index.html'));
+        })
+    );
+    return;
+  }
+
+  event.respondWith(
+    caches.match(req).then((cached) => {
+      if (cached) return cached;
+      return fetch(req).then((res) => {
+        if (res && res.status === 200 && res.type === 'basic') {
+          const clone = res.clone();
+          caches.open(CACHE_NAME).then((c) => c.put(req, clone));
+        }
+        return res;
+      }).catch(() => cached);
     })
   );
 });
 
-// استقبال رسائل من الصفحة (للتحديث اليدوي)
 self.addEventListener('message', (event) => {
   if (event.data === 'skipWaiting') {
     self.skipWaiting();
