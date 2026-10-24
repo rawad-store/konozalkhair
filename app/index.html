@@ -210,7 +210,7 @@ nav button.on{color:var(--g)}
 <script>
 (function(){
 var $=function(s){return document.querySelector(s)},$$=function(s){return[].slice.call(document.querySelectorAll(s))};
-var PH='201091866443',SITE='https://rawad-store.github.io/konozalkhair/';
+var PH='201091866443',SITE='https://rawad-store.github.io/konozalkhair/app/';
 function toast(m){var t=$('#toast');t.textContent=m;t.classList.add('on');setTimeout(function(){t.classList.remove('on')},2400)}
 function wa(m){var a=document.createElement('a');a.href='https://wa.me/'+PH+'?text='+encodeURIComponent(m);a.target='_blank';a.rel='noopener noreferrer';document.body.appendChild(a);a.click();a.remove()}
 function ymd(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
@@ -250,7 +250,7 @@ $('#cs').addEventListener('click',function(){var d=$('#cd').value.trim(),a=$('#c
 $('#vs').addEventListener('click',function(){var n=$('#vn').value.trim();if(!n){toast('اكتب اسمك أولًا');return}wa('السلام عليكم، أرغب في التطوع مع مؤسسة كنوز الخير.\nالاسم: '+n+'\nمجال المساهمة: '+$('#vi').value+(($('#vt').value.trim())?'\nالوقت المناسب: '+$('#vt').value.trim():''))});
 
 /* share */
-function share(){var x={title:'مؤسسة كنوز الخير للتنمية',text:'شارك في الخير مع مؤسسة كنوز الخير: تبرّع، أبلغ عن حالة تحتاج مساعدة، أو تطوّع. الدالّ على الخير كفاعله.',url:SITE};if(navigator.share){navigator.share(x).catch(function(){})}else if(navigator.clipboard){navigator.clipboard.writeText(x.text+' '+x.url).then(function(){toast('تم نسخ رسالة المشاركة')},function(){toast(x.url)})}else toast(x.url)}
+function share(){var x={title:'مؤسسة كنوز الخير للتنمية',text:'خيرٌ لكل الناس 🌱\nتبرّع، أبلغ عن حالة، أو تطوّع معنا.\nالدالّ على الخير كفاعله.\n\nافتح التطبيق:',url:SITE};if(navigator.share){navigator.share(x).catch(function(){})}else if(navigator.clipboard){navigator.clipboard.writeText(x.text+' '+x.url).then(function(){toast('تم نسخ رسالة المشاركة')},function(){toast(x.url)})}else toast(x.url)}
 ['#share','#share2','#share3'].forEach(function(s){$(s).addEventListener('click',share)});
 })();
 </script>
