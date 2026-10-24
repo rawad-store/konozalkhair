@@ -1,5 +1,5 @@
 /* Service Worker - كنوز الخير */
-var VERSION = 'konoz-v14';
+var VERSION = 'konoz-v15';
 var CORE = './';
 var SHELL = ['./', './index.html', './manifest.json', './cases.json',
   './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png',
