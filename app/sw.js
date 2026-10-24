@@ -1,5 +1,5 @@
-/* Service Worker - كنوز الخير */
-const CACHE_NAME = 'konoz-v8'; // إصدار جديد
+/* Service Worker - كنوز الخير (تخطي الكاش) */
+const CACHE_NAME = 'konoz-v9'; // تم تغيير الإصدار
 
 const CORE_ASSETS = [
   './',
@@ -35,21 +35,21 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(req.url);
   if (url.origin !== location.origin) return;
 
-  // إذا كان الطلب لملف cases.json، اجلبه من الشبكة دائماً وتخطى الكاش
-  if (url.pathname.endsWith('cases.json')) {
+  // إذا كان الطلب لملف الحالات أو لوحة التحكم، اجلبه من الشبكة دائماً
+  if (url.pathname.endsWith('cases.json') || url.pathname.endsWith('admin.html')) {
     event.respondWith(
-      fetch(req, { cache: 'no-store' })
+      fetch(req, { cache: 'no-store' }) // تخطي الكاش تماماً
         .then((res) => {
           const clone = res.clone();
           caches.open(CACHE_NAME).then((cache) => cache.put(req, clone));
           return res;
         })
-        .catch(() => caches.match(req))
+        .catch(() => caches.match(req)) // في حال انقطاع الإنترنت
     );
     return;
   }
 
-  // استراتيجية Network First لباقي الملفات
+  // استراتيجية Network First للصفحة الرئيسية
   event.respondWith(
     fetch(req)
       .then((networkRes) => {
