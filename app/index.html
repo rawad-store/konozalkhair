@@ -260,6 +260,72 @@ footer{text-align:center;color:var(--mute);font-size:.84rem;margin:30px 0 0}
   color: var(--pine);
   line-height: 1.6;
 }
+  /* ===== تصميم احترافي ومرتب لأزرار التبرع ===== */
+.chips {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* عمودين متساويين */
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.chips button {
+  padding: 14px 10px;
+  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  background: var(--paper);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  color: var(--ink);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.chips button:hover {
+  border-color: var(--pine);
+}
+.chips button.on {
+  background: var(--pine);
+  border-color: var(--pine);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(19, 64, 47, 0.2);
+}
+
+/* ترتيب أزرار المبالغ بشكل شبكة مربعة أنيقة */
+.amts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.amts button {
+  background: var(--paper);
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 4px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--ink);
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.amts button small {
+  font-size: 0.7rem;
+  color: var(--mute);
+  font-weight: 500;
+  margin-top: 2px;
+}
+.amts button.on {
+  border-color: var(--gold);
+  background: var(--tint);
+  box-shadow: 0 0 0 2px var(--gold) inset;
+  color: var(--pine);
+}
 </style>
 </head>
 <body>
