@@ -13,23 +13,30 @@
 <meta property="og:description" content="تبرّع، أبلغ عن حالة، أو تطوّع معنا. مؤسسة خيرية تنموية مشهرة.">
 <meta property="og:url" content="https://rawad-store.github.io/konozalkhair/app/">
 <meta property="og:image" content="https://rawad-store.github.io/konozalkhair/preview.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:image" content="https://rawad-store.github.io/konozalkhair/preview.jpg">
-
-<meta property="og:type" content="website">
-<meta property="og:locale" content="ar_EG">
-<meta property="og:site_name" content="مؤسسة كنوز الخير للتنمية">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="مؤسسة كنوز الخير للتنمية">
-<meta name="twitter:description" content="خيرٌ لكل الناس">
 <title>كنوز الخير — خيرٌ لكل الناس</title>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="manifest" href="manifest.json">
 <style>
-:root{--bg:#f0f5f2;--card:#ffffff;--tx:#1a2e24;--mu:#5f7268;--g:#2d6a4f;--dg:#12392b;--lf:#52b788;--gold:#d4a017;--ln:#d8e5dd;--on:#fff;--shadow:0 4px 20px rgba(18,57,43,.08);--radius:20px}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1814;--card:#16251f;--tx:#e8f1ec;--mu:#9db0a6;--g:#52b788;--dg:#0a2219;--ln:#243a31}}
-:root[data-theme="dark"]{--bg:#0e1814;--card:#16251f;--tx:#e8f1ec;--mu:#9db0a6;--g:#52b788;--dg:#0a2219;--ln:#243a31}
+:root{
+  --bg:#f3f7f5; --card:#ffffff; --tx:#14291f; --mu:#5a7266;
+  --g:#1b5e40; --g2:#2d8a5e; --dg:#0d2818; --gold:#c9a227; --gold-light:#e8c547;
+  --ln:#d4e5db; --on:#ffffff; --shadow:0 8px 32px rgba(13,40,24,.08);
+  --radius:22px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0a1610; --card:#122019; --tx:#e8f2ec; --mu:#8faba0;
+    --g:#3d9b6a; --g2:#52b788; --dg:#06140c; --ln:#1a3228;
+    --shadow:0 8px 32px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0a1610; --card:#122019; --tx:#e8f2ec; --mu:#8faba0;
+  --g:#3d9b6a; --g2:#52b788; --dg:#06140c; --ln:#1a3228;
+  --shadow:0 8px 32px rgba(0,0,0,.4);
+}
+
 *{box-sizing:border-box;margin:0}
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
 html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
@@ -37,55 +44,154 @@ body{background:var(--bg);color:var(--tx);font:400 16px/1.8 Cairo,system-ui,sans
 button,input,select,textarea{font:inherit;color:inherit}
 a{color:inherit}
 :focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-header{display:flex;align-items:center;gap:12px;padding:12px 16px;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5}
-header img{width:44px;height:44px;border-radius:50%;border:2px solid var(--gold);object-fit:cover}
-header b{font:700 1.15rem Amiri,serif;line-height:1.2;flex:1}
-header small{display:block;font-size:.72rem;color:var(--mu);font-weight:400}
-.ic{width:42px;height:42px;border-radius:50%;border:1px solid var(--ln);background:var(--card);cursor:pointer;font-size:1.1rem}
+
+/* Header */
+header{display:flex;align-items:center;gap:14px;padding:14px 18px;position:sticky;top:env(safe-area-inset-top,0);background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);z-index:10}
+header img{width:50px;height:50px;border-radius:50%;border:2.5px solid var(--gold);object-fit:cover;box-shadow:0 3px 12px rgba(201,162,39,.3)}
+header b{font:700 1.22rem/1.25 Amiri,serif;flex:1;color:var(--dg)}
+header small{display:block;font-size:.68rem;color:var(--mu);font-weight:500;margin-top:3px;letter-spacing:.02em}
+.ic{width:42px;height:42px;border-radius:50%;border:1px solid var(--ln);background:var(--card);cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center}
+
 main{padding:0 16px}
 .tab{display:none}.tab.on{display:block}
-.hero{background:linear-gradient(155deg,#2d6a4f 0%,#1a4a36 55%,#12392b 100%);color:#fff;border-radius:28px;padding:24px 22px 0;overflow:hidden;position:relative;box-shadow:0 12px 32px rgba(18,57,43,.22)}
-.hero h1{font:700 1.7rem/1.5 Amiri,serif}
-.hero p{opacity:.9;max-width:26ch}
-.hero svg{display:block;margin:6px auto 0;width:210px;height:170px}
-.meter{display:flex;gap:8px;justify-content:center;background:rgba(0,0,0,.22);margin:0 -20px;padding:12px;font-weight:600;font-size:.92rem}
-.meter span{white-space:nowrap}
-h2{font:700 1.25rem/1.5 Amiri,serif;margin:26px 0 10px}
-.card{background:var(--card);border:1px solid var(--ln);border-radius:var(--radius);padding:18px;margin-bottom:14px;box-shadow:var(--shadow);transition:transform .2s}
+
+/* ===== Hero & New Image ===== */
+.hero{
+  background:var(--dg); /* خلفية احتياطية */
+  color:#fff;border-radius:28px;
+  overflow:hidden;position:relative;
+  box-shadow:0 24px 48px rgba(13,40,24,.3);
+  margin-bottom:8px;
+  display:flex;flex-direction:column;
+}
+.hero-image-container{
+  width:100%;
+  height: 420px; /* الارتفاع المناسب للشاشات */
+  position:relative;
+  background-image: url('hero-bg.jpg'); /* اسم الصورة التي ستحفظها */
+  background-size: cover;
+  background-position: center;
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+/* تدرج لوني لضمان قراءة النص */
+.hero-image-container::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg, rgba(13,40,24,0.7) 0%, rgba(13,40,24,0.1) 40%, rgba(13,40,24,0.85) 100%);
+  z-index:1;
+}
+.hero-top{
+  padding:32px 24px 12px;
+  position:relative;z-index:2;text-align:center;
+}
+.hero-badge{
+  display:inline-block;
+  background:rgba(13,40,24,0.6);
+  border:1.5px solid var(--gold-light);
+  backdrop-filter:blur(4px);
+  color:var(--gold-light);
+  font-size:.8rem;font-weight:700;
+  padding:6px 18px;border-radius:24px;
+  margin-bottom:16px;letter-spacing:.04em;
+  box-shadow:0 4px 12px rgba(0,0,0,0.2);
+}
+.hero-top h1{
+  font:700 1.9rem/1.4 Amiri,serif;
+  margin-bottom:10px;
+  text-shadow:0 2px 16px rgba(0,0,0,0.6);
+}
+.hero-top p{
+  opacity:1;font-size:.95rem;line-height:1.75;
+  max-width:32ch;margin:0 auto;
+  text-shadow:0 2px 8px rgba(0,0,0,0.7);
+}
+
+/* شريط الإحصائيات أسفل الصورة */
+.meter{
+  display:flex;justify-content:stretch;
+  background:var(--dg);
+  border-top:1px solid rgba(255,255,255,.08);
+  position:relative;z-index:2;
+}
+.meter span{
+  flex:1;text-align:center;padding:16px 10px;
+  font-weight:600;font-size:.88rem;
+  border-left:1px solid rgba(255,255,255,.07);
+  letter-spacing:.01em;
+}
+.meter span:first-child{border-left:0}
+
+/* Sections & Cards */
+h2{font:700 1.28rem/1.4 Amiri,serif;margin:28px 0 14px;color:var(--dg);display:flex;align-items:center;gap:8px}
+:root[data-theme="dark"] h2, :root:not([data-theme="light"]) h2{color:var(--g2)}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:var(--radius);padding:18px;margin-bottom:14px;box-shadow:var(--shadow)}
 .verse{font:400 1.2rem/2.1 Amiri,serif;text-align:center;color:var(--g)}
 .verse small{display:block;font:400 .85rem Cairo,sans-serif;color:var(--mu)}
+
+/* Deeds */
 .deeds label{display:flex;gap:12px;align-items:center;padding:10px 4px;border-bottom:1px solid var(--ln);cursor:pointer}
 .deeds label:last-child{border:0}
 .deeds input{width:24px;height:24px;accent-color:var(--g);flex-shrink:0}
 .deeds i{font-style:normal;font-size:.85rem;color:var(--mu);display:block;line-height:1.5}
 .deeds input:checked+span b{text-decoration:line-through;opacity:.6}
+
+/* Grid Actions */
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.act{background:var(--card);border:1.5px solid var(--ln);border-radius:18px;padding:20px 12px;text-align:center;cursor:pointer;font-weight:700;box-shadow:var(--shadow);transition:transform .2s,border-color .2s}.act:active{transform:scale(.97)}
-.act span{display:block;font-size:1.7rem;line-height:1.4}
+.act{background:var(--card);border:1.5px solid var(--ln);border-radius:20px;padding:22px 12px;text-align:center;cursor:pointer;font-weight:700;font-size:.93rem;box-shadow:var(--shadow);transition:transform .2s,border-color .2s,box-shadow .2s}
+.act:active{transform:scale(.96)}
+.act span{display:block;font-size:1.9rem;line-height:1.3;margin-bottom:6px}
 .stats{display:flex;justify-content:space-around;text-align:center;font-size:.85rem;color:var(--mu)}
 .stats b{display:block;font-size:1.5rem;color:var(--g);line-height:1.3}
-.btn{display:block;width:100%;border:0;border-radius:16px;padding:15px;background:var(--g);color:var(--on);font-weight:700;text-align:center;text-decoration:none;cursor:pointer;box-shadow:0 6px 16px rgba(45,106,79,.25);transition:transform .2s,opacity .2s}.btn:active{transform:scale(.98);opacity:.93}
-.btn.gold{background:var(--gold);color:#1b2a23}
-.btn.o{background:none;border:2px solid var(--g);color:var(--g)}
-:root[data-theme="dark"] .btn,:root:not([data-theme="light"]) .btn{--on:#0a2219}
+
+/* Buttons */
+.btn{display:block;width:100%;border:0;border-radius:16px;padding:15px;background:linear-gradient(135deg,var(--g),var(--g2));color:var(--on);font-weight:700;text-align:center;text-decoration:none;cursor:pointer;box-shadow:0 6px 20px rgba(27,94,64,.3);transition:transform .2s,opacity .2s}
+.btn:active{transform:scale(.98);opacity:.92}
+.btn.gold{background:linear-gradient(135deg,#d4a84b,#c9a227);color:#1a2e24;box-shadow:0 6px 20px rgba(201,162,39,.3)}
+.btn.o{background:transparent;border:2px solid var(--g);color:var(--g);box-shadow:none}
+
+/* Forms */
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 12px}
-.chips button{flex:1;min-width:64px;padding:10px;border-radius:12px;border:2px solid var(--ln);background:var(--card);font-weight:700;cursor:pointer}
+.chips button{flex:1;min-width:64px;padding:10px;border-radius:12px;border:2px solid var(--ln);background:var(--card);font-weight:700;cursor:pointer;transition:all .2s}
 .chips button.on{border-color:var(--g);background:var(--g);color:var(--on)}
 label.f{display:block;font-weight:600;margin:10px 0 4px;font-size:.92rem}
-.in{width:100%;padding:12px;border-radius:12px;border:1.5px solid var(--ln);background:var(--bg)}
-textarea.in{min-height:96px}
+.in{width:100%;padding:12px;border-radius:12px;border:1.5px solid var(--ln);background:var(--bg);transition:border-color .2s}
+.in:focus{border-color:var(--g);outline:none}
+textarea.in{min-height:96px;resize:vertical}
 .seg{display:flex;background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:4px;margin-bottom:12px}
 .seg button{flex:1;border:0;background:none;padding:10px;border-radius:10px;font-weight:700;cursor:pointer;color:var(--mu)}
 .seg button.on{background:var(--g);color:var(--on)}
 .note{font-size:.85rem;color:var(--mu)}
-.pj h3{font:700 1.1rem Amiri,serif}
-.pj a{color:var(--g);font-weight:700}
+.pj h3{font:700 1.1rem Amiri,serif;margin-bottom:4px}
+.pj a{color:var(--g);font-weight:700;text-decoration:none}
+.pj a:hover{text-decoration:underline}
+
+/* Cases Section */
+.cases-section{background:linear-gradient(180deg, color-mix(in srgb,var(--g) 8%,var(--bg)) 0%, var(--bg) 100%);margin:20px -16px 0;padding:20px 16px 8px;border-radius:24px 24px 0 0}
+.cases-section h2{display:flex;align-items:center;gap:10px;font:700 1.35rem Amiri,serif;margin:0 0 16px;color:var(--dg)}
+.cases-section h2::before{content:'💚';font-size:1.3rem}
+.cases-list{display:flex;flex-direction:column;gap:14px}
+.case-card{background:var(--card);border:1.5px solid var(--ln);border-radius:20px;padding:18px;box-shadow:0 6px 24px rgba(18,57,43,.1);position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.case-card:active{transform:scale(.98)}
+.case-card.urgent{border-color:#e74c3c;box-shadow:0 6px 24px rgba(231,76,60,.15)}
+.case-card.urgent::before{content:'عاجل';position:absolute;top:14px;left:14px;background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff;font-size:.72rem;font-weight:700;padding:4px 12px;border-radius:20px;box-shadow:0 2px 8px rgba(231,76,60,.3)}
+.case-card h3{font:700 1.15rem Amiri,serif;margin-bottom:8px;padding-left:56px;color:var(--tx);line-height:1.3}
+.case-card p{font-size:.9rem;color:var(--mu);line-height:1.65;margin-bottom:12px}
+.case-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;font-size:.82rem}
+.case-meta span{background:color-mix(in srgb,var(--g) 12%,transparent);color:var(--g);padding:5px 12px;border-radius:20px;font-weight:600}
+.case-card .btn{padding:13px;font-size:.92rem;margin-top:2px;background:linear-gradient(135deg,#2d6a4f,#1a4a36);box-shadow:0 4px 14px rgba(45,106,79,.3)}
+.cases-empty{text-align:center;padding:36px 16px;color:var(--mu);font-size:.95rem}
+.cases-loading{text-align:center;padding:28px;color:var(--mu)}
+.cases-count{display:inline-flex;align-items:center;justify-content:center;background:var(--g);color:#fff;font-size:.75rem;font-weight:700;min-width:22px;height:22px;border-radius:50%;margin-right:6px}
+
+/* Nav */
 nav{position:fixed;bottom:0;left:0;right:0;background:color-mix(in srgb,var(--card) 94%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--ln);display:flex;max-width:560px;margin:auto;padding-bottom:env(safe-area-inset-bottom,0px);z-index:20;box-shadow:0 -4px 20px rgba(0,0,0,.04)}
 nav button{flex:1;border:0;background:none;padding:9px 0 7px;font-size:.78rem;font-weight:600;color:var(--mu);cursor:pointer;line-height:1.4}
 nav button span{display:block;font-size:1.35rem}
 nav button.on{color:var(--g)}
-.toast{position:fixed;bottom:calc(100px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%) translateY(10px);background:var(--dg);color:#fff;padding:12px 22px;border-radius:40px;border:1.5px solid var(--gold);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:30;max-width:88%;text-align:center;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.18)}.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
-.toast.on{opacity:1}
+
+/* Toast */
+.toast{position:fixed;bottom:calc(100px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%) translateY(10px);background:var(--dg);color:#fff;padding:12px 22px;border-radius:40px;border:1.5px solid var(--gold);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:30;max-width:88%;text-align:center;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -95,207 +201,433 @@ nav button.on{color:var(--g)}
 <b>كنوز الخير<small>مؤسسة مشهرة برقم 3625 لسنة 2021</small></b>
 <button class="ic" id="share" aria-label="شارك التطبيق">↗</button>
 </header>
+
 <main>
-
+<!-- HOME -->
 <section class="tab on" id="t-home">
-<div class="hero">
-<h1>فرصتك اليوم لفعل الخير</h1>
-<p>خطوة صغيرة اليوم تصنع فرقًا كبيرًا لغيرك.</p>
-<svg id="plant" viewBox="0 0 210 170" aria-hidden="true"><ellipse cx="105" cy="154" rx="70" ry="12" fill="#0a2219" opacity=".5"/><g id="pl" stroke-linecap="round"></g></svg>
-<div class="meter"><span id="m1">🔥 0 يوم</span><span id="m2">🌱 0 عمل خير</span></div>
-</div>
+  <!-- الهوية البصرية الجديدة بالصورة -->
+  <div class="hero">
+    <div class="hero-image-container">
+      <div class="hero-top">
+        <div class="hero-badge">مؤسسة كنوز الخير للتنمية</div>
+        <h1>فرصتك اليوم لفعل الخير</h1>
+        <p>خطوة صغيرة اليوم تصنع فرقًا كبيرًا لغيرك.<br>كن مفتاحًا للخير، وانشر ما ينفع الناس.</p>
+      </div>
+    </div>
+    <!-- شريط الإحصائيات أسفل الصورة مباشرة -->
+    <div class="meter">
+      <span id="m1">🔥 0 يوم متتالٍ</span>
+      <span id="m2">🌱 0 عمل خير</span>
+    </div>
+  </div>
 
-<h2>أعمال اليوم</h2>
-<div class="card deeds" id="deeds"></div>
+  <h2>أعمال اليوم</h2>
+  <div class="card deeds" id="deeds"></div>
 
-<div class="card"><p class="verse" id="v"></p></div>
+  <div class="card"><p class="verse" id="v"></p></div>
 
-<h2>ماذا تريد أن تفعل؟</h2>
-<div class="grid">
-<button class="act" data-go="give"><span>🤲</span>تبرّع الآن</button>
-<button class="act" data-go="help" data-sub="case"><span>📍</span>أبلغ عن حالة</button>
-<button class="act" data-go="help" data-sub="vol"><span>🙋</span>تطوّع معنا</button>
-<button class="act" id="share2"><span>📣</span>شارك الخير</button>
-</div>
+  <h2>ماذا تريد أن تفعل؟</h2>
+  <div class="grid">
+    <button class="act" data-go="give"><span>🤲</span>تبرّع الآن</button>
+    <button class="act" data-go="help" data-sub="case"><span>📍</span>أبلغ عن حالة</button>
+    <button class="act" data-go="help" data-sub="vol"><span>🙋</span>تطوّع معنا</button>
+    <button class="act" id="share2"><span>📣</span>شارك الخير</button>
+  </div>
 
-<h2>أثرنا</h2>
-<div class="card stats">
-<div><b>2021</b>سنة التأسيس</div><div><b>+500</b>عائلة مستفيدة</div><div><b>+25</b>مشروع تنموي</div>
-</div>
+  <!-- Cases Section -->
+  <div class="cases-section">
+    <h2>الحالات الحالية <span class="cases-count" id="cases-count">0</span></h2>
+    <div id="cases-container" class="cases-list">
+      <div class="cases-loading">جاري تحميل الحالات...</div>
+    </div>
+  </div>
+
+  <h2>أثرنا</h2>
+  <div class="card stats">
+    <div><b>2021</b>سنة التأسيس</div>
+    <div><b>+500</b>عائلة مستفيدة</div>
+    <div><b>+25</b>مشروع تنموي</div>
+  </div>
 </section>
 
+<!-- GIVE -->
 <section class="tab" id="t-give">
-<h2>تبرّع بسهولة</h2>
-<div class="card">
-<p class="verse" style="font-size:1.1rem">﴿مَنْ ذَا الَّذِي يُقْرِضُ اللَّهَ قَرْضًا حَسَنًا فَيُضَاعِفَهُ لَهُ أَضْعَافًا كَثِيرَةً وَاللَّهُ يَقْبِضُ وَيَبْسُطُ وَإِلَيْهِ تُرْجَعُونَ﴾<small>البقرة: 245</small></p>
-</div>
-<div class="card">
-<label class="f">نوع التبرع</label>
-<div class="chips" id="types" role="group" aria-label="نوع التبرع"></div>
-<label class="f">المبلغ (جنيه مصري)</label>
-<div class="chips" id="amts" role="group" aria-label="المبلغ"></div>
-<input class="in" id="amt" type="number" inputmode="numeric" min="1" placeholder="أو اكتب مبلغًا آخر">
-<label class="f" for="dn">اسمك (اختياري)</label>
-<input class="in" id="dn" autocomplete="name">
-<p class="note" style="margin:10px 0">بعد الضغط يُفتح واتساب برسالة جاهزة إلى المؤسسة، ويردّ عليك الفريق ببيانات التحويل. يمكنك أيضًا الاتصال بنا مباشرة.</p>
-<button class="btn gold" id="gv">أرسل تبرعي عبر واتساب</button>
-<a class="btn o" href="tel:+201091866443" style="margin-top:10px">اتصل بنا للتبرع</a>
-</div>
-<div class="card"><p class="note">تعمل المؤسسة في تنمية المجتمع المحلي، والمساعدات الإنسانية، والتعليم، والخدمات الصحية، والمبادرات الاجتماعية، والتمكين الاقتصادي.</p></div>
+  <h2>تبرّع بسهولة</h2>
+  <div class="card">
+    <p class="verse" style="font-size:1.1rem">﴿مَنْ ذَا الَّذِي يُقْرِضُ اللَّهَ قَرْضًا حَسَنًا فَيُضَاعِفَهُ لَهُ أَضْعَافًا كَثِيرَةً وَاللَّهُ يَقْبِضُ وَيَبْسُطُ وَإِلَيْهِ تُرْجَعُونَ﴾<small>البقرة: 245</small></p>
+  </div>
+  <div class="card">
+    <label class="f">نوع التبرع</label>
+    <div class="chips" id="types" role="group" aria-label="نوع التبرع"></div>
+    <label class="f">المبلغ (جنيه مصري)</label>
+    <div class="chips" id="amts" role="group" aria-label="المبلغ"></div>
+    <input class="in" id="amt" type="number" inputmode="numeric" min="1" placeholder="أو اكتب أي مبلغ آخر">
+    <label class="f" for="dn">اسمك (اختياري)</label>
+    <input class="in" id="dn" autocomplete="name">
+    <p class="note" style="margin:10px 0">بعد الضغط يُفتح واتساب برسالة جاهزة إلى المؤسسة، ويردّ عليك الفريق ببيانات التحويل. يمكنك أيضًا الاتصال بنا مباشرة.</p>
+    <button class="btn gold" id="gv">أرسل تبرعي عبر واتساب</button>
+    <a class="btn o" href="tel:+201091866443" style="margin-top:10px">اتصل بنا للتبرع</a>
+  </div>
+  <div class="card"><p class="note">تعمل المؤسسة في تنمية المجتمع المحلي، والمساعدات الإنسانية، والتعليم، والخدمات الصحية، والمبادرات الاجتماعية، والتمكين الاقتصادي.</p></div>
 </section>
 
+<!-- HELP -->
 <section class="tab" id="t-help">
-<h2>شارك في الخير</h2>
-<div class="seg"><button data-sub="case" class="on">أبلغ عن حالة</button><button data-sub="vol">تطوّع</button></div>
+  <h2>شارك في الخير</h2>
+  <div class="seg">
+    <button data-sub="case" class="on">أبلغ عن حالة</button>
+    <button data-sub="vol">تطوّع</button>
+  </div>
 
-<div id="s-case">
-<div class="card">
-<label class="f" for="ct">نوع الحاجة</label>
-<select class="in" id="ct"><option>مساعدة إنسانية (غذاء / ملابس)</option><option>سكن يحتاج بناء أو ترميم</option><option>علاج وأدوية</option><option>تعليم ومستلزمات دراسية</option><option>كفالة يتيم أو أسرة</option><option>مشروع صغير يحتاج دعمًا</option></select>
-<label class="f" for="ca">المنطقة / العنوان</label>
-<input class="in" id="ca" placeholder="مثال: الصوة - أبوحماد - الشرقية">
-<label class="f" for="cd">تفاصيل الحالة</label>
-<textarea class="in" id="cd" placeholder="اكتب ما تعرفه عن الحالة بأمانة ووضوح"></textarea>
-<label class="f" for="cn">اسمك للتواصل</label>
-<input class="in" id="cn" autocomplete="name">
-<p class="note" style="margin:10px 0">تصل الحالة إلى فريق المؤسسة عبر واتساب. تجنّب نشر بيانات الأسرة علنًا حفاظًا على كرامتها.</p>
-<button class="btn" id="cs">أرسل الحالة عبر واتساب</button>
-</div>
-<div class="card">
-<p class="verse" style="font-size:1.15rem">«وَتُمِيطُ الأَذَى عَنِ الطَّرِيقِ صَدَقَةٌ»<small>رواه مسلم (1009)</small></p>
-<p class="note">إذا رأيت عائقًا خطيرًا في الطريق فأبلغ الجهات المختصة، ولا تعرّض نفسك أو غيرك للخطر.</p>
-</div>
-</div>
+  <div id="s-case">
+    <div class="card">
+      <label class="f" for="ct">نوع الحاجة</label>
+      <select class="in" id="ct">
+        <option>مساعدة إنسانية (غذاء / ملابس)</option>
+        <option>سكن يحتاج بناء أو ترميم</option>
+        <option>علاج وأدوية</option>
+        <option>تعليم ومستلزمات دراسية</option>
+        <option>كفالة يتيم أو أسرة</option>
+        <option>مشروع صغير يحتاج دعمًا</option>
+        <option>أخرى</option>
+      </select>
+      <label class="f" for="ca">المنطقة / العنوان</label>
+      <input class="in" id="ca" placeholder="مثال: الصوة - أبوحماد - الشرقية">
+      <label class="f" for="cd">تفاصيل الحالة</label>
+      <textarea class="in" id="cd" placeholder="اكتب ما تعرفه عن الحالة بأمانة ووضوح"></textarea>
+      <label class="f" for="cn">اسمك للتواصل</label>
+      <input class="in" id="cn" autocomplete="name" placeholder="اختياري">
+      <label class="f" for="cp">رقم للتواصل (اختياري)</label>
+      <input class="in" id="cp" type="tel" inputmode="tel" placeholder="01xxxxxxxxx">
+      <p class="note" style="margin:10px 0">تصل الحالة إلى فريق المؤسسة عبر واتساب. تجنّب نشر بيانات الأسرة علنًا حفاظًا على كرامتها.</p>
+      <button class="btn" id="cs">أرسل الحالة عبر واتساب</button>
+    </div>
+    <div class="card">
+      <p class="verse" style="font-size:1.15rem">«وَتُمِيطُ الأَذَى عَنِ الطَّرِيقِ صَدَقَةٌ»<small>رواه مسلم (1009)</small></p>
+      <p class="note">إذا رأيت عائقًا خطيرًا في الطريق فأبلغ الجهات المختصة، ولا تعرّض نفسك أو غيرك للخطر.</p>
+    </div>
+  </div>
 
-<div id="s-vol" hidden>
-<div class="card">
-<label class="f" for="vn">اسمك</label>
-<input class="in" id="vn" autocomplete="name">
-<label class="f" for="vi">أين تحب أن تساهم؟</label>
-<select class="in" id="vi"><option>زيارات الأسر وتوصيل المساعدات</option><option>التعليم والدروس</option><option>القوافل الطبية</option><option>التصميم والإعلام</option><option>جمع التبرعات</option><option>أي مجال يحتاجه الفريق</option></select>
-<label class="f" for="vt">وقتك المناسب</label>
-<input class="in" id="vt" placeholder="مثال: الجمعة والسبت">
-<button class="btn" id="vs" style="margin-top:14px">سجّلني متطوعًا عبر واتساب</button>
-</div>
-</div>
+  <div id="s-vol" hidden>
+    <div class="card">
+      <label class="f" for="vn">اسمك</label>
+      <input class="in" id="vn" autocomplete="name">
+      <label class="f" for="vi">أين تحب أن تساهم؟</label>
+      <select class="in" id="vi">
+        <option>زيارات الأسر وتوصيل المساعدات</option>
+        <option>التعليم والدروس</option>
+        <option>القوافل الطبية</option>
+        <option>التصميم والإعلام</option>
+        <option>جمع التبرعات</option>
+        <option>أي مجال يحتاجه الفريق</option>
+        <option>أخرى</option>
+      </select>
+      <label class="f" for="vt">وقتك المناسب</label>
+      <input class="in" id="vt" placeholder="مثال: الجمعة والسبت">
+      <button class="btn" id="vs" style="margin-top:14px">سجّلني متطوعًا عبر واتساب</button>
+    </div>
+  </div>
 
-<h2>من مشاريعنا</h2>
-<div class="card pj"><h3>هدم وبناء منزل</h3><p class="note">سكن آمن ولائق لأسرة محتاجة في الصوة بمحافظة الشرقية.</p><a href="https://www.facebook.com/share/v/1FwrKq1e8Q/" target="_blank" rel="noopener noreferrer">شاهد المشروع على فيسبوك</a></div>
-<div class="card pj"><h3>حضانة كنوز كيدز</h3><p class="note">حضانة نموذجية بأسعار رمزية ومنح مجانية للأسر الأكثر احتياجًا.</p><a href="https://www.facebook.com/share/v/1Hfd3ud5vX/" target="_blank" rel="noopener noreferrer">شاهد المشروع على فيسبوك</a></div>
-<div class="card pj"><h3>أعمال متنوعة 2023</h3><p class="note">مساعدات عينية ومالية، كفالات أيتام، وأنشطة تنموية مختلفة.</p><a href="https://www.facebook.com/share/1C4Et3kH9M/" target="_blank" rel="noopener noreferrer">شاهد الأعمال على فيسبوك</a></div>
+  <h2>من مشاريعنا</h2>
+  <div class="card pj"><h3>هدم وبناء منزل</h3><p class="note">سكن آمن ولائق لأسرة محتاجة في الصوة بمحافظة الشرقية.</p><a href="https://www.facebook.com/share/v/1FwrKq1e8Q/" target="_blank" rel="noopener noreferrer">شاهد المشروع على فيسبوك</a></div>
+  <div class="card pj"><h3>حضانة كنوز كيدز</h3><p class="note">حضانة نموذجية بأسعار رمزية ومنح مجانية للأسر الأكثر احتياجًا.</p><a href="https://www.facebook.com/share/v/1Hfd3ud5vX/" target="_blank" rel="noopener noreferrer">شاهد المشروع على فيسبوك</a></div>
+  <div class="card pj"><h3>أعمال متنوعة 2023</h3><p class="note">مساعدات عينية ومالية، كفالات أيتام، وأنشطة تنموية مختلفة.</p><a href="https://www.facebook.com/share/1C4Et3kH9M/" target="_blank" rel="noopener noreferrer">شاهد الأعمال على فيسبوك</a></div>
 </section>
 
+<!-- MORE -->
 <section class="tab" id="t-more">
-<h2>تواصل معنا</h2>
-<div class="card"><b>العنوان</b><p class="note">شارع الطبابلة القديم بجوار معمل الزهرة، الصوة - أبوحماد - محافظة الشرقية</p></div>
-<a class="btn" href="https://wa.me/201091866443" target="_blank" rel="noopener noreferrer" style="margin-bottom:10px">واتساب</a>
-<a class="btn o" href="tel:+201091866443" style="margin-bottom:10px"><span dir="ltr">+20 10 91866443</span></a>
-<a class="btn o" href="https://www.facebook.com/share/1FzKsPMMsG/" target="_blank" rel="noopener noreferrer" style="margin-bottom:10px">صفحتنا على فيسبوك</a>
-<a class="btn o" href="https://rawad-store.github.io/konozalkhair/app/" target="_blank" rel="noopener noreferrer">موقع المؤسسة</a>
-<h2>انشر الخير</h2>
-<div class="card"><p class="verse" style="font-size:1.15rem">﴿فَاسْتَبِقُوا الْخَيْرَاتِ﴾<small>البقرة: 148</small></p>
-<p class="note" style="margin:6px 0 12px">الدالّ على الخير كفاعله. أرسل التطبيق لمن تحب.</p>
-<button class="btn gold" id="share3">شارك مع أصدقائك</button></div>
-<p class="note" style="text-align:center;margin-top:16px">© مؤسسة كنوز الخير للتنمية</p>
+  <h2>تواصل معنا</h2>
+  <div class="card"><b>العنوان</b><p class="note">شارع الطبابلة القديم بجوار معمل الزهرة، الصوة - أبوحماد - محافظة الشرقية</p></div>
+  <a class="btn" href="https://wa.me/201091866443" target="_blank" rel="noopener noreferrer" style="margin-bottom:10px">واتساب</a>
+  <a class="btn o" href="tel:+201091866443" style="margin-bottom:10px"><span dir="ltr">+20 10 91866443</span></a>
+  <a class="btn o" href="https://www.facebook.com/share/1FzKsPMMsG/" target="_blank" rel="noopener noreferrer" style="margin-bottom:10px">صفحتنا على فيسبوك</a>
+  <a class="btn o" href="https://rawad-store.github.io/konozalkhair/" target="_blank" rel="noopener noreferrer">موقع المؤسسة</a>
+  <h2>انشر الخير</h2>
+  <div class="card"><p class="verse" style="font-size:1.15rem">﴿فَاسْتَبِقُوا الْخَيْرَاتِ﴾<small>البقرة: 148</small></p>
+  <p class="note" style="margin:6px 0 12px">الدالّ على الخير كفاعله. أرسل التطبيق لمن تحب.</p>
+  <button class="btn gold" id="share3">شارك مع أصدقائك</button></div>
+  <p class="note" style="text-align:center;margin-top:16px">© مؤسسة كنوز الخير للتنمية</p>
 </section>
-
 </main>
+
 <nav>
-<button data-go="home" class="on"><span>🏠</span>الرئيسية</button>
-<button data-go="give"><span>🤲</span>تبرّع</button>
-<button data-go="help"><span>🤝</span>شارك</button>
-<button data-go="more"><span>📞</span>تواصل</button>
+  <button data-go="home" class="on"><span>🏠</span>الرئيسية</button>
+  <button data-go="give"><span>🤲</span>تبرّع</button>
+  <button data-go="help"><span>🤝</span>شارك</button>
+  <button data-go="more"><span>📞</span>تواصل</button>
 </nav>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 <script>
 (function(){
-var $=function(s){return document.querySelector(s)},$$=function(s){return[].slice.call(document.querySelectorAll(s))};
-var PH='201091866443',SITE='https://rawad-store.github.io/konozalkhair/app/';
-function toast(m){var t=$('#toast');t.textContent=m;t.classList.add('on');setTimeout(function(){t.classList.remove('on')},2400)}
-function wa(m){var a=document.createElement('a');a.href='https://wa.me/'+PH+'?text='+encodeURIComponent(m);a.target='_blank';a.rel='noopener noreferrer';document.body.appendChild(a);a.click();a.remove()}
-function ymd(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
-var store={get:function(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+'use strict';
 
-/* tabs */
-function go(t,sub){$$('.tab').forEach(function(e){e.classList.toggle('on',e.id==='t-'+t)});$$('nav button').forEach(function(b){var on=b.dataset.go===t;b.classList.toggle('on',on);if(on)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});if(sub)setSub(sub);window.scrollTo(0,0);try{location.hash=t}catch(e){}}
-function setSub(s){$$('.seg button').forEach(function(b){var on=b.dataset.sub===s;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});$('#s-case').hidden=s!=='case';$('#s-vol').hidden=s!=='vol'}
-$$('[data-go]').forEach(function(b){b.addEventListener('click',function(){go(b.dataset.go,b.dataset.sub)})});
-$$('.seg button').forEach(function(b){b.addEventListener('click',function(){setSub(b.dataset.sub)})});
-function fromHash(){var h=(location.hash||'').slice(1);if(['home','give','help','more'].indexOf(h)>-1&&!$('#t-'+h).classList.contains('on'))go(h)}
-window.addEventListener('hashchange',fromHash);fromHash();
+var $ = function(s){ return document.querySelector(s); };
+var $$ = function(s){ return [].slice.call(document.querySelectorAll(s)); };
+var PH = '201091866443';
+var SITE = 'https://rawad-store.github.io/konozalkhair/app/';
 
-/* verse of the day */
-var V=[['﴿مَّثَلُ الَّذِينَ يُنفِقُونَ أَمْوَالَهُمْ فِي سَبِيلِ اللَّهِ كَمَثَلِ حَبَّةٍ أَنبَتَتْ سَبْعَ سَنَابِلَ فِي كُلِّ سُنْبُلَةٍ مِّائَةُ حَبَّةٍ وَاللَّهُ يُضَاعِفُ لِمَن يَشَاءُ وَاللَّهُ وَاسِعٌ عَلِيمٌ﴾','البقرة: 261'],['﴿فَاسْتَبِقُوا الْخَيْرَاتِ﴾','البقرة: 148'],['﴿وَمَا تُقَدِّمُوا لِأَنفُسِكُم مِّنْ خَيْرٍ تَجِدُوهُ عِندَ اللَّهِ﴾','البقرة: 110'],['«وَتُمِيطُ الأَذَى عَنِ الطَّرِيقِ صَدَقَةٌ»','رواه مسلم (1009)'],['﴿مَنْ ذَا الَّذِي يُقْرِضُ اللَّهَ قَرْضًا حَسَنًا فَيُضَاعِفَهُ لَهُ أَضْعَافًا كَثِيرَةً وَاللَّهُ يَقْبِضُ وَيَبْسُطُ وَإِلَيْهِ تُرْجَعُونَ﴾','البقرة: 245']];
-var nd=new Date(),vi=V[Math.floor((nd.getTime()-nd.getTimezoneOffset()*6e4)/864e5)%V.length];$('#v').innerHTML=vi[0]+'<small>'+vi[1]+'</small>';
+function toast(m){
+  var t = $('#toast');
+  t.textContent = m;
+  t.classList.add('on');
+  clearTimeout(t._t);
+  t._t = setTimeout(function(){ t.classList.remove('on'); }, 2400);
+}
 
-/* daily deeds + growing plant */
-var D=[['كلمة طيبة','ابتسم أو قل كلمة تجبر خاطر أحدهم'],['مساعدة بسيطة','أعن جارًا أو غريبًا قدّر حاجته'],['علم أو وقت','علّم شيئًا نافعًا أو امنح وقتك لمن يحتاج'],['إماطة الأذى','أزل ما يؤذي المارة من الطريق'],['صدقة ولو قليلة','تبرع بما تستطيع اليوم']];
-var today=ymd(new Date()),S=store.get('kk',{days:{},total:0});
-function render(){var d=S.days[today]||[];var box=$('#deeds');box.innerHTML='';D.forEach(function(x,i){var l=document.createElement('label'),c=document.createElement('input');c.type='checkbox';c.checked=d.indexOf(i)>-1;c.addEventListener('change',function(){var a=S.days[today]||[];if(c.checked){if(a.indexOf(i)<0){a.push(i);S.total++}toast('جزاك الله خيرًا')}else{a=a.filter(function(k){return k!==i});S.total=Math.max(0,S.total-1)}if(a.length)S.days[today]=a;else delete S.days[today];store.set('kk',S);meter()});var s=document.createElement('span');s.innerHTML='<b>'+x[0]+'</b><i>'+x[1]+'</i>';l.appendChild(c);l.appendChild(s);box.appendChild(l)});meter()}
-function meter(){var n=0,dt=new Date();if(!S.days[ymd(dt)])dt.setDate(dt.getDate()-1);while(S.days[ymd(dt)]){n++;dt.setDate(dt.getDate()-1)}
-$('#m1').textContent='🔥 '+n+' يوم متتالٍ';$('#m2').textContent='🌱 '+S.total+' عمل خير';plant(S.total)}
-function plant(t){var st=t<1?0:t<4?1:t<9?2:t<16?3:4,s='<path d="M105 148 C105 '+(148-st*22-10)+' 105 '+(148-st*22-10)+' 105 '+(148-st*22-14)+'" stroke="#8fd19e" stroke-width="5" fill="none"/>';var lf=function(x,y,r,f){return'<ellipse cx="'+x+'" cy="'+y+'" rx="17" ry="8" transform="rotate('+r+' '+x+' '+y+')" fill="'+(f||'#52b788')+'"/>'};
-if(st===0)s='<circle cx="105" cy="146" r="7" fill="#d9a71b"/>';if(st>=1)s+=lf(92,126,-30)+lf(118,122,30);if(st>=2)s+=lf(90,100,-35,'#74c69d')+lf(120,96,35,'#74c69d');if(st>=3)s+=lf(92,74,-35)+lf(118,70,35)+lf(105,52,-90,'#95d5b2');if(st>=4)s+='<circle cx="105" cy="34" r="12" fill="#ffd60a"/><circle cx="105" cy="34" r="5" fill="#fff"/>';$('#pl').innerHTML=s}
-render();
+function wa(m){
+  var url = 'https://wa.me/' + PH + '?text=' + encodeURIComponent(m);
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
 
-/* donate */
-var T=['صدقة عامة','كفالة يتيم','كفالة أسرة','تبرع عيني','مشروع بناء بيت'],A=[50,100,200,500,1000],type=0;
-function chips(id,arr,fn,fmt){var c=$(id);arr.forEach(function(v,i){var b=document.createElement('button');b.textContent=fmt?fmt(v):v;b.setAttribute('aria-pressed','false');b.addEventListener('click',function(){$$(id+' button').forEach(function(x){x.classList.remove('on');x.setAttribute('aria-pressed','false')});b.classList.add('on');b.setAttribute('aria-pressed','true');fn(v,i)});c.appendChild(b)})}
-chips('#types',T,function(v,i){type=i});$('#types button').classList.add('on');$('#types button').setAttribute('aria-pressed','true');
-chips('#amts',A,function(v){$('#amt').value=v});$('#amt').addEventListener('input',function(){$$('#amts button').forEach(function(x){x.classList.remove('on');x.setAttribute('aria-pressed','false')})});
-$('#gv').addEventListener('click',function(){var m=parseInt($('#amt').value,10);m=m>0?m:'';var n=$('#dn').value.trim();wa('السلام عليكم ورحمة الله، أرغب في التبرع لمؤسسة كنوز الخير.\nنوع التبرع: '+T[type]+(m?'\nالمبلغ: '+m+' جنيه':'')+(n?'\nالاسم: '+n:'')+'\nأرجو إرسال بيانات التحويل.')});
+function ymd(d){
+  return d.getFullYear() + '-' + ('0' + (d.getMonth()+1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+}
 
-/* case + volunteer */
-$('#cs').addEventListener('click',function(){var d=$('#cd').value.trim(),a=$('#ca').value.trim();if(!d||!a){toast('اكتب المنطقة وتفاصيل الحالة أولًا');return}wa('السلام عليكم، أود الإبلاغ عن حالة تحتاج مساعدة.\nالنوع: '+$('#ct').value+'\nالمنطقة: '+a+'\nالتفاصيل: '+d+(($('#cn').value.trim())?'\nالمبلّغ: '+$('#cn').value.trim():''))});
-$('#vs').addEventListener('click',function(){var n=$('#vn').value.trim();if(!n){toast('اكتب اسمك أولًا');return}wa('السلام عليكم، أرغب في التطوع مع مؤسسة كنوز الخير.\nالاسم: '+n+'\nمجال المساهمة: '+$('#vi').value+(($('#vt').value.trim())?'\nالوقت المناسب: '+$('#vt').value.trim():''))});
+var store = {
+  get: function(k, d){ try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch(e){ return d; } },
+  set: function(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
+};
 
-/* share */
-function share(){var x={title:'مؤسسة كنوز الخير للتنمية',text:'خيرٌ لكل الناس 🌱\nتبرّع، أبلغ عن حالة، أو تطوّع معنا.\nالدالّ على الخير كفاعله.\n\nافتح التطبيق:',url:SITE};if(navigator.share){navigator.share(x).catch(function(){})}else if(navigator.clipboard){navigator.clipboard.writeText(x.text+' '+x.url).then(function(){toast('تم نسخ رسالة المشاركة')},function(){toast(x.url)})}else toast(x.url)}
-['#share','#share2','#share3'].forEach(function(s){$(s).addEventListener('click',share)});
-})();
-</script>
+/* ===== TABS ===== */
+function go(t, sub){
+  $$('.tab').forEach(function(e){ e.classList.toggle('on', e.id === 't-' + t); });
+  $$('nav button').forEach(function(b){
+    var on = b.dataset.go === t;
+    b.classList.toggle('on', on);
+    if(on) b.setAttribute('aria-current','page');
+    else b.removeAttribute('aria-current');
+  });
+  if(sub) setSub(sub);
+  window.scrollTo(0, 0);
+  try { location.hash = t; } catch(e){}
+}
 
+function setSub(s){
+  $$('.seg button').forEach(function(b){
+    var on = b.dataset.sub === s;
+    b.classList.toggle('on', on);
+    b.setAttribute('aria-pressed', on);
+  });
+  $('#s-case').hidden = s !== 'case';
+  $('#s-vol').hidden = s !== 'vol';
+}
 
+$$('[data-go]').forEach(function(b){ b.addEventListener('click', function(){ go(b.dataset.go, b.dataset.sub); }); });
+$$('.seg button').forEach(function(b){ b.addEventListener('click', function(){ setSub(b.dataset.sub); }); });
 
+function fromHash(){
+  var h = (location.hash || '').slice(1);
+  if(['home','give','help','more'].indexOf(h) > -1 && !$('#t-' + h).classList.contains('on')) go(h);
+}
+window.addEventListener('hashchange', fromHash);
+fromHash();
 
+/* ===== VERSE OF THE DAY ===== */
+var V = [
+  ['﴿مَّثَلُ الَّذِينَ يُنفِقُونَ أَمْوَالَهُمْ فِي سَبِيلِ اللَّهِ كَمَثَلِ حَبَّةٍ أَنبَتَتْ سَبْعَ سَنَابِلَ فِي كُلِّ سُنبُلَةٍ مِّائَةُ حَبَّةٍ وَاللَّهُ يُضَاعِفُ لِمَن يَشَاءُ وَاللَّهُ وَاسِعٌ عَلِيمٌ﴾','البقرة: 261'],
+  ['﴿فَاسْتَبِقُوا الْخَيْرَاتِ﴾','البقرة: 148'],
+  ['﴿وَمَا تُقَدِّمُوا لِأَنفُسِكُم مِّنْ خَيْرٍ تَجِدُوهُ عِندَ اللَّهِ﴾','البقرة: 110'],
+  ['«وَتُمِيطُ الأَذَى عَنِ الطَّرِيقِ صَدَقَةٌ»','رواه مسلم (1009)'],
+  ['﴿مَنْ ذَا الَّذِي يُقْرِضُ اللَّهَ قَرْضًا حَسَنًا فَيُضَاعِفَهُ لَهُ أَضْعَافًا كَثِيرَةً﴾','البقرة: 245']
+];
+var dayIdx = Math.floor(Date.now() / 86400000) % V.length;
+$('#v').innerHTML = V[dayIdx][0] + '<small>' + V[dayIdx][1] + '</small>';
 
+/* ===== DEEDS ===== */
+var D = [
+  ['كلمة طيبة','ابتسم أو قل كلمة تجبر خاطر أحدهم'],
+  ['مساعدة بسيطة','أعن جارًا أو غريبًا قدّر حاجته'],
+  ['علم أو وقت','علّم شيئًا نافعًا أو امنح وقتك لمن يحتاج'],
+  ['إماطة الأذى','أزل ما يؤذي المارة من الطريق'],
+  ['صدقة ولو قليلة','تبرع بما تستطيع اليوم']
+];
+var today = ymd(new Date()), S = store.get('kk_v3', { days:{}, total:0 });
+if(!S.days) S.days = {};
+if(typeof S.total !== 'number') S.total = 0;
 
-<script>
-/* تسجيل Service Worker للعمل بدون إنترنت */
-(function () {
-  if (!('serviceWorker' in navigator)) return;
+function renderDeeds(){
+  var d = S.days[today] || [];
+  var box = $('#deeds');
+  box.innerHTML = '';
+  D.forEach(function(x, i){
+    var l = document.createElement('label'), c = document.createElement('input');
+    c.type = 'checkbox';
+    c.checked = d.indexOf(i) > -1;
+    c.addEventListener('change', function(){
+      var a = (S.days[today] || []).slice();
+      if(c.checked){
+        if(a.indexOf(i) < 0){ a.push(i); S.total++; }
+        toast('جزاك الله خيرًا');
+      } else {
+        a = a.filter(function(k){ return k !== i; });
+        S.total = Math.max(0, S.total - 1);
+      }
+      if(a.length) S.days[today] = a;
+      else delete S.days[today];
+      store.set('kk_v3', S);
+      meter();
+    });
+    var s = document.createElement('span');
+    s.innerHTML = '<b>' + x[0] + '</b><i>' + x[1] + '</i>';
+    l.appendChild(c); l.appendChild(s); box.appendChild(l);
+  });
+  meter();
+}
 
+function calcStreak(){
+  var n = 0, dt = new Date();
+  if(!S.days[ymd(dt)]) dt.setDate(dt.getDate() - 1);
+  while(S.days[ymd(dt)]){
+    n++;
+    dt.setDate(dt.getDate() - 1);
+  }
+  return n;
+}
+
+function meter(){
+  $('#m1').textContent = '🔥 ' + calcStreak() + ' يوم متتالٍ';
+  $('#m2').textContent = '🌱 ' + S.total + ' عمل خير';
+}
+renderDeeds();
+
+/* ===== DONATE ===== */
+var T = ['صدقة عامة','كفالة يتيم','كفالة أسرة','تبرع عيني','مشروع بناء بيت','أخرى'];
+var A = [50, 100, 200, 500, 1000];
+var selType = 0;
+
+function chips(id, arr, fn){
+  var c = $(id);
+  c.innerHTML = '';
+  arr.forEach(function(v, i){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = v;
+    b.setAttribute('aria-pressed','false');
+    b.addEventListener('click', function(){
+      $$(id + ' button').forEach(function(x){ x.classList.remove('on'); x.setAttribute('aria-pressed','false'); });
+      b.classList.add('on');
+      b.setAttribute('aria-pressed','true');
+      fn(v, i);
+    });
+    c.appendChild(b);
+  });
+}
+
+chips('#types', T, function(v, i){ selType = i; });
+chips('#amts', A, function(v){ $('#amt').value = v; });
+
+var t0 = $('#types button');
+if(t0){ t0.classList.add('on'); t0.setAttribute('aria-pressed','true'); }
+var a0 = $('#amts button');
+if(a0){ a0.classList.add('on'); a0.setAttribute('aria-pressed','true'); $('#amt').value = A[0]; }
+
+$('#amt').addEventListener('input', function(){
+  $$('#amts button').forEach(function(x){ x.classList.remove('on'); x.setAttribute('aria-pressed','false'); });
+});
+
+$('#gv').addEventListener('click', function(){
+  var m = parseInt($('#amt').value, 10);
+  m = m > 0 ? m : '';
+  var n = $('#dn').value.trim();
+  wa('السلام عليكم ورحمة الله، أرغب في التبرع لمؤسسة كنوز الخير.\nنوع التبرع: ' + T[selType] + (m ? '\nالمبلغ: ' + m + ' جنيه' : '') + (n ? '\nالاسم: ' + n : '') + '\nأرجو إرسال بيانات التحويل.');
+});
+
+/* ===== CASE + VOLUNTEER ===== */
+$('#cs').addEventListener('click', function(){
+  var d = $('#cd').value.trim(), a = $('#ca').value.trim();
+  if(!d || !a){ toast('اكتب المنطقة وتفاصيل الحالة أولًا'); return; }
+  var msg = 'السلام عليكم، أود الإبلاغ عن حالة تحتاج مساعدة.\nالنوع: ' + $('#ct').value + '\nالمنطقة: ' + a + '\nالتفاصيل: ' + d;
+  var n = $('#cn').value.trim();
+  var p = $('#cp') ? $('#cp').value.trim() : '';
+  if(n) msg += '\nالمبلّغ: ' + n;
+  if(p) msg += '\nرقم التواصل: ' + p;
+  wa(msg);
+});
+
+$('#vs').addEventListener('click', function(){
+  var n = $('#vn').value.trim();
+  if(!n){ toast('اكتب اسمك أولًا'); return; }
+  var msg = 'السلام عليكم، أرغب في التطوع مع مؤسسة كنوز الخير.\nالاسم: ' + n + '\nمجال المساهمة: ' + $('#vi').value;
+  var t = $('#vt').value.trim();
+  if(t) msg += '\nالوقت المناسب: ' + t;
+  wa(msg);
+});
+
+/* ===== SHARE ===== */
+function share(){
+  var x = {
+    title: 'مؤسسة كنوز الخير للتنمية',
+    text: 'خيرٌ لكل الناس 🌱\nتبرّع، أبلغ عن حالة، أو تطوّع معنا.\nالدالّ على الخير كفاعله.\n\nافتح التطبيق:',
+    url: SITE
+  };
+  if(navigator.share){
+    navigator.share(x).catch(function(){});
+  } else if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(x.text + ' ' + x.url).then(function(){ toast('تم نسخ رسالة المشاركة'); }, function(){ toast(x.url); });
+  } else {
+    toast(x.url);
+  }
+}
+['#share','#share2','#share3'].forEach(function(s){ if($(s)) $(s).addEventListener('click', share); });
+
+/* ===== CASES (JSON) ===== */
+function loadCases(){
+  var box = document.getElementById('cases-container');
+  var countEl = document.getElementById('cases-count');
+  if(!box) return;
+  
+  fetch('./cases.json?t=' + Date.now())
+    .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
+    .then(function(list){
+      if(!list || !list.length){
+        box.innerHTML = '<div class="cases-empty">لا توجد حالات حالياً 🌱<br><small>كن أول من يساهم في الخير</small></div>';
+        if(countEl) countEl.textContent = '0';
+        return;
+      }
+      if(countEl) countEl.textContent = list.length;
+      box.innerHTML = '';
+      list.forEach(function(c){
+        var card = document.createElement('div');
+        card.className = 'case-card' + (c.urgent ? ' urgent' : '');
+        card.innerHTML =
+          '<h3>' + (c.title || 'حالة') + '</h3>' +
+          '<p>' + (c.description || '') + '</p>' +
+          '<div class="case-meta">' +
+            (c.needed ? '<span>💰 ' + c.needed + '</span>' : '') +
+            (c.location ? '<span>📍 ' + c.location + '</span>' : '') +
+          '</div>' +
+          '<button class="btn" data-case="' + (c.id || '') + '">🤲 تبرّع لهذه الحالة</button>';
+        box.appendChild(card);
+      });
+      
+      box.querySelectorAll('[data-case]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var id = btn.getAttribute('data-case');
+          var item = list.find(function(x){ return String(x.id) === String(id); });
+          var msg = 'السلام عليكم، أرغب في التبرع للحالة التالية:\n' +
+            (item ? (item.title + '\n' + (item.description || '') + '\nالمبلغ المطلوب: ' + (item.needed || 'حسب الاستطاعة')) : 'حالة رقم ' + id);
+          wa(msg);
+        });
+      });
+    })
+    .catch(function(){
+      box.innerHTML = '<div class="cases-empty">تعذر تحميل الحالات حالياً</div>';
+    });
+}
+
+/* ===== SERVICE WORKER ===== */
+if ('serviceWorker' in navigator && location.protocol !== 'file:') {
   window.addEventListener('load', function () {
     navigator.serviceWorker.register('./sw.js', { scope: './' })
-      .then(function (reg) {
-        console.log('✅ التطبيق جاهز للعمل بدون إنترنت');
-
-        // التحقق من وجود تحديثات
-        reg.addEventListener('updatefound', function () {
-          var newWorker = reg.installing;
-          if (!newWorker) return;
-          newWorker.addEventListener('statechange', function () {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              // يوجد تحديث جديد
-              console.log('يوجد تحديث جديد للتطبيق');
-            }
-          });
-        });
-      })
-      .catch(function (err) {
-        console.log('فشل تسجيل Service Worker:', err);
-      });
-
-    // إعادة التحميل عند تفعيل نسخة جديدة
-    var refreshing = false;
-    navigator.serviceWorker.addEventListener('controllerchange', function () {
-      if (refreshing) return;
-      refreshing = true;
-      window.location.reload();
-    });
+      .catch(function (e) { console.log('SW registration failed:', e); });
   });
+}
+
+document.addEventListener('DOMContentLoaded', loadCases);
+
 })();
 </script>
-
 </body>
 </html>
