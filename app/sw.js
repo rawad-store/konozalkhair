@@ -1,5 +1,5 @@
 /* Service Worker - كنوز الخير (آخر تحديث أولوية) */
-const CACHE_NAME = 'konoz-v6'; // تم تغيير الإصدار لإجبار المتصفح على التحديث
+const CACHE_NAME = 'konoz-v13'; // تم تغيير الإصدار لإجبار المتصفح على التحديث
 
 const CORE_ASSETS = [
   './',
