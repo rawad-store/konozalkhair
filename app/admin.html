@@ -250,13 +250,16 @@
       <h2>📝 إدارة الحالات</h2>
     </div>
     
+    <!-- هذا هو الحقل المخفي الذي كان مفقوداً -->
+    <input type="hidden" id="edit-id">
+    
     <div class="form-group">
       <label>عنوان الحالة</label>
       <input type="text" id="case-title" class="form-control" placeholder="مثال: كفالة يتيم">
     </div>
     <div class="form-group">
       <label>الوصف</label>
-      <textarea id="case-desc" class="form-control" rows="2" placeholder="تفاصيل الحالة..."></textarea>
+      <textarea id="case-desc" class="form-control" rows="3" placeholder="تفاصيل الحالة..."></textarea>
     </div>
     <div class="form-group" style="display: flex; gap: 15px;">
       <div style="flex: 1;">
@@ -275,7 +278,6 @@
       </label>
     </div>
 
-    <input type="hidden" id="edit-id">
     <div class="actions-row">
       <button class="btn btn-success" onclick="saveCase()" id="btn-save-case">➕ إضافة الحالة</button>
       <button class="btn" style="background:#6c757d; flex: 0.5;" onclick="resetForm()">مسح</button>
