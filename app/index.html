@@ -577,7 +577,7 @@ function share(){
 }
 ['#share','#share2','#share3'].forEach(function(s){ if($(s)) $(s).addEventListener('click', share); });
 
-//* ===== CASES (JSON + LocalStorage Fallback) ===== */
+/* ===== CASES (Network First, LocalStorage Fallback) ===== */
 function loadCases(){
   var box = document.getElementById('cases-container');
   var countEl = document.getElementById('cases-count');
@@ -616,7 +616,7 @@ function loadCases(){
     });
   }
 
-  // المحاولة الأولى: جلب الملف من الإنترنت (الشبكة أولاً)
+  // 1. المحاولة الأولى: جلب الملف من الإنترنت (الشبكة أولاً)
   fetch('./cases.json?t=' + Date.now())
     .then(function(r){ 
       if(!r.ok) throw new Error('Network response was not ok');
@@ -628,7 +628,7 @@ function loadCases(){
       try { localStorage.setItem('admin_cases', JSON.stringify(data)); } catch(e){}
     })
     .catch(function(){
-      // المحاولة الثانية: إذا فشل الإنترنت، استخدم الذاكرة المحلية
+      // 2. المحاولة الثانية: إذا فشل الإنترنت، استخدم الذاكرة المحلية
       var localCases = null;
       try { localCases = JSON.parse(localStorage.getItem('admin_cases')); } catch(e) {}
       
