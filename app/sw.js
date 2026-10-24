@@ -1,5 +1,5 @@
 /* Service Worker قوي - مؤسسة كنوز الخير */
-const CACHE_NAME = 'konoz-offline-v3';
+const CACHE_NAME = 'konoz-offline-v5';
 
 // الملفات الأساسية التي تُحفظ فور التثبيت
 const CORE_ASSETS = [
