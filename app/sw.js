@@ -1,64 +1,68 @@
 /* Service Worker - كنوز الخير */
-var VERSION = 'konoz-v15';
-var CORE = './';
-var SHELL = ['./', './index.html', './manifest.json', './cases.json',
-  './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png',
-  './hero-bg.jpg', './preview.jpg'];
-var FONT_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com'];
+const CACHE_NAME = 'konoz-v16';
 
-self.addEventListener('install', function (e) {
+const CORE_ASSETS = [
+  './',
+  './index.html',
+  './admin.html',
+  './manifest.json',
+  './hero-bg.jpg',
+  './preview.jpg'
+];
+
+self.addEventListener('install', (event) => {
   self.skipWaiting();
-  e.waitUntil(caches.open(VERSION).then(function (c) {
-    return Promise.all(SHELL.map(function (u) {
-      return fetch(u, { cache: 'no-store' }).then(function (r) { if (r.ok) return c.put(u, r); }).catch(function () {});
-    }));
-  }));
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return Promise.all(
+        CORE_ASSETS.map(url => fetch(url, {cache: 'no-store'}).then(r => {
+            if(r.ok) cache.put(url, r);
+        }).catch(() => {}))
+      );
+    })
+  );
 });
 
-self.addEventListener('activate', function (e) {
-  e.waitUntil(caches.keys().then(function (ks) {
-    return Promise.all(ks.filter(function (k) { return k !== VERSION; }).map(function (k) { return caches.delete(k); }));
-  }).then(function () { return self.clients.claim(); }));
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(
+        keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k))
+      )
+    ).then(() => self.clients.claim())
+  );
 });
 
-self.addEventListener('message', function (e) { if (e.data === 'skipWaiting') self.skipWaiting(); });
-
-function put(key, res) {
-  if (res && res.status === 200) { var cl = res.clone(); caches.open(VERSION).then(function (c) { c.put(key, cl); }); }
-  return res;
-}
-
-self.addEventListener('fetch', function (e) {
-  var req = e.request;
+self.addEventListener('fetch', (event) => {
+  const req = event.request;
   if (req.method !== 'GET') return;
-  var url = new URL(req.url);
 
-  // الخطوط: من الكاش أولًا ثم تحديث في الخلفية
-  if (FONT_HOSTS.indexOf(url.hostname) > -1) {
-    e.respondWith(caches.match(req).then(function (hit) {
-      var net = fetch(req).then(function (r) { return put(req, r); }).catch(function () { return hit; });
-      return hit || net;
-    }));
-    return;
-  }
+  const url = new URL(req.url);
   if (url.origin !== location.origin) return;
 
-  // الحالات: الشبكة دائمًا، وعند الانقطاع آخر نسخة محفوظة
-  if (url.pathname.slice(-10) === 'cases.json') {
-    e.respondWith(fetch(req.url.split('?')[0] + '?t=' + Date.now(), { cache: 'no-store' })
-      .then(function (r) { return put('./cases.json', r); })
-      .catch(function () { return caches.match('./cases.json').then(function (h) { return h || new Response('[]', { headers: { 'Content-Type': 'application/json' } }); }); }));
+  // 🔴 تخطي الكاش للحالات ولوحة التحكم
+  if (url.pathname.endsWith('cases.json') || url.pathname.endsWith('admin.html')) {
+    event.respondWith(
+      fetch(req, { cache: 'no-store', credentials: 'same-origin' })
+        .catch(() => caches.match('./cases.json'))
+    );
     return;
   }
 
-  // التنقل بين الصفحات: الشبكة أولًا ثم الصفحة المحفوظة
-  if (req.mode === 'navigate') {
-    e.respondWith(fetch(req).then(function (r) { return put(req, r); })
-      .catch(function () { return caches.match(req, { ignoreSearch: true }).then(function (h) { return h || caches.match('./index.html').then(function (i) { return i || caches.match(CORE); }); }); }));
-    return;
-  }
-
-  // باقي الملفات: الشبكة أولًا
-  e.respondWith(fetch(req).then(function (r) { return put(req, r); })
-    .catch(function () { return caches.match(req, { ignoreSearch: true }); }));
+  // استراتيجية Network First لباقي الملفات
+  event.respondWith(
+    fetch(req)
+      .then((networkRes) => {
+        if (networkRes && networkRes.status === 200) {
+          const clone = networkRes.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, clone));
+        }
+        return networkRes;
+      })
+      .catch(() => {
+        return caches.match(req).then((cached) => {
+          return cached || caches.match('./index.html');
+        });
+      })
+  );
 });
