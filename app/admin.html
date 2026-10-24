@@ -6,94 +6,412 @@
 <title>لوحة تحكم - كنوز الخير</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  :root { --g: #1b5e40; --bg: #f3f7f5; --card: #fff; --tx: #14291f; --ln: #d4e5db; }
-  body { font-family: 'Cairo', sans-serif; background: var(--bg); color: var(--tx); padding: 20px; max-width: 800px; margin: auto; }
-  h1 { color: var(--g); text-align: center; }
-  .card { background: var(--card); padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid var(--ln); }
-  label { display: block; margin: 10px 0 5px; font-weight: 600; }
-  input, textarea, select { width: 100%; padding: 10px; border: 1px solid var(--ln); border-radius: 8px; font-family: inherit; box-sizing: border-box; }
-  button { background: var(--g); color: #fff; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 700; width: 100%; margin-top: 15px; transition: 0.2s; }
-  button:hover { opacity: 0.9; }
-  .btn-danger { background: #e74c3c; padding: 6px 12px; width: auto; margin: 0; font-size: 0.85rem; }
-  .btn-edit { background: #f39c12; padding: 6px 12px; width: auto; margin: 0; font-size: 0.85rem; }
-  .btn-export { background: #2980b9; margin-bottom: 20px; }
-  .btn-github { background: #24292e; }
-  .case-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--ln); padding: 10px 0; }
+  :root {
+    --primary: #2d6a4f;
+    --primary-hover: #1b4332;
+    --bg: #f8f9fa;
+    --card: #ffffff;
+    --text: #2b2d42;
+    --text-muted: #6c757d;
+    --border: #dee2e6;
+    --success: #2a9d8f;
+    --danger: #e63946;
+    --info: #457b9d;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    padding: 40px 20px;
+    line-height: 1.6;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* تنسيق البطاقة الرئيسية */
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    padding: 30px;
+    margin-bottom: 30px;
+    border: 1px solid var(--border);
+  }
+
+  .card-header {
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card-header h2 {
+    font-size: 1.3rem;
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  .card-header .badge {
+    background: #fff3cd;
+    color: #856404;
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+
+  .description {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 25px;
+    line-height: 1.8;
+  }
+
+  .description a {
+    color: var(--info);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  /* تنسيق الحقول */
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--text);
+    background-color: var(--bg);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .form-control:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);
+  }
+
+  /* تنسيق الأزرار */
+  .actions-row {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+  }
+
+  .btn {
+    flex: 1;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+    color: #fff;
+  }
+
+  .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn:active { transform: translateY(1px); }
+
+  .btn-danger { background-color: var(--danger); }
+  .btn-success { background-color: var(--success); }
+  .btn-primary { background-color: var(--info); }
+
+  /* شريط الحالة السفلي */
+  .status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ccc;
+  }
+
+  .status-dot.active { background-color: var(--success); }
+  .status-dot.inactive { background-color: var(--danger); }
+
+  /* تنسيقات إدارة الحالات الإضافية */
+  .case-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding: 15px 0;
+  }
   .case-item:last-child { border-bottom: none; }
-  .case-info h3 { margin: 0; font-size: 1.1rem; }
-  .case-info p { margin: 5px 0; font-size: 0.85rem; color: #666; }
-  .actions { display: flex; gap: 5px; }
-  .config-box { background: #fff3cd; border: 1px solid #ffeeba; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+  .case-info h3 { margin: 0; font-size: 1.1rem; color: var(--primary); }
+  .case-info p { margin: 5px 0; font-size: 0.85rem; color: var(--text-muted); }
+  .case-actions { display: flex; gap: 8px; }
+  .btn-sm { padding: 6px 12px; font-size: 0.85rem; border-radius: 6px; width: auto; flex: none; }
 </style>
 </head>
 <body>
 
-<h1>لوحة تحكم الحالات</h1>
+<div class="container">
+  
+  <!-- قسم النشر التلقائي (تصميم الصورة) -->
+  <div class="card">
+    <div class="card-header">
+      <h2>🚀 النشر التلقائي على GitHub (اختياري)</h2>
+      <span class="badge">اختياري</span>
+    </div>
+    
+    <p class="description">
+      قم بتفعيل هذا القسم لتحديث ملف <code>cases.json</code> مباشرة على GitHub دون رفع يدوي. يتطلب ذلك إنشاء مفتاح <strong>Personal Access Token</strong> بصلاحية <strong>Read & Write</strong> على محتوى المستودع.
+      <br>
+      <small>ملاحظة: يتم حفظ الإعدادات والمفتاح محلياً في متصفحك فقط ولن يتم إرسالها إلى أي خادم خارجي، يمكنك إيقاف التفعيل بمسح المفتاح.</small>
+    </p>
 
-<!-- إعدادات GitHub -->
-<div class="card config-box">
-  <h3>⚙️ إعدادات الاتصال بـ GitHub (للتحديث المباشر)</h3>
-  <label>اسم المستخدم (Owner)</label>
-  <input type="text" id="gh-owner" placeholder="rawad-store" value="rawad-store">
-  
-  <label>اسم المستودع (Repo)</label>
-  <input type="text" id="gh-repo" placeholder="konozalkhair" value="konozalkhair">
-  
-  <label>مفتاح الوصول (Token)</label>
-  <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxx">
-  <small style="color:#856404;">يتم حفظ المفتاح في متصفحك فقط ولا يُرسل لأي مكان آخر.</small>
-</div>
+    <div class="form-group">
+      <label>مالك المستودع (Username/Org)</label>
+      <input type="text" id="gh-owner" class="form-control" placeholder="rawad-store">
+    </div>
 
-<!-- نموذج الإضافة/التعديل -->
-<div class="card">
-  <h2 id="form-title">إضافة حالة جديدة</h2>
-  <input type="hidden" id="case-id">
-  <label>عنوان الحالة</label>
-  <input type="text" id="title" placeholder="مثال: كفالة يتيم">
-  
-  <label>الوصف</label>
-  <textarea id="description" rows="3" placeholder="تفاصيل الحالة..."></textarea>
-  
-  <label>المبلغ المطلوب</label>
-  <input type="text" id="needed" placeholder="مثال: 500 جنيه شهريًا">
-  
-  <label>الموقع</label>
-  <input type="text" id="location" placeholder="مثال: الصوة - الشرقية">
-  
-  <label>
-    <input type="checkbox" id="urgent" style="width: auto; display: inline-block; margin-left: 5px;"> 
-    حالة عاجلة؟
-  </label>
+    <div class="form-group">
+      <label>اسم المستودع</label>
+      <input type="text" id="gh-repo" class="form-control" placeholder="konozalkhair">
+    </div>
 
-  <button onclick="saveCase()">💾 حفظ الحالة (محلياً)</button>
-</div>
+    <div class="form-group">
+      <label>الفرع</label>
+      <input type="text" id="gh-branch" class="form-control" placeholder="main" value="main">
+    </div>
 
-<!-- أزرار التحديث -->
-<div class="card">
-  <h2>تحديث الموقع</h2>
-  <p style="font-size: 0.9rem; color: #666;">بعد إضافة الحالات، استخدم أحد الخيارين:</p>
-  
-  <button class="btn-export" onclick="exportData()">⬇️ تصدير cases.json (يدوياً)</button>
-  
-  <button class="btn-github" onclick="updateGitHub()">🚀 تحديث مباشر على GitHub (بدون رفع يدوي)</button>
-</div>
+    <div class="form-group">
+      <label>مسار ملف الحالات</label>
+      <input type="text" id="gh-path" class="form-control" placeholder="cases.json" value="cases.json">
+    </div>
 
-<!-- قائمة الحالات -->
-<div class="card">
-  <h2>الحالات المحفوظة</h2>
-  <div id="cases-list"></div>
+    <div class="form-group">
+      <label>Personal Access Token</label>
+      <input type="password" id="gh-token" class="form-control" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+    </div>
+
+    <div class="actions-row">
+      <button class="btn btn-danger" onclick="stopPublication()">✖ إيقاف</button>
+      <button class="btn btn-success" onclick="saveSettings()">💾 حفظ الإعدادات</button>
+      <button class="btn btn-primary" onclick="testConnection()">⚡ اختبار الاتصال</button>
+    </div>
+
+    <div class="status-bar">
+      <div class="status-indicator">
+        <div class="status-dot" id="status-dot"></div>
+        <span id="status-text">غير متصل</span>
+      </div>
+      <div id="status-details">
+        الإعدادات والتوكن محفوظان على هذا الجهاز.
+      </div>
+    </div>
+  </div>
+
+  <!-- قسم إدارة الحالات -->
+  <div class="card">
+    <div class="card-header">
+      <h2>📝 إدارة الحالات</h2>
+    </div>
+    
+    <div class="form-group">
+      <label>عنوان الحالة</label>
+      <input type="text" id="case-title" class="form-control" placeholder="مثال: كفالة يتيم">
+    </div>
+    <div class="form-group">
+      <label>الوصف</label>
+      <textarea id="case-desc" class="form-control" rows="2" placeholder="تفاصيل الحالة..."></textarea>
+    </div>
+    <div class="form-group" style="display: flex; gap: 15px;">
+      <div style="flex: 1;">
+        <label>المبلغ المطلوب</label>
+        <input type="text" id="case-needed" class="form-control" placeholder="500 جنيه">
+      </div>
+      <div style="flex: 1;">
+        <label>الموقع</label>
+        <input type="text" id="case-location" class="form-control" placeholder="الشرقية">
+      </div>
+    </div>
+    <div class="form-group">
+      <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+        <input type="checkbox" id="case-urgent" style="width: 18px; height: 18px; accent-color: var(--danger);"> 
+        هل الحالة عاجلة؟
+      </label>
+    </div>
+
+    <input type="hidden" id="edit-id">
+    <div class="actions-row">
+      <button class="btn btn-success" onclick="saveCase()" id="btn-save-case">➕ إضافة الحالة</button>
+      <button class="btn" style="background:#6c757d; flex: 0.5;" onclick="resetForm()">مسح</button>
+    </div>
+  </div>
+
+  <!-- قائمة الحالات الحالية -->
+  <div class="card">
+    <div class="card-header">
+      <h2>📋 الحالات المضافة (محلياً)</h2>
+    </div>
+    <div id="cases-list"></div>
+    <div class="actions-row" style="margin-top: 20px;">
+      <button class="btn btn-primary" onclick="publishToGitHub()" style="flex: 1;">🚀 نشر كل التعديلات إلى GitHub</button>
+    </div>
+  </div>
+
 </div>
 
 <script>
-// تحميل البيانات
 let cases = JSON.parse(localStorage.getItem('admin_cases')) || [];
 let editingIndex = -1;
 
-// تحميل إعدادات GitHub المحفوظة
-document.getElementById('gh-owner').value = localStorage.getItem('gh_owner') || 'rawad-store';
-document.getElementById('gh-repo').value = localStorage.getItem('gh_repo') || 'konozalkhair';
-document.getElementById('gh-token').value = localStorage.getItem('gh_token') || '';
+// تحميل الإعدادات عند فتح الصفحة
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('gh-owner').value = localStorage.getItem('gh_owner') || 'rawad-store';
+  document.getElementById('gh-repo').value = localStorage.getItem('gh_repo') || 'konozalkhair';
+  document.getElementById('gh-branch').value = localStorage.getItem('gh_branch') || 'main';
+  document.getElementById('gh-path').value = localStorage.getItem('gh_path') || 'cases.json';
+  document.getElementById('gh-token').value = localStorage.getItem('gh_token') || '';
+  
+  updateStatusUI();
+  renderList();
+  
+  // محاولة تحميل الحالات من الموقع إذا لم توجد محلياً
+  if (cases.length === 0) {
+    fetch('./cases.json')
+      .then(r => r.json())
+      .then(data => {
+        cases = data;
+        localStorage.setItem('admin_cases', JSON.stringify(cases));
+        renderList();
+      }).catch(() => {});
+  }
+});
 
+// ===== إعدادات GitHub =====
+function getSettings() {
+  return {
+    owner: document.getElementById('gh-owner').value.trim(),
+    repo: document.getElementById('gh-repo').value.trim(),
+    branch: document.getElementById('gh-branch').value.trim(),
+    path: document.getElementById('gh-path').value.trim(),
+    token: document.getElementById('gh-token').value.trim()
+  };
+}
+
+function saveSettings() {
+  const s = getSettings();
+  if (!s.owner || !s.repo || !s.token) {
+    alert('يرجى ملء الحقول الأساسية (المالك، المستودع، والمفتاح).');
+    return;
+  }
+  localStorage.setItem('gh_owner', s.owner);
+  localStorage.setItem('gh_repo', s.repo);
+  localStorage.setItem('gh_branch', s.branch);
+  localStorage.setItem('gh_path', s.path);
+  localStorage.setItem('gh_token', s.token);
+  updateStatusUI();
+  alert('تم حفظ الإعدادات بنجاح!');
+}
+
+function stopPublication() {
+  localStorage.removeItem('gh_token');
+  document.getElementById('gh-token').value = '';
+  updateStatusUI();
+  alert('تم إيقاف النشر التلقائي (تم مسح المفتاح).');
+}
+
+function updateStatusUI() {
+  const token = localStorage.getItem('gh_token');
+  const dot = document.getElementById('status-dot');
+  const text = document.getElementById('status-text');
+  const details = document.getElementById('status-details');
+
+  if (token) {
+    dot.className = 'status-dot active';
+    text.innerText = 'مفعل';
+    const owner = localStorage.getItem('gh_owner');
+    const repo = localStorage.getItem('gh_repo');
+    const branch = localStorage.getItem('gh_branch');
+    details.innerHTML = `✔ الإعدادات محفوظة. النشر متجه إلى <b>${owner}/${repo}</b> (فرع ${branch})`;
+  } else {
+    dot.className = 'status-dot inactive';
+    text.innerText = 'غير متصل';
+    details.innerText = 'أدخل المفتاح واضغط حفظ لتفعيل النشر.';
+  }
+}
+
+// ===== اختبار الاتصال =====
+async function testConnection() {
+  const s = getSettings();
+  if (!s.owner || !s.repo || !s.token) {
+    alert('يرجى إدخال المالك، المستودع، والمفتاح أولاً.');
+    return;
+  }
+
+  const btn = document.querySelector('.btn-primary');
+  const originalText = btn.innerHTML;
+  btn.innerHTML = '⏳ جاري الاختبار...';
+  btn.disabled = true;
+
+  try {
+    const apiUrl = `https://api.github.com/repos/${s.owner}/${s.repo}/contents/${s.path}?ref=${s.branch}`;
+    const res = await fetch(apiUrl, {
+      headers: { 'Authorization': `Bearer ${s.token}` }
+    });
+
+    if (res.ok) {
+      alert('✅ الاتصال ناجح! تم العثور على المستودع والملف.');
+    } else if (res.status === 404) {
+      alert('⚠️ الاتصال بالمستودع ناجح، لكن الملف غير موجود بعد. سيتم إنشاؤه عند النشر الأول.');
+    } else if (res.status === 401) {
+      alert('❌ فشل الاتصال: المفتاح غير صالح أو منتهي الصلاحية.');
+    } else {
+      alert('❌ فشل الاتصال: تأكد من اسم المستودع والفرع.');
+    }
+  } catch (e) {
+    alert('❌ خطأ في الشبكة: ' + e.message);
+  } finally {
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+  }
+}
+
+// ===== إدارة الحالات =====
 function renderList() {
   const list = document.getElementById('cases-list');
   list.innerHTML = '';
@@ -106,12 +424,12 @@ function renderList() {
     div.className = 'case-item';
     div.innerHTML = `
       <div class="case-info">
-        <h3>${c.title} ${c.urgent ? '🔴 (عاجل)' : ''}</h3>
-        <p>${c.location} | ${c.needed}</p>
+        <h3>${c.title} ${c.urgent ? '<span style="color:var(--danger); font-size:0.8rem;">(عاجل)</span>' : ''}</h3>
+        <p>📍 ${c.location} | 💰 ${c.needed}</p>
       </div>
-      <div class="actions">
-        <button class="btn-edit" onclick="editCase(${index})">تعديل</button>
-        <button class="btn-danger" onclick="deleteCase(${index})">حذف</button>
+      <div class="case-actions">
+        <button class="btn btn-primary btn-sm" onclick="editCase(${index})">تعديل</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteCase(${index})">حذف</button>
       </div>
     `;
     list.appendChild(div);
@@ -119,14 +437,14 @@ function renderList() {
 }
 
 function saveCase() {
-  const id = document.getElementById('case-id').value;
+  const id = document.getElementById('edit-id').value;
   const newCase = {
     id: id ? parseInt(id) : Date.now(),
-    title: document.getElementById('title').value,
-    description: document.getElementById('description').value,
-    needed: document.getElementById('needed').value,
-    location: document.getElementById('location').value,
-    urgent: document.getElementById('urgent').checked,
+    title: document.getElementById('case-title').value.trim(),
+    description: document.getElementById('case-desc').value.trim(),
+    needed: document.getElementById('case-needed').value.trim(),
+    location: document.getElementById('case-location').value.trim(),
+    urgent: document.getElementById('case-urgent').checked,
     image: ""
   };
 
@@ -137,28 +455,27 @@ function saveCase() {
 
   if (editingIndex > -1) {
     cases[editingIndex] = newCase;
-    editingIndex = -1;
   } else {
     cases.push(newCase);
   }
 
   localStorage.setItem('admin_cases', JSON.stringify(cases));
-  clearForm();
+  resetForm();
   renderList();
-  alert('تم الحفظ محلياً! الآن يمكنك التحديث المباشر.');
+  alert('تم الحفظ محلياً بنجاح!');
 }
 
 function editCase(index) {
   editingIndex = index;
   const c = cases[index];
-  document.getElementById('form-title').innerText = 'تعديل الحالة';
-  document.getElementById('case-id').value = c.id;
-  document.getElementById('title').value = c.title;
-  document.getElementById('description').value = c.description;
-  document.getElementById('needed').value = c.needed;
-  document.getElementById('location').value = c.location;
-  document.getElementById('urgent').checked = c.urgent;
-  window.scrollTo(0, 0);
+  document.getElementById('edit-id').value = c.id;
+  document.getElementById('case-title').value = c.title;
+  document.getElementById('case-desc').value = c.description;
+  document.getElementById('case-needed').value = c.needed;
+  document.getElementById('case-location').value = c.location;
+  document.getElementById('case-urgent').checked = c.urgent;
+  document.getElementById('btn-save-case').innerHTML = '💾 تحديث الحالة';
+  window.scrollTo(0, document.getElementById('case-title').offsetTop - 100);
 }
 
 function deleteCase(index) {
@@ -169,77 +486,62 @@ function deleteCase(index) {
   }
 }
 
-function clearForm() {
-  document.getElementById('form-title').innerText = 'إضافة حالة جديدة';
-  document.getElementById('case-id').value = '';
-  document.getElementById('title').value = '';
-  document.getElementById('description').value = '';
-  document.getElementById('needed').value = '';
-  document.getElementById('location').value = '';
-  document.getElementById('urgent').checked = false;
+function resetForm() {
+  editingIndex = -1;
+  document.getElementById('edit-id').value = '';
+  document.getElementById('case-title').value = '';
+  document.getElementById('case-desc').value = '';
+  document.getElementById('case-needed').value = '';
+  document.getElementById('case-location').value = '';
+  document.getElementById('case-urgent').checked = false;
+  document.getElementById('btn-save-case').innerHTML = '➕ إضافة الحالة';
 }
 
-function exportData() {
-  const dataStr = JSON.stringify(cases, null, 2);
-  const blob = new Blob([dataStr], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'cases.json';
-  a.click();
-  URL.revokeObjectURL(url);
-}
-
-// ===== التحديث المباشر عبر GitHub API =====
-async function updateGitHub() {
-  const owner = document.getElementById('gh-owner').value.trim();
-  const repo = document.getElementById('gh-repo').value.trim();
-  const token = document.getElementById('gh-token').value.trim();
-  const path = 'cases.json'; // المسار داخل المستودع
-
-  if (!owner || !repo || !token) {
-    alert('يرجى ملء بيانات GitHub (المستخدم، المستودع، والمفتاح) أولاً.');
+// ===== النشر إلى GitHub =====
+async function publishToGitHub() {
+  const s = getSettings();
+  if (!s.owner || !s.repo || !s.token) {
+    alert('يرجى تفعيل إعدادات GitHub أولاً.');
     return;
   }
-
-  // حفظ الإعدادات للمرة القادمة
-  localStorage.setItem('gh_owner', owner);
-  localStorage.setItem('gh_repo', repo);
-  localStorage.setItem('gh_token', token);
 
   if (cases.length === 0) {
-    alert('لا توجد حالات لتحديثها.');
+    alert('لا توجد حالات لنشرها.');
     return;
   }
 
-  const content = JSON.stringify(cases, null, 2);
-  const base64Content = btoa(unescape(encodeURIComponent(content))); // ترميز UTF-8 إلى Base64
+  const btn = document.querySelector('.btn-primary[onclick="publishToGitHub()"]');
+  const originalText = btn.innerHTML;
+  btn.innerHTML = '⏳ جاري النشر...';
+  btn.disabled = true;
 
-  const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+  const content = JSON.stringify(cases, null, 2);
+  const base64Content = btoa(unescape(encodeURIComponent(content)));
+  const apiUrl = `https://api.github.com/repos/${s.owner}/${s.repo}/contents/${s.path}`;
 
   try {
-    // 1. جلب الـ SHA الحالي للملف (إذا كان موجوداً)
+    // 1. جلب SHA الحالي
     let sha = null;
-    const getRes = await fetch(apiUrl, {
-      headers: { 'Authorization': `Bearer ${token}` }
+    const getRes = await fetch(`${apiUrl}?ref=${s.branch}`, {
+      headers: { 'Authorization': `Bearer ${s.token}` }
     });
     if (getRes.ok) {
       const fileData = await getRes.json();
       sha = fileData.sha;
     }
 
-    // 2. إرسال الطلب لتحديث الملف
+    // 2. النشر
     const body = {
       message: 'تحديث الحالات من لوحة التحكم',
       content: base64Content,
-      branch: 'main' // أو الفرع الذي تستخدمه
+      branch: s.branch
     };
-    if (sha) body.sha = sha; // ضروري للتحديث
+    if (sha) body.sha = sha;
 
     const putRes = await fetch(apiUrl, {
       method: 'PUT',
       headers: {
-        'Authorization': `Bearer ${token}`,
+        'Authorization': `Bearer ${s.token}`,
         'Content-Type': 'application/json',
         'Accept': 'application/vnd.github+json'
       },
@@ -247,28 +549,17 @@ async function updateGitHub() {
     });
 
     if (putRes.ok) {
-      alert('✅ تم تحديث ملف cases.json على GitHub بنجاح! سيظهر التغيير للجميع خلال دقائق (بعد تحديث الكاش).');
+      alert('✅ تم النشر بنجاح على GitHub! سيظهر التغيير للجميع بعد تحديث الكاش.');
     } else {
       const err = await putRes.json();
-      alert('❌ فشل التحديث: ' + (err.message || 'تأكد من صحة المفتاح والصلاحيات.'));
+      alert('❌ فشل النشر: ' + (err.message || 'تأكد من الصلاحيات.'));
     }
   } catch (e) {
     alert('❌ خطأ في الاتصال: ' + e.message);
+  } finally {
+    btn.innerHTML = originalText;
+    btn.disabled = false;
   }
-}
-
-// تحميل الحالات عند فتح الصفحة
-if (cases.length === 0) {
-  fetch('./cases.json')
-    .then(r => r.json())
-    .then(data => {
-      cases = data;
-      localStorage.setItem('admin_cases', JSON.stringify(cases));
-      renderList();
-    })
-    .catch(() => renderList());
-} else {
-  renderList();
 }
 </script>
 </body>
