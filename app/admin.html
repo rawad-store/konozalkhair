@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>لوحة تحكم - كنوز الخير</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--g:#1b5e40;--bg:#f3f7f5;--card:#fff;--tx:#14291f;--ln:#d4e5db;--danger:#e74c3c;--success:#2a9d8f}
+*{box-sizing:border-box}
+body{font-family:Cairo,sans-serif;background:var(--bg);color:var(--tx);padding:20px;max-width:800px;margin:auto;line-height:1.7}
+h1{color:var(--g);text-align:center;margin-bottom:24px}
+.card{background:var(--card);padding:22px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,.05);margin-bottom:22px;border:1px solid var(--ln)}
+.card h2{font-size:1.15rem;margin:0 0 16px;color:var(--g);border-bottom:2px solid var(--ln);padding-bottom:10px}
+label{display:block;margin:12px 0 6px;font-weight:600;font-size:.95rem}
+input,textarea{width:100%;padding:12px;border:1px solid var(--ln);border-radius:8px;font:inherit}
+input:focus,textarea:focus{outline:none;border-color:var(--g)}
+input[type=checkbox]{width:20px;height:20px;accent-color:var(--danger);margin:0}
+button{background:var(--g);color:#fff;border:0;padding:14px 20px;border-radius:8px;cursor:pointer;font:700 1rem Cairo,sans-serif;width:100%;margin-top:12px}
+button:hover{opacity:.9}button:disabled{opacity:.6;cursor:wait}
+.sm{width:auto;margin:0;padding:8px 14px;font-size:.85rem;border-radius:6px}
+.b-danger{background:var(--danger)}.b-edit{background:#f39c12}.b-export{background:#2980b9}.b-gh{background:#24292e}.b-ok{background:var(--success)}.b-grey{background:#6c757d}.b-force{background:#c0392b}
+.row{display:flex;gap:14px;flex-wrap:wrap}.row>div{flex:1;min-width:200px}
+.case-item{display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid var(--ln);padding:14px 0;flex-wrap:wrap}
+.case-item:last-child{border:0}
+.ci{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
+.ci h3{margin:0 0 4px;font-size:1.05rem;color:var(--g)}.ci p{margin:0;font-size:.85rem;color:#666}
+.thumb{width:60px;height:60px;border-radius:8px;object-fit:cover;border:1px solid var(--ln);flex-shrink:0}
+.actions{display:flex;gap:8px}
+.cfg{background:#fff3cd;border-color:#ffeeba}
+.hint{font-size:.8rem;color:#7a6a2a;margin-top:6px}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--g);color:#fff;padding:12px 24px;border-radius:30px;font-weight:700;box-shadow:0 4px 12px rgba(0,0,0,.2);opacity:0;transition:.3s;z-index:1000;pointer-events:none;max-width:90%;text-align:center}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}#toast.error{background:var(--danger)}
+</style>
+</head>
+<body>
+<h1>لوحة تحكم الحالات</h1>
+
+<div class="card cfg">
+  <h2>⚙️ إعدادات الاتصال بـ GitHub</h2>
+  <div class="row">
+    <div><label for="gh-owner">اسم المستخدم (Owner)</label><input id="gh-owner" dir="ltr" autocomplete="off"></div>
+    <div><label for="gh-repo">اسم المستودع (Repo)</label><input id="gh-repo" dir="ltr" autocomplete="off"></div>
+  </div>
+  <label for="gh-path">مسار ملف الحالات داخل المستودع</label>
+  <input id="gh-path" dir="ltr" autocomplete="off">
+  <label for="gh-token">مفتاح الوصول (Token)</label>
+  <input type="password" id="gh-token" dir="ltr" placeholder="ghp_xxxxxxxxxxxx" autocomplete="off">
+  <p class="hint">يُحفظ المفتاح في هذا المتصفح فقط. لا تفتح اللوحة على جهاز عام، ويفضّل Fine-grained token بصلاحية Contents: Read and write لهذا المستودع فقط.</p>
+</div>
+
+<div class="card">
+  <h2 id="form-title">📝 إضافة حالة جديدة</h2>
+  <label for="title">عنوان الحالة</label>
+  <input id="title" placeholder="مثال: كفالة يتيم">
+  <label for="description">الوصف</label>
+  <textarea id="description" rows="3" placeholder="تفاصيل الحالة..."></textarea>
+  <div class="row">
+    <div><label for="needed">المبلغ المطلوب</label><input id="needed" placeholder="مثال: 500 جنيه"></div>
+    <div><label for="location">الموقع</label><input id="location" placeholder="مثال: الصوة - الشرقية"></div>
+  </div>
+  <label for="imageFile">صورة الحالة (اختياري، تُضغط تلقائيًا)</label>
+  <input type="file" id="imageFile" accept="image/*">
+  <div id="imagePreview" style="margin-top:10px"></div>
+  <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-top:14px">
+    <input type="checkbox" id="urgent"><span style="color:var(--danger)">حالة عاجلة؟</span>
+  </label>
+  <button type="button" class="b-ok" id="btn-save">➕ إضافة الحالة</button>
+  <button type="button" class="b-grey" id="btn-clear">مسح الحقول</button>
+</div>
+
+<div class="card">
+  <h2>🚀 نشر التحديثات</h2>
+  <button type="button" class="b-gh" id="btn-gh">تحديث مباشر على GitHub</button>
+  <button type="button" class="b-export" id="btn-pull">⬇️ جلب الحالات المنشورة من الموقع</button>
+  <button type="button" class="b-export" id="btn-export">💾 تصدير ملف cases.json (يدويًا)</button>
+  <button type="button" class="b-force" id="btn-force">🔄 تحديث قسري (لمسح الكاش)</button>
+</div>
+
+<div class="card">
+  <h2>📋 الحالات المضافة</h2>
+  <div id="cases-list"></div>
+</div>
+<div id="toast" role="status"></div>
+
+<script>
+(function(){
+'use strict';
+var $=function(i){return document.getElementById(i)};
+var cases=[],editingIndex=-1,currentImage='';
+
+function lsGet(k,d){try{var v=localStorage.getItem(k);return v===null?d:v}catch(e){return d}}
+function lsSet(k,v){try{localStorage.setItem(k,v);return true}catch(e){return false}}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function toast(m,err){var t=$('toast');t.textContent=m;t.className='show'+(err?' error':'');clearTimeout(t._t);t._t=setTimeout(function(){t.className=''},3200)}
+
+/* الإعدادات: تخمين تلقائي من رابط الصفحة */
+function guess(){
+  var o='rawad-store',r='konozalkhair',p='cases.json';
+  if(/github\.io$/.test(location.hostname)){
+    o=location.hostname.split('.')[0];
+    var seg=location.pathname.split('/').filter(Boolean);
+    if(seg.length){r=seg.shift()}
+    if(seg.length&&seg[seg.length-1].indexOf('.')>-1)seg.pop();
+    p=(seg.length?seg.join('/')+'/':'')+'cases.json';
+  }
+  return {o:o,r:r,p:p};
+}
+var g=guess();
+$('gh-owner').value=lsGet('gh_owner',g.o);
+$('gh-repo').value=lsGet('gh_repo',g.r);
+$('gh-path').value=lsGet('gh_path',g.p);
+$('gh-token').value=lsGet('gh_token','');
+
+function saveCases(){
+  if(!lsSet('admin_cases',JSON.stringify(cases))) toast('تعذر الحفظ المحلي (المساحة ممتلئة). انشر على GitHub الآن.',true);
+}
+try{var c0=JSON.parse(lsGet('admin_cases','[]'));if(Array.isArray(c0))cases=c0}catch(e){}
+
+/* ضغط الصورة */
+function compress(file){
+  return new Promise(function(res,rej){
+    var fr=new FileReader();
+    fr.onerror=function(){rej()};
+    fr.onload=function(){
+      var im=new Image();
+      im.onerror=function(){rej()};
+      im.onload=function(){
+        var M=900,s=Math.min(1,M/Math.max(im.width,im.height));
+        var cv=document.createElement('canvas');cv.width=Math.round(im.width*s);cv.height=Math.round(im.height*s);
+        var x=cv.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,cv.width,cv.height);x.drawImage(im,0,0,cv.width,cv.height);
+        res(cv.toDataURL('image/jpeg',0.75));
+      };
+      im.src=fr.result;
+    };
+    fr.readAsDataURL(file);
+  });
+}
+function setPreview(src){
+  var box=$('imagePreview');box.innerHTML='';
+  if(!src)return;
+  var i=document.createElement('img');i.src=src;i.style.cssText='max-width:100%;max-height:150px;border-radius:8px;border:1px solid #ddd';
+  box.appendChild(i);
+}
+$('imageFile').addEventListener('change',function(){
+  var f=this.files[0];if(!f)return;
+  compress(f).then(function(d){currentImage=d;setPreview(d)}).catch(function(){toast('تعذر قراءة الصورة',true)});
+});
+
+function render(){
+  var list=$('cases-list');list.innerHTML='';
+  if(!cases.length){list.innerHTML='<p style="text-align:center;color:#888">لا توجد حالات مضافة.</p>';return}
+  cases.forEach(function(c,i){
+    var d=document.createElement('div');d.className='case-item';
+    var img=/^(data:image\/|https?:\/\/|[\w\-.\/%]+$)/i.test(c.image||'')?c.image:'';
+    d.innerHTML='<div class="ci">'+(img?'<img class="thumb" src="'+esc(img)+'" alt="">':'')+
+      '<div><h3>'+esc(c.title)+(c.urgent?' <span style="color:var(--danger);font-size:.8rem">(عاجل)</span>':'')+'</h3>'+
+      '<p>📍 '+esc(c.location||'-')+' | 💰 '+esc(c.needed||'-')+'</p></div></div>'+
+      '<div class="actions"><button type="button" class="sm b-edit">تعديل</button><button type="button" class="sm b-danger">حذف</button></div>';
+    var b=d.querySelectorAll('button');
+    b[0].addEventListener('click',function(){edit(i)});
+    b[1].addEventListener('click',function(){del(i)});
+    list.appendChild(d);
+  });
+}
+
+function clearForm(){
+  editingIndex=-1;currentImage='';
+  $('form-title').textContent='📝 إضافة حالة جديدة';
+  ['title','description','needed','location'].forEach(function(k){$(k).value=''});
+  $('urgent').checked=false;$('imageFile').value='';setPreview('');
+  $('btn-save').textContent='➕ إضافة الحالة';
+}
+function save(){
+  var title=$('title').value.trim();
+  if(!title){toast('يجب كتابة عنوان للحالة',true);return}
+  var id=editingIndex>-1?cases[editingIndex].id:Date.now();
+  var item={id:id,title:title,description:$('description').value.trim(),needed:$('needed').value.trim(),location:$('location').value.trim(),urgent:$('urgent').checked,image:currentImage||''};
+  if(editingIndex>-1)cases[editingIndex]=item;else cases.push(item);
+  saveCases();clearForm();render();
+  toast('✅ تم الحفظ محليًا، اضغط "تحديث مباشر على GitHub" للنشر');
+}
+function edit(i){
+  editingIndex=i;var c=cases[i];
+  $('form-title').textContent='✏️ تعديل الحالة';
+  $('title').value=c.title||'';$('description').value=c.description||'';$('needed').value=c.needed||'';$('location').value=c.location||'';
+  $('urgent').checked=!!c.urgent;currentImage=c.image||'';setPreview(currentImage);$('imageFile').value='';
+  $('btn-save').textContent='💾 تحديث الحالة';window.scrollTo(0,0);
+}
+function del(i){
+  if(!confirm('هل أنت متأكد من حذف هذه الحالة؟'))return;
+  cases.splice(i,1);if(editingIndex===i)clearForm();else if(editingIndex>i)editingIndex--;
+  saveCases();render();
+}
+function exportData(){
+  var blob=new Blob([JSON.stringify(cases,null,2)],{type:'application/json'});
+  var u=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=u;a.download='cases.json';document.body.appendChild(a);a.click();a.remove();
+  setTimeout(function(){URL.revokeObjectURL(u)},1000);
+}
+function pull(){
+  fetch('./cases.json?t='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()})
+    .then(function(d){
+      if(!Array.isArray(d))throw 0;
+      if(cases.length&&!confirm('سيستبدل هذا الحالات الحالية في اللوحة بالمنشورة. متابعة؟'))return;
+      cases=d;saveCases();clearForm();render();toast('✅ تم جلب الحالات المنشورة');
+    }).catch(function(){toast('تعذر جلب cases.json',true)});
+}
+
+/* UTF-8 → base64 بشكل آمن للملفات الكبيرة */
+function b64(str){
+  var bytes=new TextEncoder().encode(str),bin='',CH=0x8000;
+  for(var i=0;i<bytes.length;i+=CH)bin+=String.fromCharCode.apply(null,bytes.subarray(i,i+CH));
+  return btoa(bin);
+}
+async function publish(){
+  var owner=$('gh-owner').value.trim(),repo=$('gh-repo').value.trim(),path=$('gh-path').value.trim().replace(/^\/+/,''),token=$('gh-token').value.trim();
+  if(!owner||!repo||!path||!token){toast('أكمل بيانات GitHub أولًا',true);return}
+  if(!cases.length&&!confirm('القائمة فارغة، سيتم نشر ملف بلا حالات. متابعة؟'))return;
+  lsSet('gh_owner',owner);lsSet('gh_repo',repo);lsSet('gh_path',path);lsSet('gh_token',token);
+  var api='https://api.github.com/repos/'+encodeURIComponent(owner)+'/'+encodeURIComponent(repo)+'/contents/'+path.split('/').map(encodeURIComponent).join('/');
+  var H={'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json'};
+  var btn=$('btn-gh'),old=btn.textContent;btn.textContent='⏳ جاري النشر...';btn.disabled=true;
+  try{
+    var sha=null,r=await fetch(api+'?t='+Date.now(),{headers:H,cache:'no-store'});
+    if(r.ok){sha=(await r.json()).sha}
+    else if(r.status===401||r.status===403){toast('فشل: المفتاح غير صحيح أو بلا صلاحية',true);return}
+    else if(r.status!==404){toast('تعذر الوصول للمستودع (رمز '+r.status+')',true);return}
+    var body={message:'تحديث الحالات من لوحة التحكم',content:b64(JSON.stringify(cases,null,2))};
+    if(sha)body.sha=sha;
+    var p=await fetch(api,{method:'PUT',headers:Object.assign({'Content-Type':'application/json'},H),body:JSON.stringify(body)});
+    if(p.ok)toast('✅ تم النشر! قد يستغرق ظهوره دقيقة أو دقيقتين');
+    else{var e={};try{e=await p.json()}catch(x){}toast('❌ فشل النشر: '+(e.message||p.status),true)}
+  }catch(e){toast('❌ خطأ في الاتصال بالإنترنت',true)}
+  finally{btn.textContent=old;btn.disabled=false}
+}
+async function force(){
+  try{
+    if('serviceWorker' in navigator){var rs=await navigator.serviceWorker.getRegistrations();for(var i=0;i<rs.length;i++)await rs[i].unregister()}
+    if('caches' in window){var ks=await caches.keys();for(var j=0;j<ks.length;j++)await caches.delete(ks[j])}
+  }catch(e){}
+  toast('✅ تم مسح الكاش، جاري إعادة التحميل...');
+  setTimeout(function(){location.href='./index.html'},1400);
+}
+
+$('btn-save').addEventListener('click',save);
+$('btn-clear').addEventListener('click',clearForm);
+$('btn-gh').addEventListener('click',publish);
+$('btn-pull').addEventListener('click',pull);
+$('btn-export').addEventListener('click',function(){cases.length?exportData():toast('لا توجد بيانات لتصديرها',true)});
+$('btn-force').addEventListener('click',force);
+
+render();
+if(!cases.length){
+  fetch('./cases.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():[]})
+    .then(function(d){if(Array.isArray(d)&&d.length){cases=d;saveCases();render()}}).catch(function(){});
+}
+})();
+</script>
+</body>
+</html>
