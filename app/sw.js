@@ -1,19 +1,23 @@
-const CACHE_NAME = 'konoz-v7';
+/* Service Worker - كنوز الخير (تحديث تلقائي ذكي) */
+const CACHE_NAME = 'konoz-update-v7'; // تم تغيير الإصدار لإجبار المتصفح على التحديث
 
-const CORE = [
+const CORE_ASSETS = [
   './',
   './index.html',
   './manifest.json',
-  './cases.json'
+  './cases.json',
+  './hero-bg.jpg'
 ];
 
+// التثبيت: حفظ الملفات الأساسية
 self.addEventListener('install', (event) => {
-  self.skipWaiting();
+  self.skipWaiting(); // تفعيل فوري
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(CORE))
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(CORE_ASSETS))
   );
 });
 
+// التفعيل: حذف الكاش القديم والسيطرة على الصفحات
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
@@ -24,51 +28,37 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+// الجلب: استراتيجية (الشبكة أولاً) لضمان آخر تحديث
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
 
+  // لا نتدخل في طلبات المواقع الخارجية (مثل الخطوط أو الفيسبوك)
   const url = new URL(req.url);
-
-  const isAppFile =
-    req.mode === 'navigate' ||
-    url.pathname.endsWith('index.html') ||
-    url.pathname.endsWith('/') ||
-    url.pathname.endsWith('manifest.json') ||
-    url.pathname.endsWith('sw.js') ||
-    url.pathname.endsWith('cases.json');
-
-  if (isAppFile) {
-    event.respondWith(
-      fetch(req)
-        .then((networkRes) => {
-          if (networkRes && networkRes.status === 200) {
-            const clone = networkRes.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(req, clone));
-          }
-          return networkRes;
-        })
-        .catch(() => {
-          return caches.match(req).then((cached) => cached || caches.match('./index.html'));
-        })
-    );
-    return;
-  }
+  if (url.origin !== location.origin) return;
 
   event.respondWith(
-    caches.match(req).then((cached) => {
-      if (cached) return cached;
-      return fetch(req).then((res) => {
-        if (res && res.status === 200 && res.type === 'basic') {
-          const clone = res.clone();
-          caches.open(CACHE_NAME).then((c) => c.put(req, clone));
+    fetch(req)
+      .then((networkResponse) => {
+        // إذا نجح الاتصال بالإنترنت، احفظ النسخة الجديدة وأرجعها
+        if (networkResponse && networkResponse.status === 200) {
+          const clone = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, clone));
         }
-        return res;
-      }).catch(() => cached);
-    })
+        return networkResponse;
+      })
+      .catch(() => {
+        // إذا انقطع الإنترنت، استخدم النسخة المحفوظة
+        return caches.match(req).then((cached) => {
+          if (cached) return cached;
+          // إذا كانت الصفحة الرئيسية غير محفوظة، أرجع index.html
+          if (req.mode === 'navigate') return caches.match('./index.html');
+        });
+      })
   );
 });
 
+// استقبال رسالة تفعيل التحديث
 self.addEventListener('message', (event) => {
   if (event.data === 'skipWaiting') {
     self.skipWaiting();
