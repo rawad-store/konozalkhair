@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>لوحة تحكم - كنوز الخير</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --g: #1b5e40; --bg: #f3f7f5; --card: #fff; --tx: #14291f; --ln: #d4e5db; }
+  body { font-family: 'Cairo', sans-serif; background: var(--bg); color: var(--tx); padding: 20px; max-width: 800px; margin: auto; }
+  h1 { color: var(--g); text-align: center; }
+  .card { background: var(--card); padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid var(--ln); }
+  label { display: block; margin: 10px 0 5px; font-weight: 600; }
+  input, textarea, select { width: 100%; padding: 10px; border: 1px solid var(--ln); border-radius: 8px; font-family: inherit; }
+  button { background: var(--g); color: #fff; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 700; width: 100%; margin-top: 15px; transition: 0.2s; }
+  button:hover { opacity: 0.9; }
+  .btn-danger { background: #e74c3c; padding: 6px 12px; width: auto; margin: 0; font-size: 0.85rem; }
+  .btn-edit { background: #f39c12; padding: 6px 12px; width: auto; margin: 0; font-size: 0.85rem; }
+  .btn-export { background: #2980b9; margin-bottom: 20px; }
+  .case-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--ln); padding: 10px 0; }
+  .case-item:last-child { border-bottom: none; }
+  .case-info h3 { margin: 0; font-size: 1.1rem; }
+  .case-info p { margin: 5px 0; font-size: 0.85rem; color: #666; }
+  .actions { display: flex; gap: 5px; }
+</style>
+</head>
+<body>
+
+<h1>لوحة تحكم الحالات</h1>
+
+<button class="btn-export" onclick="exportData()">⬇️ تصدير cases.json (لرفعه على GitHub)</button>
+
+<!-- نموذج الإضافة/التعديل -->
+<div class="card">
+  <h2 id="form-title">إضافة حالة جديدة</h2>
+  <input type="hidden" id="case-id">
+  <label>عنوان الحالة</label>
+  <input type="text" id="title" placeholder="مثال: كفالة يتيم">
+  
+  <label>الوصف</label>
+  <textarea id="description" rows="3" placeholder="تفاصيل الحالة..."></textarea>
+  
+  <label>المبلغ المطلوب</label>
+  <input type="text" id="needed" placeholder="مثال: 500 جنيه شهريًا">
+  
+  <label>الموقع</label>
+  <input type="text" id="location" placeholder="مثال: الصوة - الشرقية">
+  
+  <label>
+    <input type="checkbox" id="urgent" style="width: auto; display: inline-block; margin-left: 5px;"> 
+    حالة عاجلة؟
+  </label>
+
+  <button onclick="saveCase()">💾 حفظ الحالة</button>
+</div>
+
+<!-- قائمة الحالات -->
+<div class="card">
+  <h2>الحالات المحفوظة</h2>
+  <div id="cases-list"></div>
+</div>
+
+<script>
+// تحميل البيانات من LocalStorage أو من الملف الأصلي
+let cases = JSON.parse(localStorage.getItem('admin_cases')) || [];
+
+function renderList() {
+  const list = document.getElementById('cases-list');
+  list.innerHTML = '';
+  if (cases.length === 0) {
+    list.innerHTML = '<p style="text-align:center; color:#888;">لا توجد حالات مضافة.</p>';
+    return;
+  }
+  cases.forEach((c, index) => {
+    const div = document.createElement('div');
+    div.className = 'case-item';
+    div.innerHTML = `
+      <div class="case-info">
+        <h3>${c.title} ${c.urgent ? '🔴 (عاجل)' : ''}</h3>
+        <p>${c.location} | ${c.needed}</p>
+      </div>
+      <div class="actions">
+        <button class="btn-edit" onclick="editCase(${index})">تعديل</button>
+        <button class="btn-danger" onclick="deleteCase(${index})">حذف</button>
+      </div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+function saveCase() {
+  const id = document.getElementById('case-id').value;
+  const newCase = {
+    id: id ? parseInt(id) : Date.now(), // استخدام الوقت كمعرف فريد للحالات الجديدة
+    title: document.getElementById('title').value,
+    description: document.getElementById('description').value,
+    needed: document.getElementById('needed').value,
+    location: document.getElementById('location').value,
+    urgent: document.getElementById('urgent').checked,
+    image: ""
+  };
+
+  if (!newCase.title) {
+    alert('يجب كتابة عنوان للحالة');
+    return;
+  }
+
+  if (id) {
+    // تعديل حالة موجودة
+    const index = cases.findIndex(c => c.id === parseInt(id));
+    if (index > -1) cases[index] = newCase;
+  } else {
+    // إضافة حالة جديدة
+    cases.push(newCase);
+  }
+
+  localStorage.setItem('admin_cases', JSON.stringify(cases));
+  clearForm();
+  renderList();
+  alert('تم الحفظ بنجاح! لا تنسى تصدير الملف.');
+}
+
+function editCase(index) {
+  const c = cases[index];
+  document.getElementById('form-title').innerText = 'تعديل الحالة';
+  document.getElementById('case-id').value = c.id;
+  document.getElementById('title').value = c.title;
+  document.getElementById('description').value = c.description;
+  document.getElementById('needed').value = c.needed;
+  document.getElementById('location').value = c.location;
+  document.getElementById('urgent').checked = c.urgent;
+  window.scrollTo(0, 0);
+}
+
+function deleteCase(index) {
+  if (confirm('هل أنت متأكد من حذف هذه الحالة؟')) {
+    cases.splice(index, 1);
+    localStorage.setItem('admin_cases', JSON.stringify(cases));
+    renderList();
+  }
+}
+
+function clearForm() {
+  document.getElementById('form-title').innerText = 'إضافة حالة جديدة';
+  document.getElementById('case-id').value = '';
+  document.getElementById('title').value = '';
+  document.getElementById('description').value = '';
+  document.getElementById('needed').value = '';
+  document.getElementById('location').value = '';
+  document.getElementById('urgent').checked = false;
+}
+
+function exportData() {
+  if (cases.length === 0) {
+    alert('لا توجد بيانات لتصديرها');
+    return;
+  }
+  const dataStr = JSON.stringify(cases, null, 2);
+  const blob = new Blob([dataStr], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'cases.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// محاولة جلب الحالات الحالية من الموقع لملء اللوحة في المرة الأولى
+if (cases.length === 0) {
+  fetch('./cases.json')
+    .then(r => r.json())
+    .then(data => {
+      cases = data;
+      localStorage.setItem('admin_cases', JSON.stringify(cases));
+      renderList();
+    })
+    .catch(() => renderList());
+} else {
+  renderList();
+}
+</script>
+</body>
+</html>
