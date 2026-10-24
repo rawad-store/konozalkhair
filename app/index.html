@@ -69,7 +69,7 @@ h2{font:700 1.55rem/1.4 "Aref Ruqaa",serif;color:var(--pine);margin:34px 0 4px}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) h2{color:var(--leaf)}}
 .sub{font-size:.88rem;color:var(--mute);margin-bottom:12px}
 
-/* الحالات: قائمة وليست بطاقات متطابقة */
+/* الحالات */
 .cases{border-top:1px solid var(--line)}
 .case{padding:18px 0 18px 0;border-bottom:1px solid var(--line);position:relative;padding-inline-start:16px}
 .case::before{content:"";position:absolute;inset-block:18px;inset-inline-start:0;width:4px;border-radius:4px;background:var(--line)}
@@ -408,29 +408,26 @@ function renderCases(list){
     box.appendChild(el);
   });
 }
+
 function loadCases(){
-  fetch('./cases.json?t='+Date.now(),{cache:'no-store'})
-    .then(function(r){if(!r.ok)throw 0;return r.json()})
-    .then(function(d){if(!Array.isArray(d))throw 0;renderCases(d);store.set('kk_cases_cache',d)})
-    .catch(function(){var c=store.get('kk_cases_cache',null);if(Array.isArray(c))renderCases(c);else{$('#cases-count').textContent='تعذر تحميل الحالات';$('#cases-container').innerHTML='<div class="empty">تحقق من اتصالك بالإنترنت ثم أعد فتح التطبيق.</div>'}});
+  // نطلب الملف مباشرة من الشبكة ونتجاهل الكاش
+  fetch('./cases.json?v='+Date.now(), {cache: 'no-store'})
+    .then(function(r){ if(!r.ok) throw new Error('fetch failed'); return r.json(); })
+    .then(function(data){ 
+      if(!Array.isArray(data)) return;
+      renderCases(data); 
+      store.set('kk_cases_cache', data); 
+    })
+    .catch(function(){ 
+      var cached=store.get('kk_cases_cache', null); 
+      if (Array.isArray(cached)) renderCases(cached); 
+      else {
+        $('#cases-count').textContent='تعذر تحميل الحالات';
+        $('#cases-container').innerHTML='<div class="empty">تحقق من اتصالك بالإنترنت.</div>';
+      }
+    });
 }
 loadCases();
-
-/* كشف تغيّر index.html أثناء فتح التطبيق وتحديثه تلقائيًا */
-var base=null;
-function sig(t){var h=0;for(var i=0;i<t.length;i++)h=(h*31+t.charCodeAt(i))|0;return t.length+':'+h}
-function pageCheck(){
-  if(!navigator.onLine)return;
-  fetch('./index.html?t='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){
-    var s=sig(t);if(base===null){base=s;return}
-    if(s===base)return;
-    var last=0;try{last=+sessionStorage.getItem('kk_rl')||0}catch(e){}
-    var dirty=$$('.in').some(function(e){return e.id!=='amt'&&e.value});
-    if(dirty||Date.now()-last<60000){toast('يتوفر تحديث وسيُطبَّق عند فتح التطبيق مجددًا');return}
-    try{sessionStorage.setItem('kk_rl',String(Date.now()))}catch(e){}
-    location.reload();
-  }).catch(function(){});
-}
 
 /* التحديث التلقائي */
 if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0){
@@ -438,7 +435,7 @@ if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0){
   navigator.serviceWorker.addEventListener('controllerchange',function(){if(!hadCtrl||reloaded)return;reloaded=true;location.reload()});
   window.addEventListener('load',function(){
     navigator.serviceWorker.register('./sw.js',{scope:'./',updateViaCache:'none'}).then(function(reg){
-      var chk=function(){reg.update().catch(function(){});pageCheck()};chk();
+      var chk=function(){reg.update().catch(function(){})};chk();
       document.addEventListener('visibilitychange',function(){if(!document.hidden){chk();loadCases()}});
       window.addEventListener('online',chk);setInterval(chk,5*60*1000);
     }).catch(function(){});
