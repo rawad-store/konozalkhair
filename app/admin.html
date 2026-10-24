@@ -2,19 +2,21 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1b5e40">
+<link rel="icon" href="data:,">
 <meta name="robots" content="noindex,nofollow">
 <title>لوحة تحكم - كنوز الخير</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--g:#1b5e40;--bg:#f3f7f5;--card:#fff;--tx:#14291f;--ln:#d4e5db;--danger:#e74c3c;--success:#2a9d8f}
 *{box-sizing:border-box}
-body{font-family:Cairo,sans-serif;background:var(--bg);color:var(--tx);padding:20px;max-width:800px;margin:auto;line-height:1.7}
+body{font-family:Cairo,"Segoe UI",Tahoma,system-ui,sans-serif;background:var(--bg);color:var(--tx);padding:20px;padding-top:calc(20px + env(safe-area-inset-top,0px));padding-bottom:calc(40px + env(safe-area-inset-bottom,0px));max-width:800px;margin:auto;line-height:1.7}
 h1{color:var(--g);text-align:center;margin-bottom:24px}
 .card{background:var(--card);padding:22px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,.05);margin-bottom:22px;border:1px solid var(--ln)}
 .card h2{font-size:1.15rem;margin:0 0 16px;color:var(--g);border-bottom:2px solid var(--ln);padding-bottom:10px}
 label{display:block;margin:12px 0 6px;font-weight:600;font-size:.95rem}
-input,textarea{width:100%;padding:12px;border:1px solid var(--ln);border-radius:8px;font:inherit}
+input,textarea{width:100%;font-size:16px;padding:12px;border:1px solid var(--ln);border-radius:8px;font:inherit}
 input:focus,textarea:focus{outline:none;border-color:var(--g)}
 input[type=checkbox]{width:20px;height:20px;accent-color:var(--danger);margin:0}
 button{background:var(--g);color:#fff;border:0;padding:14px 20px;border-radius:8px;cursor:pointer;font:700 1rem Cairo,sans-serif;width:100%;margin-top:12px}
@@ -27,7 +29,7 @@ button:hover{opacity:.9}button:disabled{opacity:.6;cursor:wait}
 .ci{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
 .ci h3{margin:0 0 4px;font-size:1.05rem;color:var(--g)}.ci p{margin:0;font-size:.85rem;color:#666}
 .thumb{width:60px;height:60px;border-radius:8px;object-fit:cover;border:1px solid var(--ln);flex-shrink:0}
-.actions{display:flex;gap:8px}
+.actions{display:flex;gap:8px;flex-wrap:wrap}.b-mv{background:#6c757d;padding:8px 12px}
 .cfg{background:#fff3cd;border-color:#ffeeba}
 .hint{font-size:.8rem;color:#7a6a2a;margin-top:6px}
 #toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--g);color:#fff;padding:12px 24px;border-radius:30px;font-weight:700;box-shadow:0 4px 12px rgba(0,0,0,.2);opacity:0;transition:.3s;z-index:1000;pointer-events:none;max-width:90%;text-align:center}
@@ -63,6 +65,7 @@ button:hover{opacity:.9}button:disabled{opacity:.6;cursor:wait}
   <label for="imageFile">صورة الحالة (اختياري، تُضغط تلقائيًا)</label>
   <input type="file" id="imageFile" accept="image/*">
   <div id="imagePreview" style="margin-top:10px"></div>
+  <button type="button" class="b-grey sm" id="btn-rmimg" style="margin-top:8px" hidden>إزالة الصورة</button>
   <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-top:14px">
     <input type="checkbox" id="urgent"><span style="color:var(--danger)">حالة عاجلة؟</span>
   </label>
@@ -74,7 +77,7 @@ button:hover{opacity:.9}button:disabled{opacity:.6;cursor:wait}
   <h2>🚀 نشر التحديثات</h2>
   <button type="button" class="b-gh" id="btn-gh">تحديث مباشر على GitHub</button>
   <button type="button" class="b-export" id="btn-pull">⬇️ جلب الحالات المنشورة من الموقع</button>
-  <button type="button" class="b-export" id="btn-export">💾 تصدير ملف app/cases.json (يدويًا)</button>
+  <button type="button" class="b-export" id="btn-export">💾 تصدير ملف cases.json (يدويًا)</button>
   <button type="button" class="b-force" id="btn-force">🔄 تحديث قسري (لمسح الكاش)</button>
 </div>
 
@@ -100,16 +103,16 @@ function guess(){
   if(/github\.io$/.test(location.hostname)){
     o=location.hostname.split('.')[0];
     var seg=location.pathname.split('/').filter(Boolean);
-    if(seg.length){r=seg.shift()}
-    if(seg.length&&seg[seg.length-1].indexOf('.')>-1)seg.pop();
-    p=(seg.length?seg.join('/')+'/':'')+'app/cases.json';
+    if(seg.length)r=seg[0];
   }
   return {o:o,r:r,p:p};
 }
+/* رابط ملف الحالات المنشور بالنسبة لمكان هذه الصفحة (داخل app/ أو خارجه) */
+var CASES_URL=/\/app\/(admin\.html)?$/.test(location.pathname)?'./cases.json':'./app/cases.json';
 var g=guess();
 $('gh-owner').value=lsGet('gh_owner',g.o);
 $('gh-repo').value=lsGet('gh_repo',g.r);
-$('gh-path').value=lsGet('gh_path',g.p);
+$('gh-path').value='app/cases.json';
 $('gh-token').value=lsGet('gh_token','');
 
 function saveCases(){
@@ -125,10 +128,10 @@ function compress(file){
       var im=new Image();
       im.onerror=function(){rej()};
       im.onload=function(){
-        var M=900,s=Math.min(1,M/Math.max(im.width,im.height));
+        var M=800,s=Math.min(1,M/Math.max(im.width,im.height));
         var cv=document.createElement('canvas');cv.width=Math.round(im.width*s);cv.height=Math.round(im.height*s);
         var x=cv.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,cv.width,cv.height);x.drawImage(im,0,0,cv.width,cv.height);
-        res(cv.toDataURL('image/jpeg',0.75));
+        res(cv.toDataURL('image/jpeg',0.72));
       };
       im.src=fr.result;
     };
@@ -136,11 +139,12 @@ function compress(file){
   });
 }
 function setPreview(src){
-  var box=$('imagePreview');box.innerHTML='';
+  var box=$('imagePreview');box.innerHTML='';$('btn-rmimg').hidden=!src;
   if(!src)return;
   var i=document.createElement('img');i.src=src;i.style.cssText='max-width:100%;max-height:150px;border-radius:8px;border:1px solid #ddd';
   box.appendChild(i);
 }
+$('btn-rmimg').addEventListener('click',function(){currentImage='';$('imageFile').value='';setPreview('')});
 $('imageFile').addEventListener('change',function(){
   var f=this.files[0];if(!f)return;
   compress(f).then(function(d){currentImage=d;setPreview(d)}).catch(function(){toast('تعذر قراءة الصورة',true)});
@@ -155,14 +159,17 @@ function render(){
     d.innerHTML='<div class="ci">'+(img?'<img class="thumb" src="'+esc(img)+'" alt="">':'')+
       '<div><h3>'+esc(c.title)+(c.urgent?' <span style="color:var(--danger);font-size:.8rem">(عاجل)</span>':'')+'</h3>'+
       '<p>📍 '+esc(c.location||'-')+' | 💰 '+esc(c.needed||'-')+'</p></div></div>'+
-      '<div class="actions"><button type="button" class="sm b-edit">تعديل</button><button type="button" class="sm b-danger">حذف</button></div>';
+      '<div class="actions"><button type="button" class="sm b-mv" aria-label="للأعلى"'+(i===0?' disabled':'')+'>↑</button><button type="button" class="sm b-mv" aria-label="للأسفل"'+(i===cases.length-1?' disabled':'')+'>↓</button><button type="button" class="sm b-edit">تعديل</button><button type="button" class="sm b-danger">حذف</button></div>';
     var b=d.querySelectorAll('button');
-    b[0].addEventListener('click',function(){edit(i)});
-    b[1].addEventListener('click',function(){del(i)});
+    b[0].addEventListener('click',function(){mv(i,-1)});
+    b[1].addEventListener('click',function(){mv(i,1)});
+    b[2].addEventListener('click',function(){edit(i)});
+    b[3].addEventListener('click',function(){del(i)});
     list.appendChild(d);
   });
 }
 
+function mv(i,d){var j=i+d;if(j<0||j>=cases.length)return;var t=cases[i];cases[i]=cases[j];cases[j]=t;if(editingIndex===i)editingIndex=j;else if(editingIndex===j)editingIndex=i;saveCases();render()}
 function clearForm(){
   editingIndex=-1;currentImage='';
   $('form-title').textContent='📝 إضافة حالة جديدة';
@@ -194,16 +201,16 @@ function del(i){
 function exportData(){
   var blob=new Blob([JSON.stringify(cases,null,2)],{type:'application/json'});
   var u=URL.createObjectURL(blob),a=document.createElement('a');
-  a.href=u;a.download='app/cases.json';document.body.appendChild(a);a.click();a.remove();
+  a.href=u;a.download='cases.json';document.body.appendChild(a);a.click();a.remove();
   setTimeout(function(){URL.revokeObjectURL(u)},1000);
 }
 function pull(){
-  fetch('./app/cases.json?t='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()})
+  fetch(CASES_URL+'?t='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()})
     .then(function(d){
       if(!Array.isArray(d))throw 0;
       if(cases.length&&!confirm('سيستبدل هذا الحالات الحالية في اللوحة بالمنشورة. متابعة؟'))return;
       cases=d;saveCases();clearForm();render();toast('✅ تم جلب الحالات المنشورة');
-    }).catch(function(){toast('تعذر جلب app/cases.json',true)});
+    }).catch(function(){toast('تعذر جلب ملف الحالات',true)});
 }
 
 function b64(str){
@@ -227,7 +234,7 @@ async function publish(){
     var body={message:'تحديث الحالات من لوحة التحكم',content:b64(JSON.stringify(cases,null,2))};
     if(sha)body.sha=sha;
     var p=await fetch(api,{method:'PUT',headers:Object.assign({'Content-Type':'application/json'},H),body:JSON.stringify(body)});
-    if(p.ok)toast('✅ تم النشر! قد يستغرق ظهوره دقيقة أو دقيقتين');
+    if(p.ok)toast('✅ تم النشر! قد يستغرق ظهوره دقيقة أو دقيقتين (حجم الملف '+Math.round(body.content.length*.75/1024)+' ك.ب)');
     else{var e={};try{e=await p.json()}catch(x){}toast('❌ فشل النشر: '+(e.message||p.status),true)}
   }catch(e){toast('❌ خطأ في الاتصال بالإنترنت',true)}
   finally{btn.textContent=old;btn.disabled=false}
@@ -238,7 +245,7 @@ async function force(){
     if('caches' in window){var ks=await caches.keys();for(var j=0;j<ks.length;j++)await caches.delete(ks[j])}
   }catch(e){}
   toast('✅ تم مسح الكاش، جاري إعادة التحميل...');
-  setTimeout(function(){location.href='./index.html'},1400);
+  setTimeout(function(){location.href=/\/app\/(admin\.html)?$/.test(location.pathname)?'./index.html':'./app/'},1400);
 }
 
 $('btn-save').addEventListener('click',save);
@@ -250,7 +257,7 @@ $('btn-force').addEventListener('click',force);
 
 render();
 if(!cases.length){
-  fetch('./app/cases.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():[]})
+  fetch(CASES_URL+'?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():[]})
     .then(function(d){if(Array.isArray(d)&&d.length){cases=d;saveCases();render()}}).catch(function(){});
 }
 })();
