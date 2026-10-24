@@ -95,7 +95,6 @@ function lsSet(k,v){try{localStorage.setItem(k,v);return true}catch(e){return fa
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 function toast(m,err){var t=$('toast');t.textContent=m;t.className='show'+(err?' error':'');clearTimeout(t._t);t._t=setTimeout(function(){t.className=''},3200)}
 
-/* الإعدادات: تخمين تلقائي من رابط الصفحة */
 function guess(){
   var o='rawad-store',r='konozalkhair',p='cases.json';
   if(/github\.io$/.test(location.hostname)){
@@ -118,7 +117,6 @@ function saveCases(){
 }
 try{var c0=JSON.parse(lsGet('admin_cases','[]'));if(Array.isArray(c0))cases=c0}catch(e){}
 
-/* ضغط الصورة */
 function compress(file){
   return new Promise(function(res,rej){
     var fr=new FileReader();
@@ -208,7 +206,6 @@ function pull(){
     }).catch(function(){toast('تعذر جلب cases.json',true)});
 }
 
-/* UTF-8 → base64 بشكل آمن للملفات الكبيرة */
 function b64(str){
   var bytes=new TextEncoder().encode(str),bin='',CH=0x8000;
   for(var i=0;i<bytes.length;i+=CH)bin+=String.fromCharCode.apply(null,bytes.subarray(i,i+CH));
