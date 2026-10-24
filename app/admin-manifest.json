@@ -1,0 +1,27 @@
+{
+  "name": "لوحة تحكم كنوز الخير",
+  "short_name": "إدارة كنوز",
+  "description": "لوحة إدارة حالات مؤسسة كنوز الخير للتنمية",
+  "start_url": "./admin.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f3f7f5",
+  "theme_color": "#1b5e40",
+  "orientation": "portrait-primary",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "./preview.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "./preview.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}
