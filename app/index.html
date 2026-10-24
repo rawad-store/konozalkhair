@@ -577,18 +577,12 @@ function share(){
 }
 ['#share','#share2','#share3'].forEach(function(s){ if($(s)) $(s).addEventListener('click', share); });
 
-/* ===== CASES (JSON + LocalStorage) ===== */
+//* ===== CASES (JSON + LocalStorage Fallback) ===== */
 function loadCases(){
   var box = document.getElementById('cases-container');
   var countEl = document.getElementById('cases-count');
   if(!box) return;
   
-  // البحث أولاً في التخزين المحلي (إذا تم التعديل من لوحة التحكم)
-  var localCases = null;
-  try {
-    localCases = JSON.parse(localStorage.getItem('admin_cases'));
-  } catch(e) {}
-
   function renderCases(list) {
     if(!list || !list.length){
       box.innerHTML = '<div class="cases-empty">لا توجد حالات حالياً 🌱<br><small>كن أول من يساهم في الخير</small></div>';
@@ -622,18 +616,28 @@ function loadCases(){
     });
   }
 
-  if (localCases && Array.isArray(localCases)) {
-    // إذا وجدت حالات معدلة محلياً
-    renderCases(localCases);
-  } else {
-    // إذا لم توجد، اجلب الملف الأصلي
-    fetch('./cases.json?t=' + Date.now())
-      .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
-      .then(renderCases)
-      .catch(function(){
-        box.innerHTML = '<div class="cases-empty">تعذر تحميل الحالات حالياً</div>';
-      });
-  }
+  // المحاولة الأولى: جلب الملف من الإنترنت (الشبكة أولاً)
+  fetch('./cases.json?t=' + Date.now())
+    .then(function(r){ 
+      if(!r.ok) throw new Error('Network response was not ok');
+      return r.json(); 
+    })
+    .then(function(data){
+      renderCases(data);
+      // تحديث الذاكرة المحلية كنسخة احتياطية
+      try { localStorage.setItem('admin_cases', JSON.stringify(data)); } catch(e){}
+    })
+    .catch(function(){
+      // المحاولة الثانية: إذا فشل الإنترنت، استخدم الذاكرة المحلية
+      var localCases = null;
+      try { localCases = JSON.parse(localStorage.getItem('admin_cases')); } catch(e) {}
+      
+      if (localCases && Array.isArray(localCases)) {
+        renderCases(localCases);
+      } else {
+        box.innerHTML = '<div class="cases-empty">تعذر تحميل الحالات. تأكد من اتصالك بالإنترنت.</div>';
+      }
+    });
 }
 
 /* ===== SERVICE WORKER & UPDATES ===== */
