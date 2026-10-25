@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#13402f">
+<title>استبيان أولياء الأمور | حضانة كنوز كيدز</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #13402f;
+  --green-light: #1e6b4b;
+  --mint: #eaf4ed;
+  --gold: #d8b65b;
+  --ink: #173b2c;
+  --muted: #64756c;
+  --paper: #fffdf8;
+  --line: #dce7df;
+  --danger: #a23b36;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: linear-gradient(150deg, #f4f7f2, #edf4ee 60%, #faf6e9);
+  color: var(--ink);
+  font-family: 'Cairo', Tahoma, sans-serif;
+  line-height: 1.7;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.shell { width: min(800px, 100%); margin: auto; padding: 20px 16px 40px; }
+.brand { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+.logo-placeholder {
+  width: 60px; height: 60px; border-radius: 50%;
+  border: 2px dashed var(--gold); background: #fff;
+  display: grid; place-items: center; font-size: 12px; color: var(--muted);
+  text-align: center; flex-shrink: 0;
+}
+.brand-text h1 { font-size: 20px; color: var(--green); font-weight: 700; line-height: 1.2; }
+.brand-text p { font-size: 13px; color: var(--gold); font-weight: 600; }
+
+.hero {
+  background: radial-gradient(circle at 85% 0%, #2b805d 0, #18563d 38%, #103c2c 100%);
+  color: white; border-radius: 24px; padding: 25px 20px; margin-bottom: 20px;
+  box-shadow: 0 15px 34px rgba(22, 71, 47, 0.15);
+}
+.hero h2 { font-size: 22px; margin-bottom: 10px; }
+.hero p { font-size: 14px; opacity: 0.95; line-height: 1.8; }
+.hero .time-badge {
+  display: inline-block; background: rgba(255,255,255,0.15);
+  padding: 4px 12px; border-radius: 20px; font-size: 12px; margin-top: 12px;
+}
+
+.card {
+  background: #fff; border: 1px solid var(--line);
+  border-radius: 20px; padding: 24px; margin-bottom: 20px;
+  box-shadow: 0 8px 25px rgba(27, 74, 50, 0.05);
+}
+.progress-container { margin-bottom: 20px; }
+.progress-text { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-bottom: 8px; font-weight: 600; }
+.progress-bar-bg { height: 8px; background: var(--mint); border-radius: 10px; overflow: hidden; }
+.progress-bar-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--green-light), var(--gold)); transition: width 0.3s ease; }
+
+.step { display: none; animation: fadeIn 0.4s ease; }
+.step.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+h3 { font-size: 18px; color: var(--green); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+h3 span { background: var(--mint); width: 32px; height: 32px; display: grid; place-items: center; border-radius: 8px; font-size: 16px; }
+
+.q-group { margin-bottom: 22px; padding-bottom: 22px; border-bottom: 1px solid #edf1ed; }
+.q-group:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+.q-title { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+.q-hint { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+
+.options-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+@media(min-width: 600px) { .options-grid { grid-template-columns: 1fr 1fr; } }
+
+.opt {
+  display: flex; align-items: flex-start; gap: 10px; padding: 14px;
+  border: 1.5px solid var(--line); border-radius: 12px; background: #fff;
+  cursor: pointer; transition: all 0.2s ease;
+}
+.opt:hover { border-color: var(--green-light); }
+.opt input { width: 18px; height: 18px; margin-top: 3px; accent-color: var(--green); flex-shrink: 0; }
+.opt span { font-size: 14px; color: var(--ink); line-height: 1.5; }
+.opt.selected { background: var(--mint); border-color: var(--green); }
+
+.input-field {
+  width: 100%; padding: 12px; border: 1.5px solid var(--line);
+  border-radius: 12px; font-family: inherit; font-size: 15px;
+  background: var(--paper); transition: border 0.2s;
+}
+.input-field:focus { outline: none; border-color: var(--green); }
+textarea.input-field { min-height: 100px; resize: vertical; }
+
+.conditional-field { display: none; margin-top: 12px; padding: 16px; background: var(--mint); border-radius: 12px; }
+.conditional-field.show { display: block; animation: fadeIn 0.3s ease; }
+
+.nav-buttons { display: flex; gap: 12px; margin-top: 24px; }
+.btn {
+  flex: 1; padding: 14px; border: none; border-radius: 12px;
+  font-size: 16px; font-weight: 700; cursor: pointer; font-family: inherit;
+  transition: all 0.2s ease; display: flex; justify-content: center; align-items: center; gap: 8px;
+}
+.btn-primary { background: var(--green); color: #fff; box-shadow: 0 4px 12px rgba(19, 64, 47, 0.2); }
+.btn-primary:hover { background: var(--green-light); }
+.btn-secondary { background: var(--mint); color: var(--green); border: 1px solid var(--line); }
+.btn-secondary:hover { background: #e0ebe4; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.error-msg { color: var(--danger); font-size: 13px; font-weight: 600; margin-top: 10px; display: none; text-align: center; }
+.error-msg.show { display: block; }
+
+.success-screen { display: none; text-align: center; padding: 40px 20px; }
+.success-screen.show { display: block; }
+.success-icon { width: 80px; height: 80px; background: var(--mint); color: var(--green); font-size: 40px; border-radius: 50%; display: grid; place-items: center; margin: 0 auto 20px; }
+.success-screen h2 { color: var(--green); margin-bottom: 12px; }
+.success-screen p { color: var(--muted); margin-bottom: 20px; }
+
+footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 30px; }
+</style>
+</head>
+<body>
+
+<main class="shell">
+  <header class="brand">
+    <div class="logo-placeholder">شعار<br>الحضانة</div>
+    <div class="brand-text">
+      <h1>حضانة كنوز كيدز</h1>
+      <p>التعليم • اللعب • التربية</p>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h2>رأيكم يهمّنا… معًا نمنح أطفالنا بداية أجمل</h2>
+    <p>💚 في حضانة كنوز كيدز، نؤمن أن الاستماع إلى أولياء الأمور خطوة مهمة نحو تطوير تجربة الأطفال. نحب أن نعرف ما الذي تبحث عنه لطفلك، وما الذي يسعدك، وما الذي تتمنى أن نطوّره.</p>
+    <span class="time-badge">🌱 لن يستغرق أكثر من 3 دقائق</span>
+  </section>
+
+  <div class="card">
+    <div class="progress-container">
+      <div class="progress-text">
+        <span id="step-text">القسم 1 من 3</span>
+        <span id="percent-text">33%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progress-bar"></div>
+      </div>
+    </div>
+
+    <form id="survey-form">
+      
+      <!-- القسم الأول -->
+      <div class="step active" data-step="1">
+        <h3><span>1</span> احتياجات الأسرة</h3>
+        
+        <div class="q-group">
+          <p class="q-title">1. ما الفئة العمرية لطفلك؟</p>
+          <div class="options-grid">
+            <label class="opt"><input type="radio" name="age" value="أقل من سنتين"><span>أقل من سنتين</span></label>
+            <label class="opt"><input type="radio" name="age" value="من سنتين إلى أقل من 3 سنوات"><span>من سنتين إلى أقل من 3 سنوات</span></label>
+            <label class="opt"><input type="radio" name="age" value="من 3 إلى أقل من 4 سنوات"><span>من 3 إلى أقل من 4 سنوات</span></label>
+            <label class="opt"><input type="radio" name="age" value="من 4 إلى 6 سنوات"><span>من 4 إلى 6 سنوات</span></label>
+            <label class="opt"><input type="radio" name="age" value="أبحث عن حضانة لأكثر من طفل"><span>أبحث عن حضانة لأكثر من طفل</span></label>
+            <label class="opt"><input type="radio" name="age" value="أفضل عدم الإجابة"><span>أفضل عدم الإجابة</span></label>
+          </div>
+        </div>
+
+        <div class="q-group">
+          <p class="q-title">2. ما علاقتك الحالية بحضانة كنوز كيدز؟</p>
+          <div class="options-grid">
+            <label class="opt"><input type="radio" name="relation" value="طفلي ملتحق بالحضانة حاليًا"><span>طفلي ملتحق بالحضانة حاليًا</span></label>
+            <label class="opt"><input type="radio" name="relation" value="سبق لطفلي الالتحاق بها"><span>سبق لطفلي الالتحاق بها</span></label>
+            <label class="opt"><input type="radio" name="relation" value="أفكر في تسجيل طفلي"><span>أفكر في تسجيل طفلي</span></label>
+            <label class="opt"><input type="radio" name="relation" value="أبحث عن حضانة مناسبة لطفلي"><span>أبحث عن حضانة مناسبة لطفلي</span></label>
+          </div>
+        </div>
+
+        <!-- سؤال 3 يظهر فقط لمن لديه تجربة -->
+        <div class="q-group conditional-field" id="q3-group">
+          <p class="q-title">3. كيف تقيّم تجربتك مع الحضانة؟</p>
+          <p class="q-hint">اختياري بناءً على إجابتك السابقة.</p>
+          <div class="options-grid">
+            <label class="opt"><input type="radio" name="rating" value="ممتازة"><span>ممتازة</span></label>
+            <label class="opt"><input type="radio" name="rating" value="جيدة جدًا"><span>جيدة جدًا</span></label>
+            <label class="opt"><input type="radio" name="rating" value="جيدة"><span>جيدة</span></label>
+            <label class="opt"><input type="radio" name="rating" value="تحتاج إلى تحسين"><span>تحتاج إلى تحسين</span></label>
+            <label class="opt"><input type="radio" name="rating" value="لا ينطبق عليّ"><span>لا ينطبق عليّ</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- القسم الثاني -->
+      <div class="step" data-step="2">
+        <h3><span>2</span> التقييم والأولويات</h3>
+        
+        <div class="q-group">
+          <p class="q-title">4. ما أهم ثلاثة أمور تبحث عنها في الحضانة؟</p>
+          <p class="q-hint" style="color: var(--gold); font-weight: 600;">اختر 3 خيارات كحد أقصى.</p>
+          <div class="options-grid" id="q4-options">
+            <label class="opt"><input type="checkbox" name="priorities" value="الأمان والنظافة والرعاية اليومية"><span>الأمان والنظافة والرعاية اليومية</span></label>
+            <label class="opt"><input type="checkbox" name="priorities" value="حسن تعامل المعلمات مع الأطفال"><span>حسن تعامل المعلمات مع الأطفال</span></label>
+            <label class="opt"><input type="checkbox" name="priorities" value="التأسيس التعليمي للحروف والأرقام"><span>التأسيس التعليمي للحروف والأرقام</span></label>
+            <label class="opt"><input type="checkbox" name="priorities" value="تنمية اللغة والمهارات والتفكير"><span>تنمية اللغة والمهارات والتفكير</span></label>
+            <label class="opt"><input type="checkbox" name="priorities" value="الأنشطة واللعب والتعلّم بالممارسة"><span>الأنشطة واللعب والتعلّم بالممارسة</span></label>
+            <label class="opt"><input type="checkbox" name="priorities" value="القرآن الكريم والقيم والأخلاق"><span>القرآن الكريم والقيم والأخلاق</span></label>
+            <label class="opt"><input type="checkbox" name="priorities" value="التواصل المستمر مع أولياء الأمور"><span>التواصل المستمر مع أولياء الأمور</span></label>
+            <label class="opt"><input type="checkbox" name="priorities" value="الرسوم المناسبة ووضوح التكاليف"><span>الرسوم المناسبة ووضوح التكاليف</span></label>
+            <label class="opt"><input type="checkbox" name="priorities" value="قرب الحضانة من المنزل أو العمل"><span>قرب الحضانة من المنزل أو العمل</span></label>
+            <label class="opt"><input type="checkbox" name="priorities" value="توفر المواصلات"><span>توفر المواصلات</span></label>
+          </div>
+        </div>
+
+        <div class="q-group">
+          <p class="q-title">5. ما أكثر جانب تتمنى أن تطوّره الحضانة أو تهتم به؟</p>
+          <p class="q-hint" style="color: var(--gold); font-weight: 600;">اختر 3 خيارات كحد أقصى.</p>
+          <div class="options-grid" id="q5-options">
+            <label class="opt"><input type="checkbox" name="improvements" value="الأنشطة والألعاب التعليمية"><span>الأنشطة والألعاب التعليمية</span></label>
+            <label class="opt"><input type="checkbox" name="improvements" value="التأسيس التعليمي والمهارات اللغوية"><span>التأسيس التعليمي والمهارات اللغوية</span></label>
+            <label class="opt"><input type="checkbox" name="improvements" value="التواصل وإطلاع ولي الأمر على تقدم طفله"><span>التواصل وإطلاع ولي الأمر على تقدم طفله</span></label>
+            <label class="opt"><input type="checkbox" name="improvements" value="النظافة والرعاية اليومية"><span>النظافة والرعاية اليومية</span></label>
+            <label class="opt"><input type="checkbox" name="improvements" value="تنمية السلوك والاستقلالية والثقة بالنفس"><span>تنمية السلوك والاستقلالية والثقة بالنفس</span></label>
+            <label class="opt"><input type="checkbox" name="improvements" value="القرآن الكريم والقيم والأخلاق"><span>القرآن الكريم والقيم والأخلاق</span></label>
+            <label class="opt"><input type="checkbox" name="improvements" value="المواعيد أو المواصلات"><span>المواعيد أو المواصلات</span></label>
+            <label class="opt"><input type="checkbox" name="improvements" value="الرسوم أو خيارات السداد"><span>الرسوم أو خيارات السداد</span></label>
+            <label class="opt"><input type="checkbox" name="improvements" value="لا يوجد اقتراح حاليًا"><span>لا يوجد اقتراح حاليًا</span></label>
+            <label class="opt"><input type="checkbox" id="chk-other-improvement" value="أمر آخر"><span>أمر آخر (وضحه أدناه)</span></label>
+          </div>
+          <input type="text" class="input-field conditional-field" id="other-improvement-text" name="other_improvement" placeholder="اكتب اقتراحك الآخر هنا...">
+        </div>
+      </div>
+
+      <!-- القسم الثالث -->
+      <div class="step" data-step="3">
+        <h3><span>3</span> المواعيد والمقترحات</h3>
+
+        <div class="q-group">
+          <p class="q-title">6. ما نظام الحضور الذي يناسبك؟</p>
+          <div class="options-grid">
+            <label class="opt"><input type="radio" name="schedule" value="نصف يوم"><span>نصف يوم</span></label>
+            <label class="opt"><input type="radio" name="schedule" value="يوم كامل"><span>يوم كامل</span></label>
+            <label class="opt"><input type="radio" name="schedule" value="يعتمد على المواعيد والتكلفة"><span>يعتمد على المواعيد والتكلفة</span></label>
+            <label class="opt"><input type="radio" name="schedule" value="أحتاج إلى معرفة التفاصيل أولًا"><span>أحتاج إلى معرفة التفاصيل أولًا</span></label>
+          </div>
+        </div>
+
+        <div class="q-group">
+          <p class="q-title">7. ما موعد بدء اليوم الذي تفضّله؟</p>
+          <div class="options-grid">
+            <label class="opt"><input type="radio" name="start_time" value="7:00 صباحًا"><span>7:00 صباحًا</span></label>
+            <label class="opt"><input type="radio" name="start_time" value="8:00 صباحًا"><span>8:00 صباحًا</span></label>
+            <label class="opt"><input type="radio" name="start_time" value="9:00 صباحًا"><span>9:00 صباحًا</span></label>
+            <label class="opt"><input type="radio" name="start_time" value="وقت آخر أو جدول مرن"><span>وقت آخر أو جدول مرن</span></label>
+          </div>
+        </div>
+
+        <div class="q-group">
+          <p class="q-title">8. هل تحتاج إلى خدمة المواصلات لطفلك؟</p>
+          <div class="options-grid">
+            <label class="opt"><input type="radio" name="transport" value="نعم، أحتاج إليها"><span>نعم، أحتاج إليها</span></label>
+            <label class="opt"><input type="radio" name="transport" value="قد أحتاج إليها حسب المسار والتكلفة"><span>قد أحتاج إليها حسب المسار والتكلفة</span></label>
+            <label class="opt"><input type="radio" name="transport" value="لا أحتاج إليها"><span>لا أحتاج إليها</span></label>
+            <label class="opt"><input type="radio" name="transport" value="أود معرفة التفاصيل أولًا"><span>أود معرفة التفاصيل أولًا</span></label>
+          </div>
+        </div>
+
+        <div class="q-group">
+          <p class="q-title">9. ما الشيء الواحد الذي تتمنى أن تجده في حضانة كنوز كيدز ليجعل تجربتك أفضل؟</p>
+          <p class="q-hint">اكتب فكرتك بكلمات بسيطة… يسعدنا سماع اقتراحك. (اختياري)</p>
+          <textarea class="input-field" name="wish" placeholder="أمنيتك هنا..."></textarea>
+        </div>
+
+        <div class="q-group">
+          <p class="q-title">10. هل ترغب في أن نتواصل معك لمعرفة احتياجاتك أو تزويدك بتفاصيل التسجيل؟</p>
+          <div class="options-grid">
+            <label class="opt"><input type="radio" name="contact_me" value="نعم" id="radio-contact-yes"><span>نعم، أرغب في التواصل</span></label>
+            <label class="opt"><input type="radio" name="contact_me" value="لا" id="radio-contact-no"><span>لا، شكرًا</span></label>
+          </div>
+          
+          <div class="conditional-field" id="contact-fields">
+            <p class="q-hint" style="margin-bottom: 10px; color: var(--green);">بياناتك اختيارية وتستخدم فقط للرد على استفسارك.</p>
+            <input type="text" class="input-field" name="parent_name" placeholder="الاسم (اختياري)" style="margin-bottom: 10px;">
+            <input type="tel" class="input-field" name="parent_phone" placeholder="رقم الهاتف أو واتساب (اختياري)">
+          </div>
+        </div>
+      </div>
+
+      <div class="error-msg" id="error-msg"></div>
+
+      <div class="nav-buttons">
+        <button type="button" class="btn btn-secondary" id="btn-prev" style="display: none;">السابق</button>
+        <button type="button" class="btn btn-primary" id="btn-next">التالي</button>
+        <button type="submit" class="btn btn-primary" id="btn-submit" style="display: none;">إرسال الاستبيان</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="card success-screen" id="success-screen">
+    <div class="success-icon">✓</div>
+    <h2>شكرًا لك! 💚</h2>
+    <p>لقد تم استلام إجاباتك بنجاح. رأيك هو سرّ تطورنا، ونعدك بأن نأخذ كل كلمة بعين الاعتبار.</p>
+    <button class="btn btn-primary" onclick="location.reload()" style="width: auto; margin: auto; padding: 10px 30px;">إغلاق</button>
+  </div>
+
+  <footer>© حضانة كنوز كيدز 2024 - جميع الحقوق محفوظة</footer>
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('survey-form');
+  const steps = document.querySelectorAll('.step');
+  const btnPrev = document.getElementById('btn-prev');
+  const btnNext = document.getElementById('btn-next');
+  const btnSubmit = document.getElementById('btn-submit');
+  const errorMsg = document.getElementById('error-msg');
+  const progressBar = document.getElementById('progress-bar');
+  const stepText = document.getElementById('step-text');
+  const percentText = document.getElementById('percent-text');
+  
+  let currentStep = 0;
+  const totalSteps = steps.length;
+
+  // دالة تحديث الواجهة
+  function updateUI() {
+    steps.forEach((step, index) => {
+      step.classList.toggle('active', index === currentStep);
+    });
+
+    // التقدم
+    const progress = ((currentStep + 1) / totalSteps) * 100;
+    progressBar.style.width = progress + '%';
+    stepText.textContent = `القسم ${currentStep + 1} من ${totalSteps}`;
+    percentText.textContent = Math.round(progress) + '%';
+
+    // الأزرار
+    btnPrev.style.display = currentStep === 0 ? 'none' : 'block';
+    btnNext.style.display = currentStep === totalSteps - 1 ? 'none' : 'block';
+    btnSubmit.style.display = currentStep === totalSteps - 1 ? 'block' : 'none';
+    
+    errorMsg.classList.remove('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // تلوين الخيارات المختارة
+  document.querySelectorAll('.opt input').forEach(input => {
+    input.addEventListener('change', (e) => {
+      const parent = e.target.closest('.opt');
+      if (e.target.type === 'radio') {
+        // إزالة التحديد من أشقائه
+        const name = e.target.name;
+        document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
+          radio.closest('.opt').classList.remove('selected');
+        });
+        parent.classList.add('selected');
+      } else {
+        // Checkbox
+        parent.classList.toggle('selected', e.target.checked);
+      }
+    });
+  });
+
+  // منطق إظهار وإخفاء سؤال 3 (التقييم)
+  document.querySelectorAll('input[name="relation"]').forEach(radio => {
+    radio.addEventListener('change', (e) => {
+      const q3Group = document.getElementById('q3-group');
+      const val = e.target.value;
+      if (val === 'طفلي ملتحق بالحضانة حاليًا' || val === 'سبق لطفلي الالتحاق بها') {
+        q3Group.classList.add('show');
+      } else {
+        q3Group.classList.remove('show');
+        // مسح الإجابة إذا اخفينا السؤال
+        document.querySelectorAll('input[name="rating"]').forEach(r => { r.checked = false; r.closest('.opt').classList.remove('selected'); });
+      }
+    });
+  });
+
+  // منطق إظهار وإخفاء بيانات التواصل
+  document.getElementById('radio-contact-yes').addEventListener('change', (e) => {
+    document.getElementById('contact-fields').classList.add('show');
+  });
+  document.getElementById('radio-contact-no').addEventListener('change', (e) => {
+    document.getElementById('contact-fields').classList.remove('show');
+    // مسح البيانات إذا اختار لا
+    document.querySelector('input[name="parent_name"]').value = '';
+    document.querySelector('input[name="parent_phone"]').value = '';
+  });
+
+  // منطق إظهار حقل "أمر آخر"
+  document.getElementById('chk-other-improvement').addEventListener('change', (e) => {
+    const input = document.getElementById('other-improvement-text');
+    if (e.target.checked) {
+      input.classList.add('show');
+      input.focus();
+    } else {
+      input.classList.remove('show');
+      input.value = '';
+    }
+  });
+
+  // التحقق من حدود الاختيار (حد أقصى 3)
+  function enforceMaxChoices(groupName, max) {
+    const checkboxes = document.querySelectorAll(`input[name="${groupName}"]`);
+    checkboxes.forEach(cb => {
+      cb.addEventListener('change', () => {
+        const checked = Array.from(checkboxes).filter(c => c.checked);
+        if (checked.length > max) {
+          cb.checked = false;
+          cb.closest('.opt').classList.remove('selected');
+          showError(`يمكنك اختيار ${max} خيارات كحد أقصى في هذا السؤال.`);
+        } else {
+          hideError();
+        }
+      });
+    });
+  }
+  
+  enforceMaxChoices('priorities', 3);
+  enforceMaxChoices('improvements', 3);
+
+  function showError(msg) {
+    errorMsg.textContent = msg;
+    errorMsg.classList.add('show');
+  }
+  function hideError() {
+    errorMsg.classList.remove('show');
+  }
+
+  // أزرار التنقل
+  btnNext.addEventListener('click', () => {
+    // يمكن إضافة تحقق هنا إذا أردت جعل بعض الأسئلة إلزامية
+    if (currentStep < totalSteps - 1) {
+      currentStep++;
+      updateUI();
+    }
+  });
+
+  btnPrev.addEventListener('click', () => {
+    if (currentStep > 0) {
+      currentStep--;
+      updateUI();
+    }
+  });
+
+  // إرسال النموذج
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // التحقق النهائي: التأكد من عدم تجاوز الحد الأقصى في أي مجموعة
+    const priorities = Array.from(document.querySelectorAll('input[name="priorities"]:checked'));
+    const improvements = Array.from(document.querySelectorAll('input[name="improvements"]:checked'));
+    
+    if (improvements.length > 3) {
+      showError('في السؤال 5، اخترت أكثر من 3 خيارات. يرجى تعديلها.');
+      return;
+    }
+
+    // تعطيل الزر لمنع الإرسال المتكرر
+    btnSubmit.disabled = true;
+    btnSubmit.textContent = 'جارٍ الإرسال...';
+
+    /*
+      ملاحظة للمطور:
+      هنا نقوم بإرسال البيانات إلى Google Forms باستخدام FormData.
+      يجب استبدال الـ action URL أدناه برابط الـ Form ID الخاص بك.
+      للأسف، لا يمكنني برمجة الرابط الفعلي دون معرفة النموذج الخاص بك.
+    */
+    
+    // محاكاة الإرسال (يجب استبدال هذا الجزء بالكود الحقيقي لـ Google Forms)
+    setTimeout(() => {
+        // إخفاء النموذج وإظهار رسالة النجاح
+        form.style.display = 'none';
+        document.querySelector('.progress-container').style.display = 'none';
+        document.getElementById('success-screen').classList.add('show');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 1500);
+  });
+
+  // تهيئة أولية
+  updateUI();
+});
+</script>
+</body>
+</html>
