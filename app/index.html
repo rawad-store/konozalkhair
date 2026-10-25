@@ -87,6 +87,7 @@ nav button.on{background:rgba(255,255,255,.14);color:var(--wheat)}
 .btn[disabled]{opacity:.55;cursor:not-allowed}
 .cta{display:flex;gap:10px;margin-top:18px}
 
+/* صورة الغلاف */
 .hero{background:var(--pine);border-radius:0 0 28px 28px;overflow:hidden;margin:0}
 .hero>img{display:block;width:100%;height:auto;object-fit:contain;margin:auto}
 .hero-fb{padding:56px 24px 40px;color:#fff;max-width:1080px;margin:auto}
@@ -125,7 +126,7 @@ h2{font-size:1.65rem;line-height:1.4;color:var(--pine);margin:36px 0 4px}
 .sk{height:300px;border-radius:20px;background:linear-gradient(90deg,var(--tint),var(--line),var(--tint));background-size:200% 100%;animation:sh 1.4s infinite}
 @keyframes sh{to{background-position:-200% 0}}
 
-/* شفافية المبالغ وشريط التقدم (تم تغيير الكلاس إلى .prog) */
+/* شفافية المبالغ وشريط التقدم */
 .amt{margin-top:12px;padding:12px;background:var(--tint);border:1px solid var(--line);border-radius:12px;font-size:.85rem}
 .amt-row{display:flex;justify-content:space-between;gap:6px;flex-wrap:wrap;margin-bottom:8px}
 .amt-row span{white-space:nowrap}
@@ -572,10 +573,36 @@ $('#vs').addEventListener('click',function(){
 });
 
 /* مشاركة */
-function shareData(x){
-  if(navigator.share){navigator.share(x).catch(function(){})}
-  else if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(x.text+' '+x.url).then(function(){toast('تم نسخ رسالة المشاركة')},function(){toast(x.url)})}
-  else toast(x.url);
+function shareData(x, imgUrl){
+  if(imgUrl){
+    imgUrl = String(imgUrl);
+    if(!imgUrl.startsWith('data:image')) {
+      imgUrl = SITE + imgUrl.replace(/^\.?\//, ''); 
+    }
+    var ogImg = document.querySelector('meta[property="og:image"]');
+    if(ogImg) ogImg.setAttribute('content', imgUrl);
+    var twImg = document.querySelector('meta[name="twitter:image"]');
+    if(twImg) twImg.setAttribute('content', imgUrl);
+    
+    var ogTitle = document.querySelector('meta[property="og:title"]');
+    if(ogTitle) ogTitle.setAttribute('content', x.title);
+    var ogDesc = document.querySelector('meta[property="og:description"]');
+    if(ogDesc) ogDesc.setAttribute('content', x.text);
+  }
+
+  if(navigator.share){
+    navigator.share(x).catch(function(){});
+  }
+  else if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(x.text + ' ' + x.url).then(function(){
+      toast('تم نسخ رسالة المشاركة');
+    },function(){
+      toast(x.url);
+    });
+  }
+  else {
+    toast(x.url);
+  }
 }
 function share(){shareData({title:'مؤسسة كنوز الخير للتنمية',text:'خيرٌ لكل الناس 🌱\nتبرّع، أبلغ عن حالة، أو تطوّع معنا.\nالدالّ على الخير كفاعله.\n\nافتح التطبيق:',url:SITE})}
 ['#share','#share3'].forEach(function(s){$(s).addEventListener('click',share)});
@@ -652,7 +679,8 @@ function renderCases(list,box,cnt,limit){
     });
     var sb=el.querySelector('[data-s]');
     if(sb)sb.addEventListener('click',function(){
-      shareData({title:c.title||'حالة',text:(c.title||'')+'\nساهم في جبر خاطر أسرة عبر كنوز الخير.',url:SITE});
+      var shareText = (c.title||'')+'\n'+(c.location||'')+'\nساهم في جبر خاطر أسرة عبر كنوز الخير.\n';
+      shareData({title:c.title||'حالة',text:shareText,url:SITE}, img);
     });
     box.appendChild(el);
   });
