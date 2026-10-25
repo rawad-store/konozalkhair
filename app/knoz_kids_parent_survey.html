@@ -35,41 +35,39 @@ body {
 .brand-text h1 { font-size: 20px; color: var(--green); font-weight: 700; line-height: 1.2; }
 .brand-text p { font-size: 13px; color: var(--gold); font-weight: 600; }
 
-/* تصميم الغلاف الجديد بالصورة */
+/* تصميم الغلاف الجديد - متوافق مع جميع الشاشات */
 .hero {
   border-radius: 24px;
   overflow: hidden;
   position: relative;
   margin-bottom: 20px;
   box-shadow: 0 15px 34px rgba(22, 71, 47, 0.15);
-  min-height: 320px;
+  background-color: #103c2c; /* لون خلفية يملأ الفراغات حول الصورة */
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
 }
 .hero-bg {
-  position: absolute;
-  inset: 0;
-  background: url('knoz-survey-new.jpg') center/cover no-repeat;
-  z-index: 1;
-}
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(19, 64, 47, 0.95) 0%, rgba(19, 64, 47, 0.7) 40%, rgba(19, 64, 47, 0.1) 100%);
-  z-index: 2;
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  display: block;
+  object-fit: contain; /* يضمن ظهور الصورة بالكامل دون قص */
 }
 .hero-content {
-  position: relative;
-  z-index: 3;
-  padding: 25px 20px;
+  padding: 22px 20px;
   color: #fff;
-  width: 100%;
+  background: linear-gradient(to top, #103c2c 0%, rgba(16, 60, 44, 0.95) 100%);
+  text-align: center;
 }
-.hero h2 { font-size: 22px; margin-bottom: 10px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-.hero p { font-size: 14px; opacity: 0.95; line-height: 1.8; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
-.hero .time-badge {
-  display: inline-block; background: rgba(255,255,255,0.2); backdrop-filter: blur(4px);
-  padding: 4px 12px; border-radius: 20px; font-size: 12px; margin-top: 12px;
+.hero-content h2 { font-size: 20px; margin-bottom: 10px; color: #fff; }
+.hero-content p { font-size: 14px; opacity: 0.95; line-height: 1.8; }
+.hero-content .time-badge {
+  display: inline-block; 
+  background: rgba(255,255,255,0.15); 
+  padding: 6px 14px; 
+  border-radius: 20px; 
+  font-size: 12px; 
+  margin-top: 12px;
   border: 1px solid rgba(255,255,255,0.3);
 }
 
@@ -156,8 +154,7 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 3
 
   <!-- الغلاف الجديد -->
   <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-overlay"></div>
+    <img src="knoz-survey-new.jpg" alt="حضانة كنوز كيدز" class="hero-bg">
     <div class="hero-content">
       <h2>رأيكم يهمّنا… معًا نمنح أطفالنا بداية أجمل</h2>
       <p>💚 في حضانة كنوز كيدز، نؤمن أن الاستماع إلى أولياء الأمور خطوة مهمة نحو تطوير تجربة الأطفال. نحب أن نعرف ما الذي تبحث عنه لطفلك، وما الذي يسعدك، وما الذي تتمنى أن نطوّره.</p>
@@ -345,7 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const stepText = document.getElementById('step-text');
   const percentText = document.getElementById('percent-text');
   
-  // تصحيح رقم الواتساب (بدون مسافات)
+  // رقم الواتساب (بدون مسافات)
   const WA_NUMBER = '201091866443'; 
 
   let currentStep = 0;
@@ -385,7 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // منطق إظهار وإخفاء سؤال 3
+  // منطق إظهار وإخفاء سؤال 3 (التقييم)
   document.querySelectorAll('input[name="relation"]').forEach(radio => {
     radio.addEventListener('change', (e) => {
       const q3Group = document.getElementById('q3-group');
@@ -399,7 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // منطق بيانات التواصل
+  // منطق إظهار وإخفاء بيانات التواصل
   document.getElementById('radio-contact-yes').addEventListener('change', () => {
     document.getElementById('contact-fields').classList.add('show');
   });
@@ -409,7 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('input[name="parent_phone"]').value = '';
   });
 
-  // حقل "أمر آخر"
+  // منطق إظهار حقل "أمر آخر"
   document.getElementById('chk-other-improvement').addEventListener('change', (e) => {
     const input = document.getElementById('other-improvement-text');
     if (e.target.checked) {
@@ -421,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // حدود الاختيار
+  // التحقق من حدود الاختيار (حد أقصى 3)
   function enforceMaxChoices(groupName, max) {
     const checkboxes = document.querySelectorAll(`input[name="${groupName}"]`);
     checkboxes.forEach(cb => {
@@ -449,6 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
     errorMsg.classList.remove('show');
   }
 
+  // أزرار التنقل
   btnNext.addEventListener('click', () => {
     if (currentStep < totalSteps - 1) {
       currentStep++;
@@ -463,6 +461,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // إرسال النموذج إلى واتساب
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     
@@ -475,9 +474,11 @@ document.addEventListener('DOMContentLoaded', () => {
     btnSubmit.disabled = true;
     btnSubmit.textContent = 'جارٍ التجهيز...';
 
+    // تجميع البيانات
     const formData = new FormData(form);
     let message = "السلام عليكم، هذه إجابات استبيان حضانة كنوز كيدز:\n\n";
     
+    // دالة مساعدة لتنسيق الإجابات
     const addAnswers = (title, name) => {
       const val = formData.getAll(name);
       if (val.length > 0) message += `*${title}:*\n- ${val.join('\n- ')}\n\n`;
@@ -508,17 +509,21 @@ document.addEventListener('DOMContentLoaded', () => {
       if (phone) message += `   الهاتف: ${phone}\n`;
     }
 
+    // ترميز الرسالة وإرسالها
     const encodedMessage = encodeURIComponent(message);
     const waUrl = `https://wa.me/${WA_NUMBER}?text=${encodedMessage}`;
 
+    // فتح واتساب
     window.open(waUrl, '_blank');
 
+    // إظهار شاشة النجاح
     form.style.display = 'none';
     document.querySelector('.progress-container').style.display = 'none';
     document.getElementById('success-screen').classList.add('show');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
+  // تهيئة أولية
   updateUI();
 });
 </script>
