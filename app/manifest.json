@@ -1,11 +1,11 @@
 {
-  "id": "./",
   "name": "مؤسسة كنوز الخير للتنمية",
   "short_name": "كنوز الخير",
   "description": "تبرّع، أبلغ عن حالة تحتاج مساعدة، أو تطوّع معنا. خيرٌ لكل الناس.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
   "background_color": "#13402f",
   "theme_color": "#13402f",
   "orientation": "portrait-primary",
@@ -14,7 +14,7 @@
   "icons": [
     {
       "src": "./app-icon.jpg",
-      "sizes": "192x192",
+      "sizes": "512x512",
       "type": "image/jpeg",
       "purpose": "any"
     },
@@ -22,7 +22,7 @@
       "src": "./app-icon.jpg",
       "sizes": "512x512",
       "type": "image/jpeg",
-      "purpose": "any"
+      "purpose": "maskable"
     }
   ]
 }
