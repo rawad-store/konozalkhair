@@ -15,6 +15,7 @@
 <meta name="format-detection" content="telephone=no">
 <link rel="canonical" href="https://rawad-store.github.io/konozalkhair/app/">
 
+<!-- وسوم المشاركة على وسائل التواصل -->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ar_AR">
 <meta property="og:title" content="مؤسسة كنوز الخير للتنمية — خيرٌ لكل الناس">
@@ -26,9 +27,11 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 
+<!-- وسوم تويتر -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://rawad-store.github.io/konozalkhair/app/app-preview.jpg">
 
+<!-- الأيقونات -->
 <link rel="icon" href="app-preview.jpg">
 <link rel="apple-touch-icon" href="app-icon.jpg">
 
@@ -45,7 +48,7 @@
 :root[data-theme="dark"]{--paper:#0c1812;--surf:#13241b;--ink:#e9f1ea;--mute:#9bb4a6;--leaf:#5cbf90;--line:#244033;--tint:#16291f;--hd:#0a1d15;--alert:#ef7a66;--shadow:0 8px 28px rgba(0,0,0,.4)}
 *{box-sizing:border-box;margin:0}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:90px;background:var(--paper)}
-body{background:var(--paper);color:var(--ink);font:400 16px/1.85 "IBM Plex Sans Arabic","Segoe UI",Tahoma,system-ui,-apple-system,sans-serif;min-height:100vh;min-height:100dvh;padding-bottom:calc(104px + env(safe-area-inset-bottom,0px));overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+body{background:var(--paper);color:var(--ink);font:400 16px/1.85 "IBM Plex Sans Arabic","Segoe UI",Tahoma,system-ui,-apple-system,sans-serif;min-height:100vh;min-height:100dvh;padding-top:calc(64px + env(safe-area-inset-top,0px));padding-bottom:calc(104px + env(safe-area-inset-bottom,0px));overflow-x:hidden;-webkit-tap-highlight-color:transparent}
 button,input,select,textarea{font:inherit;color:inherit}
 a{color:inherit}img{max-width:100%}
 [hidden]{display:none!important}
@@ -56,7 +59,8 @@ a{color:inherit}img{max-width:100%}
 .skip{position:absolute;top:-60px;inset-inline-start:8px;background:var(--wheat);color:var(--wheat-ink);padding:8px 14px;border-radius:10px;z-index:100;font-weight:700}
 .skip:focus{top:8px}
 
-header{position:sticky;top:0;z-index:20;background:var(--hd);color:#fff;padding-top:env(safe-area-inset-top,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+/* الشريط العلوي الثابت */
+header{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--hd);color:#fff;padding-top:env(safe-area-inset-top,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px);box-shadow:0 2px 10px rgba(0,0,0,0.15)}
 .bar{display:flex;align-items:center;gap:12px;max-width:1080px;margin:auto;padding:10px 16px}
 .bar>img{width:42px;height:42px;border-radius:50%;border:2px solid var(--wheat);object-fit:cover;background:var(--leaf);flex-shrink:0}
 .ttl{flex:1;min-width:0;line-height:1.3}
@@ -70,23 +74,27 @@ header{position:sticky;top:0;z-index:20;background:var(--hd);color:#fff;padding-
 #upd{background:var(--wheat);color:var(--wheat-ink);text-align:center;font-size:.86rem;font-weight:700;padding:6px}
 #upd button{background:var(--wheat-ink);color:#fff;border:0;border-radius:8px;padding:2px 12px;margin-inline-start:8px;cursor:pointer}
 
+/* شريط التنقل السفلي */
 nav{position:fixed;bottom:calc(10px + env(safe-area-inset-bottom,0px));left:12px;right:12px;max-width:520px;margin:auto;background:var(--hd);border:1px solid rgba(255,255,255,.08);border-radius:22px;display:flex;padding:6px;z-index:25;box-shadow:0 10px 30px rgba(7,20,14,.4)}
 nav button{flex:1;border:0;background:none;color:rgba(255,255,255,.7);display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0 6px;font-size:.74rem;font-weight:600;border-radius:16px;cursor:pointer}
 nav svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 nav button.on{background:rgba(255,255,255,.14);color:var(--wheat)}
 
+/* الأزرار */
 .btn{display:flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:14px;padding:14px 18px;font-weight:700;text-decoration:none;cursor:pointer;text-align:center;width:100%;background:var(--pine);color:#fff;transition:transform .15s,opacity .15s;min-height:48px}
 :root[data-theme="dark"] .btn:not(.gold):not(.line){background:var(--leaf);color:#06140c}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn:not(.gold):not(.line){background:var(--leaf);color:#06140c}}
 .btn:active{transform:scale(.98)}.btn:hover{opacity:.93}
 .btn.gold{background:var(--wheat);color:var(--wheat-ink)}
 .btn.line{background:transparent;color:var(--leaf);border:1.5px solid var(--leaf)}
+.btn.line[disabled]{background:var(--tint);color:var(--mute);border-color:var(--line);cursor:not-allowed}
 .btn.sm{width:auto;padding:9px 16px;font-size:.9rem;border-radius:12px;min-height:44px}
 .btn[disabled]{opacity:.55;cursor:not-allowed}
 .cta{display:flex;gap:10px;margin-top:18px}
 
-.hero{background:var(--pine) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cpath d='M32 5l7 16 16-7-7 16 16 7-16 7 7 16-16-7-7 16-7-16-16 7 7-16-16-7 16-7-7-16 16 7z' fill='none' stroke='%23d6a21e' stroke-opacity='.2' stroke-width='1.2'/%3E%3C/svg%3E");border-radius:0 0 28px 28px;overflow:hidden}
-.hero>img{display:block;width:100%;height:auto;max-height:74vh;object-fit:contain;margin:auto}
+/* صورة الغلاف */
+.hero{background:var(--pine);border-radius:0 0 28px 28px;overflow:hidden;margin:0}
+.hero>img{display:block;width:100%;height:auto;max-height:50vh;object-fit:cover;margin:auto}
 .hero-fb{padding:56px 24px 40px;color:#fff;max-width:1080px;margin:auto}
 .hero-fb h1{font-size:clamp(2.6rem,9vw,4.4rem);line-height:1.25;color:var(--wheat)}
 .hero-fb p{opacity:.92;max-width:30ch;margin-top:8px;font-size:1.05rem}
@@ -98,6 +106,7 @@ h2{font-size:1.65rem;line-height:1.4;color:var(--pine);margin:36px 0 4px}
 .instbar p{flex:1;font-size:.9rem;line-height:1.6}
 .instbar .x{background:none;border:0;color:var(--mute);font-size:1.4rem;cursor:pointer;width:40px;height:40px;line-height:1}
 
+/* بطاقات الحالات */
 .cases{display:grid;gap:16px;grid-template-columns:1fr}
 .case{background:var(--surf);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow)}
 .case .ph{position:relative;display:block;width:100%;height:210px;border:0;padding:0;background:var(--tint);cursor:zoom-in}
@@ -137,6 +146,7 @@ h2{font-size:1.65rem;line-height:1.4;color:var(--pine);margin:36px 0 4px}
 .done-badge{background:#e6f5ed;color:#13402f;padding:10px 12px;border-radius:12px;text-align:center;font-weight:700;margin-top:12px;border:1px solid #c9e5d6;font-size:.88rem}
 :root[data-theme="dark"] .done-badge{background:#14382a;color:#7ee6b4;border-color:#1f5c42}
 
+/* أعمال اليوم */
 .week{display:flex;gap:6px;margin:6px 0 14px}
 .week span{flex:1;text-align:center;font-size:.74rem;color:var(--mute)}
 .week i{display:block;height:8px;border-radius:4px;background:var(--line);margin-bottom:4px}
@@ -156,6 +166,7 @@ h2{font-size:1.65rem;line-height:1.4;color:var(--pine);margin:36px 0 4px}
 .facts b{display:block;font:700 1.7rem/1.3 "Aref Ruqaa",serif;color:var(--ink)}
 .two{display:grid;gap:0 28px;grid-template-columns:1fr}
 
+/* النماذج واللوحات */
 .panel{background:var(--surf);border:1px solid var(--line);border-radius:20px;padding:20px;margin-top:14px;box-shadow:var(--shadow)}
 label.f{display:block;font-weight:600;font-size:.93rem;margin:14px 0 6px}
 label.f:first-child{margin-top:0}
@@ -186,18 +197,20 @@ textarea.in{min-height:110px;resize:vertical}
 .links{display:grid;gap:10px;margin-top:14px}
 .addr{padding:16px 0;border-bottom:1px solid var(--line)}
 
-.modal{position:fixed;inset:0;z-index:50;background:rgba(5,15,10,.78);display:flex;align-items:center;justify-content:center;padding:18px;overflow:auto}
+/* النوافذ المنبثقة */
+.modal{position:fixed;inset:0;z-index:60;background:rgba(5,15,10,.78);display:flex;align-items:center;justify-content:center;padding:18px;overflow:auto}
 .sheet{background:var(--surf);border-radius:22px;padding:22px;max-width:440px;width:100%;position:relative}
 .sheet h3{font-size:1.4rem;margin-bottom:6px}
 .sheet ol{padding-inline-start:22px;margin:10px 0 16px;line-height:2}
 .modal .cl2{position:absolute;top:8px;inset-inline-end:8px;background:rgba(0,0,0,.45);color:#fff;border:0;width:42px;height:42px;border-radius:50%;font-size:1.4rem;cursor:pointer;line-height:1}
 .sheet .cl2{background:var(--tint);color:var(--ink)}
 .modal>img{max-width:100%;max-height:88vh;border-radius:14px;object-fit:contain}
-.toast{position:fixed;bottom:calc(100px + env(safe-area-inset-bottom,0px));left:50%;transform:translate(-50%,10px);background:var(--ink);color:var(--paper);padding:11px 20px;border-radius:14px;opacity:0;pointer-events:none;transition:.3s;z-index:60;max-width:88%;text-align:center;font-weight:600;font-size:.92rem}
+.toast{position:fixed;bottom:calc(100px + env(safe-area-inset-bottom,0px));left:50%;transform:translate(-50%,10px);background:var(--ink);color:var(--paper);padding:11px 20px;border-radius:14px;opacity:0;pointer-events:none;transition:.3s;z-index:70;max-width:88%;text-align:center;font-weight:600;font-size:.92rem}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 .tab{display:none}.tab.on{display:block}
 footer{text-align:center;color:var(--mute);font-size:.84rem;margin:30px 0 0}
 
+/* الاستجابة للشاشات */
 @media (min-width:700px){
   .cases{grid-template-columns:repeat(2,1fr)}
   .two{grid-template-columns:1fr 1fr}
@@ -404,7 +417,7 @@ function wa(m){
 function ymd(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
 var store={get:function(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 
-/* ====== دوال المبالغ ====== */
+/* دوال المبالغ */
 function toNum(v){
   if(v==null)return 0;
   if(typeof v==='number')return isFinite(v)&&v>0?Math.floor(v):0;
@@ -608,7 +621,7 @@ function renderCases(list,box,cnt,limit){
         done=need>0&&col>=need;
     el.className='case'+(c.urgent?' urgent':'')+(done?' done':'');
     el.innerHTML=
-      (img?'<button class="ph" type="button" aria-label="تكبير الصورة"><img src="'+esc(img)+'" alt="" loading="lazy" decoding="async">'+
+      (img?'<button class="ph" type="button" aria-label="تكبير الصورة"><img src="'+esc(img)+'" alt="صورة الحالة" loading="lazy" decoding="async">'+
         (c.urgent&&!done?'<span class="badge">عاجلة</span>':'')+
         (done?'<span class="badge done-badge-corner">✅ مكتملة</span>':'')+
       '</button>':'')+
