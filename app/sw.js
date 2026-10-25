@@ -1,5 +1,5 @@
 /* Service Worker - كنوز الخير */
-const CACHE_NAME = 'konoz-v24';
+const CACHE_NAME = 'konoz-v25';
 const CORE_ASSETS = ['./', './index.html', './survey.html', './manifest.json', './cases.json', './hero-bg.jpg', './preview.jpg', './app-icon.jpg'];
 const NETWORK_ONLY_FIRST = ['cases.json', 'admin.html'];
 
