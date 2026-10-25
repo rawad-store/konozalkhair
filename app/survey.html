@@ -4,80 +4,377 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#124b35">
-  <meta name="description" content="شاركنا رأيك في استبيان كنوز الخير. إجاباتك تساعدنا على تطوير المبادرات وطرق المشاركة.">
-  <title>استبيان كنوز الخير | شاركنا رأيك</title>
+  <meta name="description" content="شاركنا رأيك في استبيان كنوز الخير. دقيقتان فقط لصنع فرق.">
+  <title>استبيان كنوز الخير</title>
+
+  <!-- وسوم المشاركة (بدون صورة) -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ar_AR">
+  <meta property="og:title" content="استبيان كنوز الخير — رأيك يصنع فرقًا">
+  <meta property="og:description" content="دقيقتان فقط… ساعدنا نطور المبادرات ونصل لمن يحتاج.">
+  <meta property="og:url" content="https://rawad-store.github.io/konozalkhair/survey.html">
+
+  <!-- وسوم تويتر (بدون صورة) -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="استبيان كنوز الخير — رأيك يصنع فرقًا">
+  <meta name="twitter:description" content="دقيقتان فقط… ساعدنا نطور المبادرات ونصل لمن يحتاج.">
+
   <link rel="icon" href="preview.jpg">
   <link rel="apple-touch-icon" href="app-icon.jpg">
   <style>
-    :root{--green:#124b35;--green2:#1e6b4b;--mint:#eaf4ed;--gold:#d8b65b;--ink:#173b2c;--muted:#64756c;--line:#dce7df;--paper:#fffdf8}
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;background:linear-gradient(150deg,#f4f7f2,#edf4ee 60%,#faf6e9);color:var(--ink);font-family:Tahoma,Arial,sans-serif;line-height:1.7;padding-top:env(safe-area-inset-top,0px)}
-    .shell{width:min(850px,100%);margin:auto;padding:14px 14px 32px}
-    .brand{display:flex;align-items:center;gap:13px;padding:8px 4px 16px}
-    .logo{width:56px;height:56px;border:2px solid #e3cf88;background:#fff;border-radius:50%;overflow:hidden;flex:none;box-shadow:0 5px 16px #173b2c16}
-    .logo img{width:100%;height:100%;object-fit:cover}
-    .brandname{font-weight:800;font-size:16px;color:var(--green)}
-    .brandeng{font-size:11px;color:var(--muted);direction:ltr;text-align:right}
-    .brandtag{font-size:12px;color:#987627;font-weight:bold}
-    .backlink{margin-inline-start:auto;font-size:13px;color:var(--green);font-weight:700;text-decoration:none;border:1px solid var(--line);background:#fff;border-radius:99px;padding:6px 14px;white-space:nowrap}
-    .hero{border-radius:24px;background:radial-gradient(circle at 85% 0%,#2b805d 0,#18563d 38%,#103c2c 100%);color:#fff;padding:25px 22px;box-shadow:0 15px 34px #16472f22}
-    .pill{display:inline-block;border:1px solid #d7b85b77;color:#ffe7a0;background:#ffffff0b;border-radius:99px;padding:3px 12px;font-size:12px}
-    h1{font-size:clamp(25px,5vw,35px);line-height:1.35;margin:12px 0 8px}
-    .hero p{margin:0;color:#e4f1e8;max-width:650px;font-size:15px}
-    .card{background:#fff;border:1px solid #e1e9e2;border-radius:20px;margin-top:15px;padding:18px;box-shadow:0 8px 25px #1b4a3210}
-    .row{display:flex;align-items:flex-start;gap:11px}
-    .icon{width:40px;height:40px;display:grid;place-items:center;background:var(--mint);border-radius:12px;font-size:20px;flex:none}
-    h2{font-size:18px;margin:0 0 4px;color:var(--green)}
-    .muted{font-size:13px;color:var(--muted);margin:2px 0 0}
-    .actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
-    .btn{display:inline-block;text-decoration:none;text-align:center;border:0;border-radius:12px;padding:10px 16px;font-weight:bold;min-height:44px}
-    .primary{background:var(--green);color:#fff}
-    .secondary{background:#edf3ee;color:var(--green);border:1px solid #d8e4da}
-    .privacy{font-size:12px;background:#f5f8f5;border:1px solid #e1e9e2;padding:12px 14px;border-radius:12px;color:#53675b;margin-top:14px}
-    .framewrap{margin-top:15px;border:1px solid var(--line);border-radius:17px;background:#fff;overflow:hidden}
-    iframe{display:block;width:100%;height:2250px;border:0;background:#fff}
-    .foot{text-align:center;color:#6c7c71;font-size:12px;padding:20px 8px 0}
-    .gold{color:#987627}
-    @media(max-width:520px){.shell{padding:8px 9px 24px}.hero{padding:21px 16px;border-radius:20px}.card{padding:15px 13px}.logo{width:50px;height:50px}.brandname{font-size:14px}.backlink{font-size:12px;padding:6px 10px}.actions .btn{flex:1}iframe{height:2450px}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+    :root {
+      --green: #124b35;
+      --green2: #1a6b4a;
+      --green-dark: #0d3a28;
+      --mint: #e8f5ee;
+      --gold: #c9a227;
+      --ink: #1a2e24;
+      --muted: #5c6f65;
+      --line: #d4e4da;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: linear-gradient(165deg, #f0f7f3 0%, #eaf4ee 50%, #f8f4e9 100%);
+      color: var(--ink);
+      font-family: Tahoma, "Segoe UI", Arial, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding-top: env(safe-area-inset-top, 0);
+    }
+
+    .shell {
+      width: min(780px, 100%);
+      margin: 0 auto;
+      padding: 14px 14px 36px;
+    }
+
+    /* Header */
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 2px 14px;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      border: 2px solid #e3cf88;
+      border-radius: 50%;
+      overflow: hidden;
+      flex: none;
+      background: #fff;
+    }
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .brand-name {
+      font-weight: 800;
+      font-size: 15px;
+      color: var(--green);
+    }
+
+    .brand-tag {
+      font-size: 12px;
+      color: #9a7420;
+      font-weight: 600;
+    }
+
+    .backlink {
+      margin-inline-start: auto;
+      font-size: 12.5px;
+      color: var(--green);
+      font-weight: 700;
+      text-decoration: none;
+      border: 1.5px solid var(--line);
+      background: #fff;
+      border-radius: 99px;
+      padding: 7px 14px;
+    }
+
+    /* Hero */
+    .hero {
+      border-radius: 22px;
+      overflow: hidden;
+      background: var(--green-dark);
+      box-shadow: 0 12px 36px rgba(18, 75, 53, 0.14);
+    }
+
+    .hero-banner {
+      width: 100%;
+      max-height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-content {
+      padding: 20px 20px 22px;
+      text-align: center;
+      background: linear-gradient(to top, #0d3a28, rgba(13, 58, 40, 0.96));
+      color: #fff;
+    }
+
+    .pill {
+      display: inline-block;
+      border: 1px solid rgba(255, 215, 100, 0.4);
+      color: #ffe9a8;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 99px;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .hero h1 {
+      font-size: clamp(20px, 5vw, 26px);
+      font-weight: 800;
+      margin: 12px 0 8px;
+      line-height: 1.35;
+    }
+
+    .hero p {
+      font-size: 14px;
+      color: #d4e8dc;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    /* Main Card */
+    .card {
+      background: #fff;
+      border: 1px solid #e0ebe4;
+      border-radius: 18px;
+      margin-top: 16px;
+      padding: 18px 18px 16px;
+      box-shadow: 0 6px 24px rgba(18, 75, 53, 0.06);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      background: var(--mint);
+      border-radius: 12px;
+      font-size: 20px;
+      flex: none;
+    }
+
+    .card-top h2 {
+      font-size: 16.5px;
+      color: var(--green);
+      font-weight: 800;
+    }
+
+    .card-top span {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* Buttons */
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border-radius: 13px;
+      padding: 13px 16px;
+      font-weight: 700;
+      font-size: 14.5px;
+      min-height: 48px;
+      transition: 0.2s ease;
+      flex: 1;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--green), var(--green2));
+      color: #fff;
+      box-shadow: 0 5px 16px rgba(18, 75, 53, 0.25);
+      flex: 1.5;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(18, 75, 53, 0.32);
+    }
+
+    .btn-secondary {
+      background: #f3f8f5;
+      color: var(--green);
+      border: 1.5px solid #c8ddd0;
+    }
+
+    /* Short Privacy */
+    .privacy {
+      font-size: 12.5px;
+      color: #5a6f63;
+      background: #f5f9f6;
+      border-radius: 10px;
+      padding: 10px 13px;
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    /* Frame */
+    .frame-section {
+      margin-top: 18px;
+    }
+
+    .frame-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      padding: 0 4px;
+      font-size: 13.5px;
+      color: var(--muted);
+    }
+
+    .frame-label strong {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .framewrap {
+      border: 1.5px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 8px 28px rgba(18, 75, 53, 0.07);
+    }
+
+    iframe {
+      display: block;
+      width: 100%;
+      height: 2350px;
+      border: 0;
+    }
+
+    /* Footer */
+    .foot {
+      text-align: center;
+      padding: 24px 8px 6px;
+      font-size: 13px;
+      color: #6a7d72;
+    }
+
+    .foot strong {
+      color: var(--green);
+    }
+
+    .gold {
+      color: #9a7420;
+      font-weight: 700;
+    }
+
+    /* Mobile */
+    @media (max-width: 520px) {
+      .shell { padding: 10px 10px 28px; }
+      .logo { width: 44px; height: 44px; }
+      .brand-name { font-size: 14px; }
+      .backlink { font-size: 12px; padding: 6px 12px; }
+      .hero-content { padding: 16px 14px 18px; }
+      .hero h1 { font-size: 20px; }
+      .actions { flex-direction: column; }
+      .btn { flex: none; width: 100%; }
+      iframe { height: 2550px; }
+    }
   </style>
 </head>
 <body>
   <main class="shell">
+
+    <!-- Header -->
     <header class="brand">
-      <div class="logo"><img src="preview.jpg" alt="شعار كنوز الخير"></div>
-      <div><div class="brandname">مؤسسة كنوز الخير للتنمية</div><div class="brandeng">Konoz Al Khair Foundation</div><div class="brandtag">خيرٌ لكل الناس</div></div>
-      <a class="backlink" href="index.html">العودة للتطبيق</a>
+      <div class="logo">
+        <img src="preview.jpg" alt="شعار كنوز الخير">
+      </div>
+      <div>
+        <div class="brand-name">مؤسسة كنوز الخير</div>
+        <div class="brand-tag">خيرٌ لكل الناس</div>
+      </div>
+      <a class="backlink" href="index.html">العودة</a>
     </header>
 
-        <!-- الغلاف الجديد بصورة المؤسسة -->
-    <section class="hero" style="padding: 0; overflow: hidden; background-color: #103c2c;">
-      <img src="survey-banner.jpg" alt="مؤسسة كنوز الخير" style="width: 100%; height: auto; max-height: 400px; display: block; object-fit: contain;">
-      <div style="padding: 20px; text-align: center; background: linear-gradient(to top, #103c2c 0%, rgba(16,60,44,0.95) 100%); color: #fff;">
-        <span class="pill" style="border-color: rgba(255,215,100,0.5); color: #ffe7a0; background: rgba(255,255,255,0.1);">رأيك يصنع فرقًا</span>
-        <h1 style="font-size: 24px; margin: 10px 0; color: #fff;">شاركنا رأيك…<br>لنصنع الخير معًا</h1>
-        <p style="margin: 0; color: #e4f1e8; font-size: 14px; max-width: 600px; margin: auto;">ساعدنا على فهم اهتمامات المجتمع وتحسين المبادرات وطرق المشاركة. الاستبيان اختياري ولا يلزمك بتبرع أو تطوع.</p>
+    <!-- Hero -->
+    <section class="hero">
+      <img class="hero-banner" src="survey-banner.jpg" alt="كنوز الخير">
+      <div class="hero-content">
+        <span class="pill">دقيقتان فقط</span>
+        <h1>رأيك يصنع فرقًا</h1>
+        <p>ساعدنا نطور المبادرات… الاستبيان اختياري وسريع</p>
       </div>
     </section>
 
+    <!-- Card -->
     <section class="card">
-      <div class="row">
-        <div class="icon" aria-hidden="true">💚</div>
-        <div><h2>استبيان كنوز الخير</h2><p class="muted">تُحفظ الإجابات في Google Sheets. لا نجمع البريد الإلكتروني تلقائيًا. الاسم ورقم التواصل اختياريان ويُستخدمان فقط إذا وافقت على التواصل بشأن فرص التطوع.</p></div>
+      <div class="card-top">
+        <div class="icon">💚</div>
+        <div>
+          <h2>استبيان كنوز الخير</h2>
+          <span>إجاباتك تبقى سرية</span>
+        </div>
       </div>
+
       <div class="actions">
-        <a class="btn primary" href="https://docs.google.com/forms/d/e/1FAIpQLSdxrJFiOLlU2ieUkvagmSSTRrgPdWzZGQSy-7whiES3BRJXfg/viewform" target="_blank" rel="noopener noreferrer">فتح الاستبيان في صفحة مستقلة</a>
-        <a class="btn secondary" href="https://wa.me/201091866443" target="_blank" rel="noopener noreferrer">التواصل عبر واتساب</a>
+        <a class="btn btn-primary"
+           href="https://docs.google.com/forms/d/e/1FAIpQLSdxrJFiOLlU2ieUkvagmSSTRrgPdWzZGQSy-7whiES3BRJXfg/viewform"
+           target="_blank" rel="noopener noreferrer">
+          ابدأ الاستبيان
+        </a>
+        <a class="btn btn-secondary"
+           href="https://wa.me/201091866443"
+           target="_blank" rel="noopener noreferrer">
+          واتساب
+        </a>
       </div>
-      <p class="privacy">التحليل الآلي — عند تفعيله — يقتصر على الإجابات المغلقة غير التعريفية. لا تُرسل الأسماء أو أرقام التواصل أو إجابات النص الحر إلى خدمة الذكاء الاصطناعي. يرجى عدم إدخال بيانات شخصية في خانة الملاحظات.</p>
+
+      <p class="privacy">
+        لا نجمع بريدك الإلكتروني. الاسم ورقم التواصل اختياريان.
+      </p>
     </section>
 
-    <section class="framewrap" aria-label="نموذج الاستبيان">
-      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdxrJFiOLlU2ieUkvagmSSTRrgPdWzZGQSy-7whiES3BRJXfg/viewform?embedded=true" title="استبيان كنوز الخير" loading="lazy" referrerpolicy="strict-origin-when-cross-origin">جارٍ تحميل الاستبيان…</iframe>
+    <!-- Survey -->
+    <section class="frame-section">
+      <div class="frame-label">
+        <strong>نموذج الاستبيان</strong>
+        <span>≈ دقيقتان</span>
+      </div>
+      <div class="framewrap">
+        <iframe
+          src="https://docs.google.com/forms/d/e/1FAIpQLSdxrJFiOLlU2ieUkvagmSSTRrgPdWzZGQSy-7whiES3BRJXfg/viewform?embedded=true"
+          title="استبيان كنوز الخير"
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin">
+        </iframe>
+      </div>
     </section>
 
-    <footer class="foot"><strong>مؤسسة كنوز الخير للتنمية</strong><br><span class="gold">خيرٌ لكل الناس</span> · معًا… نصنع فرقًا</footer>
+    <!-- Footer -->
+    <footer class="foot">
+      <strong>مؤسسة كنوز الخير للتنمية</strong><br>
+      <span class="gold">خيرٌ لكل الناس</span>
+    </footer>
+
   </main>
 </body>
 </html>
