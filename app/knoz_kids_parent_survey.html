@@ -292,7 +292,7 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 3
       <div class="nav-buttons">
         <button type="button" class="btn btn-secondary" id="btn-prev" style="display: none;">السابق</button>
         <button type="button" class="btn btn-primary" id="btn-next">التالي</button>
-        <button type="submit" class="btn btn-primary" id="btn-submit" style="display: none;">إرسال الاستبيان</button>
+        <button type="submit" class="btn btn-primary" id="btn-submit" style="display: none;">إرسال إلى واتساب</button>
       </div>
     </form>
   </div>
@@ -300,8 +300,8 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 3
   <div class="card success-screen" id="success-screen">
     <div class="success-icon">✓</div>
     <h2>شكرًا لك! 💚</h2>
-    <p>لقد تم استلام إجاباتك بنجاح. رأيك هو سرّ تطورنا، ونعدك بأن نأخذ كل كلمة بعين الاعتبار.</p>
-    <button class="btn btn-primary" onclick="location.reload()" style="width: auto; margin: auto; padding: 10px 30px;">إغلاق</button>
+    <p>تم فتح تطبيق واتساب لإرسال إجاباتك. يرجى الضغط على زر "إرسال" داخل واتساب لإتمام العملية.</p>
+    <button class="btn btn-primary" onclick="location.reload()" style="width: auto; margin: auto; padding: 10px 30px;">العودة للاستبيان</button>
   </div>
 
   <footer>© حضانة كنوز كيدز 2024 - جميع الحقوق محفوظة</footer>
@@ -319,22 +319,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const stepText = document.getElementById('step-text');
   const percentText = document.getElementById('percent-text');
   
+  // رقم واتساب الحضانة (بدون علامة +)
+  const WA_NUMBER = '20 10 91866443'; 
+
   let currentStep = 0;
   const totalSteps = steps.length;
 
-  // دالة تحديث الواجهة
   function updateUI() {
     steps.forEach((step, index) => {
       step.classList.toggle('active', index === currentStep);
     });
 
-    // التقدم
     const progress = ((currentStep + 1) / totalSteps) * 100;
     progressBar.style.width = progress + '%';
     stepText.textContent = `القسم ${currentStep + 1} من ${totalSteps}`;
     percentText.textContent = Math.round(progress) + '%';
 
-    // الأزرار
     btnPrev.style.display = currentStep === 0 ? 'none' : 'block';
     btnNext.style.display = currentStep === totalSteps - 1 ? 'none' : 'block';
     btnSubmit.style.display = currentStep === totalSteps - 1 ? 'block' : 'none';
@@ -348,14 +348,12 @@ document.addEventListener('DOMContentLoaded', () => {
     input.addEventListener('change', (e) => {
       const parent = e.target.closest('.opt');
       if (e.target.type === 'radio') {
-        // إزالة التحديد من أشقائه
         const name = e.target.name;
         document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
           radio.closest('.opt').classList.remove('selected');
         });
         parent.classList.add('selected');
       } else {
-        // Checkbox
         parent.classList.toggle('selected', e.target.checked);
       }
     });
@@ -370,19 +368,17 @@ document.addEventListener('DOMContentLoaded', () => {
         q3Group.classList.add('show');
       } else {
         q3Group.classList.remove('show');
-        // مسح الإجابة إذا اخفينا السؤال
         document.querySelectorAll('input[name="rating"]').forEach(r => { r.checked = false; r.closest('.opt').classList.remove('selected'); });
       }
     });
   });
 
   // منطق إظهار وإخفاء بيانات التواصل
-  document.getElementById('radio-contact-yes').addEventListener('change', (e) => {
+  document.getElementById('radio-contact-yes').addEventListener('change', () => {
     document.getElementById('contact-fields').classList.add('show');
   });
-  document.getElementById('radio-contact-no').addEventListener('change', (e) => {
+  document.getElementById('radio-contact-no').addEventListener('change', () => {
     document.getElementById('contact-fields').classList.remove('show');
-    // مسح البيانات إذا اختار لا
     document.querySelector('input[name="parent_name"]').value = '';
     document.querySelector('input[name="parent_phone"]').value = '';
   });
@@ -429,7 +425,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // أزرار التنقل
   btnNext.addEventListener('click', () => {
-    // يمكن إضافة تحقق هنا إذا أردت جعل بعض الأسئلة إلزامية
     if (currentStep < totalSteps - 1) {
       currentStep++;
       updateUI();
@@ -443,38 +438,66 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // إرسال النموذج
+  // إرسال النموذج إلى واتساب
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     
-    // التحقق النهائي: التأكد من عدم تجاوز الحد الأقصى في أي مجموعة
-    const priorities = Array.from(document.querySelectorAll('input[name="priorities"]:checked'));
     const improvements = Array.from(document.querySelectorAll('input[name="improvements"]:checked'));
-    
     if (improvements.length > 3) {
       showError('في السؤال 5، اخترت أكثر من 3 خيارات. يرجى تعديلها.');
       return;
     }
 
-    // تعطيل الزر لمنع الإرسال المتكرر
     btnSubmit.disabled = true;
-    btnSubmit.textContent = 'جارٍ الإرسال...';
+    btnSubmit.textContent = 'جارٍ التجهيز...';
 
-    /*
-      ملاحظة للمطور:
-      هنا نقوم بإرسال البيانات إلى Google Forms باستخدام FormData.
-      يجب استبدال الـ action URL أدناه برابط الـ Form ID الخاص بك.
-      للأسف، لا يمكنني برمجة الرابط الفعلي دون معرفة النموذج الخاص بك.
-    */
+    // تجميع البيانات
+    const formData = new FormData(form);
+    let message = "السلام عليكم، هذه إجابات استبيان حضانة كنوز كيدز:\n\n";
     
-    // محاكاة الإرسال (يجب استبدال هذا الجزء بالكود الحقيقي لـ Google Forms)
-    setTimeout(() => {
-        // إخفاء النموذج وإظهار رسالة النجاح
-        form.style.display = 'none';
-        document.querySelector('.progress-container').style.display = 'none';
-        document.getElementById('success-screen').classList.add('show');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 1500);
+    // دالة مساعدة لتنسيق الإجابات
+    const addAnswers = (title, name) => {
+      const val = formData.getAll(name);
+      if (val.length > 0) message += `*${title}:*\n- ${val.join('\n- ')}\n\n`;
+    };
+
+    addAnswers('1. الفئة العمرية', 'age');
+    addAnswers('2. العلاقة بالحضانة', 'relation');
+    addAnswers('3. تقييم التجربة', 'rating');
+    addAnswers('4. أهم الأولويات', 'priorities');
+    addAnswers('5. الجوانب المطلوب تطويرها', 'improvements');
+    
+    const otherImp = formData.get('other_improvement');
+    if (otherImp) message += `   (أمر آخر: ${otherImp})\n\n`;
+
+    addAnswers('6. نظام الحضور', 'schedule');
+    addAnswers('7. موعد البدء', 'start_time');
+    addAnswers('8. خدمة المواصلات', 'transport');
+    
+    const wish = formData.get('wish');
+    if (wish) message += `*9. أمنية/اقتراح:*\n${wish}\n\n`;
+
+    const contact = formData.get('contact_me');
+    if (contact === 'نعم') {
+      message += `*10. الرغبة في التواصل:* نعم\n`;
+      const name = formData.get('parent_name');
+      const phone = formData.get('parent_phone');
+      if (name) message += `   الاسم: ${name}\n`;
+      if (phone) message += `   الهاتف: ${phone}\n`;
+    }
+
+    // ترميز الرسالة وإرسالها
+    const encodedMessage = encodeURIComponent(message);
+    const waUrl = `https://wa.me/${WA_NUMBER}?text=${encodedMessage}`;
+
+    // فتح واتساب
+    window.open(waUrl, '_blank');
+
+    // إظهار شاشة النجاح
+    form.style.display = 'none';
+    document.querySelector('.progress-container').style.display = 'none';
+    document.getElementById('success-screen').classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
   // تهيئة أولية
