@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#124b35">
+<meta name="description" content="شاركنا رأيك لنصنع الخير معًا. استبيان قصير من مؤسسة كنوز الخير للتنمية.">
+<title>شاركنا رأيك | مؤسسة كنوز الخير للتنمية</title>
+<link rel="icon" href="preview.jpg">
+<link rel="apple-touch-icon" href="app-icon.jpg">
+<style>
+:root{--green:#124b35;--green2:#1e6b4b;--mint:#eaf4ed;--gold:#d8b65b;--ink:#173b2c;--muted:#64756c;--paper:#fffdf8;--line:#dce7df;--danger:#a23b36}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(150deg,#f4f7f2,#edf4ee 60%,#faf6e9);color:var(--ink);font-family:Tahoma,"Arial",sans-serif;line-height:1.7;padding-top:env(safe-area-inset-top,0px)}
+button,input,textarea{font:inherit;color:inherit}button{cursor:pointer}.shell{width:min(760px,100%);margin:auto;padding:18px 14px 34px}.brand{display:flex;align-items:center;gap:13px;padding:12px 4px 18px}.logo{width:62px;height:62px;border:2px solid #e3cf88;background:white;border-radius:50%;display:grid;place-items:center;flex:none;box-shadow:0 5px 16px #173b2c16;overflow:hidden}.logo img{width:100%;height:100%;object-fit:cover}.brandname{font-weight:800;font-size:16px;color:var(--green)}.brandeng{font-size:11px;color:var(--muted);direction:ltr;text-align:right}.brandtag{font-size:12px;color:#987627;font-weight:bold}.backlink{margin-inline-start:auto;font-size:13px;color:var(--green);font-weight:700;text-decoration:none;border:1px solid var(--line);background:#fff;border-radius:99px;padding:6px 14px;white-space:nowrap}
+.hero{position:relative;overflow:hidden;border-radius:26px;background:radial-gradient(circle at 85% 0%,#2b805d 0,#18563d 38%,#103c2c 100%);color:white;padding:28px 23px 26px;box-shadow:0 15px 34px #16472f22}.hero:after{content:"";position:absolute;width:210px;height:210px;border:1px solid #ffffff16;border-radius:50%;left:-80px;bottom:-125px;box-shadow:0 0 0 18px #ffffff08,0 0 0 38px #ffffff05}.pill{display:inline-block;border:1px solid #d7b85b77;color:#ffe7a0;background:#ffffff0b;border-radius:99px;padding:3px 12px;font-size:12px}.hero h1{font-size:clamp(25px,5vw,36px);line-height:1.35;margin:12px 0 8px;position:relative;z-index:1}.hero p{margin:0;color:#e4f1e8;max-width:550px;font-size:15px;position:relative;z-index:1}.herofoot{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:19px;color:#f4e5ad;font-size:12px}.card{background:#fff;border:1px solid #e1e9e2;border-radius:22px;margin-top:17px;padding:22px;box-shadow:0 8px 25px #1b4a3210}.sectiontop{display:flex;align-items:center;gap:11px;margin-bottom:14px}.sectionicon{width:42px;height:42px;display:grid;place-items:center;background:var(--mint);border-radius:13px;font-size:21px}.sectiontop h2{font-size:18px;margin:0;color:var(--green)}.sectiontop p{margin:1px 0 0;font-size:12px;color:var(--muted)}.progressrow{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted);margin-bottom:8px}.progress{height:7px;background:#e8eee9;border-radius:20px;overflow:hidden}.progressbar{height:100%;width:0;background:linear-gradient(90deg,var(--green2),var(--gold));border-radius:20px;transition:width .25s}.q{padding:17px 0;border-bottom:1px solid #edf1ed}.q:last-child{border-bottom:0;padding-bottom:0}.qtitle{font-weight:700;font-size:15px;margin:0 0 4px}.hint{font-size:12px;color:var(--muted);margin:0 0 11px}.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.opt{display:flex;align-items:flex-start;gap:9px;border:1px solid var(--line);border-radius:13px;padding:11px 12px;background:#fff;min-height:47px;transition:.15s;cursor:pointer}.opt:has(input:checked){background:#edf6ef;border-color:#579471;box-shadow:inset 0 0 0 1px #579471}.opt input{accent-color:var(--green2);margin-top:5px;flex:none;width:16px;height:16px}.opt span{font-size:13px}.full{grid-column:1/-1}.textinput,textarea{width:100%;border:1px solid #cfded2;border-radius:12px;padding:12px;background:#fff;color:var(--ink);outline:none;font-size:16px}.textinput:focus,textarea:focus{border-color:var(--green2);box-shadow:0 0 0 3px #1e6b4b18}textarea{min-height:90px;resize:vertical}.actions{display:flex;gap:10px;justify-content:space-between;margin-top:18px}.btn{border:0;border-radius:13px;padding:12px 20px;font-weight:bold;min-height:46px}.primary{background:var(--green);color:white;flex:1;box-shadow:0 5px 12px #124b3520}.primary:hover{background:#1c6447}.secondary{background:#edf3ee;color:var(--green);border:1px solid #d8e4da}.note{font-size:12px;color:var(--muted);margin:13px 2px 0}.hidden{display:none!important}.success{text-align:center;padding:30px 18px}.success .check{margin:0 auto 13px;border-radius:50%;width:68px;height:68px;display:grid;place-items:center;background:#e4f3e8;color:var(--green);font-size:32px}.success h2{color:var(--green);margin:0 0 8px}.privacy{font-size:12px;background:#f5f8f5;border:1px solid #e1e9e2;padding:12px 14px;border-radius:12px;color:#53675b;margin-top:14px}.error{color:var(--danger);font-size:13px;margin-top:9px}.foot{text-align:center;color:#6c7c71;font-size:12px;padding:24px 8px 0}.gold{color:#b28c2d}
+@media(max-width:520px){.shell{padding:10px 10px 25px}.hero{padding:23px 18px;border-radius:22px}.card{padding:17px 14px;border-radius:18px}.options{grid-template-columns:1fr}.brand{padding-bottom:12px}.logo{width:54px;height:54px}.actions .btn{padding:11px 14px}.qtitle{font-size:14px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="brand">
+  <div class="logo"><img id="logo" src="preview.jpg" alt="شعار كنوز الخير"></div>
+  <div><div class="brandname">مؤسسة كنوز الخير للتنمية</div><div class="brandeng">Konoz Al Khair Foundation</div><div class="brandtag">خيرٌ لكل الناس</div></div>
+  <a class="backlink" href="index.html">العودة للتطبيق</a>
+</header>
+<section class="hero">
+  <span class="pill">رأيك يصنع فرقًا</span>
+  <h1>شاركنا رأيك…<br>لنصنع الخير معًا 💚</h1>
+  <p>نريد أن نستمع إليك. أفكارك تساعدنا على فهم اهتمامات المجتمع وتحسين المبادرات وطرق المشاركة.</p>
+  <div class="herofoot"><span>◷ دقيقتان إلى 3 دقائق</span><span>♡ المشاركة اختيارية</span><span>✦ لا يلزم التبرع أو التطوع</span></div>
+</section>
+<noscript><p class="note">فعّل JavaScript لتعبئة الاستبيان.</p></noscript>
+<div id="survey">
+  <section class="card" id="questionsCard">
+    <div class="progressrow"><span id="stepLabel">القسم 1 من 4</span><span id="progressLabel">25%</span></div>
+    <div class="progress"><div class="progressbar" id="progressbar"></div></div>
+    <form id="surveyForm" novalidate>
+      <div class="page" data-page="0">
+        <div class="sectiontop"><div class="sectionicon">💚</div><div><h2>لنتعرّف إلى اهتماماتك</h2><p>اختر ما يعبّر عنك بكل حرية</p></div></div>
+        <div class="q"><p class="qtitle">1. ما نوع المشاركة التي تفضّلها في أعمال الخير؟</p><p class="hint">يمكن اختيار أكثر من إجابة.</p><div class="options">
+          <label class="opt"><input type="checkbox" name="participation" value="اقتراحات وأفكار"><span>تقديم اقتراحات وأفكار جديدة</span></label>
+          <label class="opt"><input type="checkbox" name="participation" value="مساهمة مالية"><span>المساهمة المالية عند الاستطاعة</span></label>
+          <label class="opt"><input type="checkbox" name="participation" value="مساعدات عينية"><span>تقديم مواد غذائية أو ملابس أو مستلزمات</span></label>
+          <label class="opt"><input type="checkbox" name="participation" value="تطوع بالوقت والجهد"><span>التطوع بالوقت أو الجهد</span></label>
+          <label class="opt"><input type="checkbox" name="participation" value="تطوع بالمهارات"><span>المشاركة بمهارة أو خبرة</span></label>
+          <label class="opt"><input type="checkbox" name="participation" value="نشر المبادرات"><span>نشر المبادرات النافعة</span></label>
+          <label class="opt full"><input type="checkbox" name="participation" value="استكشاف طرق المشاركة"><span>ما زلت أستكشف طرق المشاركة المناسبة لي</span></label>
+        </div></div>
+        <div class="q"><p class="qtitle">2. ما أكثر ما يشجعك على المشاركة؟</p><p class="hint">اختر إجابتين على الأكثر.</p><div class="options">
+          <label class="opt"><input type="checkbox" name="motivation" value="وصول المساعدة لمستحقيها"><span>التأكد من وصول المساعدة لمستحقيها</span></label>
+          <label class="opt"><input type="checkbox" name="motivation" value="وضوح الهدف"><span>وضوح الهدف وطريقة التنفيذ</span></label>
+          <label class="opt"><input type="checkbox" name="motivation" value="وضوح النتائج"><span>وضوح النتائج والأثر</span></label>
+          <label class="opt"><input type="checkbox" name="motivation" value="سهولة المشاركة"><span>سهولة المشاركة</span></label>
+          <label class="opt"><input type="checkbox" name="motivation" value="الثقة بالمؤسسة"><span>الثقة في المؤسسة والقائمين عليها</span></label>
+          <label class="opt"><input type="checkbox" name="motivation" value="فرص تناسب الوقت والإمكانات"><span>فرص تناسب وقتي وإمكاناتي</span></label>
+        </div></div>
+      </div>
+      <div class="page hidden" data-page="1">
+        <div class="sectiontop"><div class="sectionicon">🌱</div><div><h2>أبواب الخير التي تهمك</h2><p>ساعدنا على فهم اهتماماتك</p></div></div>
+        <div class="q"><p class="qtitle">3. ما المجالات التي ترغب أن تحظى باهتمام أكبر؟</p><p class="hint">اختر حتى 3 مجالات.</p><div class="options">
+          <label class="opt"><input type="checkbox" name="causes" value="دعم الأسر بالمواد الغذائية"><span>دعم الأسر بالمواد الغذائية والاحتياجات الأساسية</span></label>
+          <label class="opt"><input type="checkbox" name="causes" value="كفالة الأيتام والأسر"><span>كفالة الأيتام ومساندة الأسر</span></label>
+          <label class="opt"><input type="checkbox" name="causes" value="الدعم التعليمي"><span>دعم التعليم والطلاب غير القادرين</span></label>
+          <label class="opt"><input type="checkbox" name="causes" value="تحفيظ القرآن"><span>تحفيظ القرآن الكريم وتعليمه</span></label>
+          <label class="opt"><input type="checkbox" name="causes" value="تجهيز العرائس"><span>تجهيز العرائس ومساندة المقبلين على الزواج من غير القادرين</span></label>
+          <label class="opt"><input type="checkbox" name="causes" value="ترميم المنازل"><span>ترميم المنازل وتحسين ظروف السكن</span></label>
+          <label class="opt"><input type="checkbox" name="causes" value="مبادرات صحية"><span>المبادرات الصحية والقوافل الطبية</span></label>
+          <label class="opt"><input type="checkbox" name="causes" value="كبار السن وذوو الإعاقة"><span>مساندة كبار السن والأشخاص ذوي الإعاقة</span></label>
+          <label class="opt"><input type="checkbox" name="causes" value="التمكين والتدريب"><span>التمكين والتدريب وتنمية المهارات</span></label>
+          <label class="opt full"><input type="checkbox" id="otherCauseCheck" name="causes" value="مجال آخر"><span>مجال آخر (يمكنك توضيحه أدناه)</span></label>
+        </div><input class="textinput hidden" id="otherCause" name="otherCause" maxlength="120" placeholder="اكتب المجال المقترح هنا" style="margin-top:10px"></div>
+        <div class="q"><p class="qtitle">4. ما المبادرة الخيرية التي تتمنى أن تراها؟</p><p class="hint">إجابة اختيارية — لا توجد إجابة خاطئة.</p><textarea name="idea" maxlength="600" placeholder="اكتب فكرتك أو اقتراحك هنا…"></textarea></div>
+      </div>
+      <div class="page hidden" data-page="2">
+        <div class="sectiontop"><div class="sectionicon">🤝</div><div><h2>الثقة وتجربة المشاركة</h2><p>ما الذي يجعل التجربة أفضل بالنسبة إليك؟</p></div></div>
+        <div class="q"><p class="qtitle">5. ما المعلومات التي تهمك معرفتها عن المبادرات؟</p><p class="hint">يمكن اختيار أكثر من إجابة.</p><div class="options">
+          <label class="opt"><input type="checkbox" name="trust" value="هدف المبادرة والفئات المستفيدة"><span>هدف المبادرة والفئات المستفيدة</span></label>
+          <label class="opt"><input type="checkbox" name="trust" value="معايير اختيار المستفيدين"><span>معايير اختيار المستفيدين مع حفظ خصوصيتهم</span></label>
+          <label class="opt"><input type="checkbox" name="trust" value="توثيق المساهمات والمصروفات"><span>كيفية استخدام المساهمات وتوثيق المصروفات</span></label>
+          <label class="opt"><input type="checkbox" name="trust" value="تقارير الإنجاز والنتائج"><span>تقارير الإنجاز والنتائج</span></label>
+          <label class="opt"><input type="checkbox" name="trust" value="توثيق مرئي بموافقة أصحابها"><span>صور أو مقاطع توثيقية بموافقة أصحابها</span></label>
+          <label class="opt"><input type="checkbox" name="trust" value="وسيلة واضحة للاستفسارات"><span>وسيلة واضحة للاستفسارات والملاحظات</span></label>
+        </div></div>
+        <div class="q"><p class="qtitle">6. كيف تفضّل الاطلاع على نتائج المبادرات؟</p><div class="options">
+          <label class="opt"><input type="radio" name="updates" value="تقارير داخل التطبيق"><span>تقارير مختصرة داخل التطبيق</span></label>
+          <label class="opt"><input type="radio" name="updates" value="صور ومقاطع توثيقية"><span>صور أو مقاطع توثيقية</span></label>
+          <label class="opt"><input type="radio" name="updates" value="تقارير تفصيلية"><span>تقارير تفصيلية عن الإنجاز والمصروفات</span></label>
+          <label class="opt"><input type="radio" name="updates" value="رسائل دورية اختياريًا"><span>رسائل دورية عبر وسيلة أختارها</span></label>
+          <label class="opt full"><input type="radio" name="updates" value="عند الحاجة فقط"><span>عند الحاجة فقط، دون تحديثات دورية</span></label>
+        </div></div>
+        <div class="q"><p class="qtitle">7. ما الذي قد يجعل المشاركة أسهل بالنسبة إليك؟</p><p class="hint">يمكن اختيار أكثر من إجابة.</p><div class="options">
+          <label class="opt"><input type="checkbox" name="barriers" value="خطوات بسيطة داخل التطبيق"><span>خطوات بسيطة وواضحة داخل التطبيق</span></label>
+          <label class="opt"><input type="checkbox" name="barriers" value="تفاصيل المبادرات واحتياجاتها"><span>تفاصيل المبادرات واحتياجاتها</span></label>
+          <label class="opt"><input type="checkbox" name="barriers" value="توضيح طرق المساهمة"><span>توضيح طرق المساهمة المتاحة</span></label>
+          <label class="opt"><input type="checkbox" name="barriers" value="سهولة التواصل"><span>سهولة التواصل وطرح الأسئلة</span></label>
+          <label class="opt"><input type="checkbox" name="barriers" value="متابعة النتائج"><span>معرفة ما تحقق بعد التنفيذ</span></label>
+          <label class="opt"><input type="checkbox" name="barriers" value="فرص تطوع تناسب الوقت والمهارات"><span>فرص تطوع تناسب الوقت والمهارات</span></label>
+        </div></div>
+      </div>
+      <div class="page hidden" data-page="3">
+        <div class="sectiontop"><div class="sectionicon">✨</div><div><h2>شاركنا بما يناسبك</h2><p>الجزء الأخير — بعض الأسئلة اختيارية</p></div></div>
+        <div class="q"><p class="qtitle">8. هل ترغب في معرفة فرص التطوع أو المشاركة مستقبلًا؟</p><div class="options">
+          <label class="opt"><input type="radio" name="volunteerInterest" value="نعم"><span>نعم، أود معرفة الفرص المتاحة</span></label>
+          <label class="opt"><input type="radio" name="volunteerInterest" value="ربما"><span>ربما، أفضّل الاطلاع على التفاصيل أولًا</span></label>
+          <label class="opt"><input type="radio" name="volunteerInterest" value="ليس الآن"><span>ليس في الوقت الحالي</span></label>
+        </div></div>
+        <div id="volunteerDetails" class="hidden">
+          <div class="q"><p class="qtitle">9. ما المجالات التي تناسبك؟</p><p class="hint">اختياري — اختر ما يناسبك.</p><div class="options">
+            <label class="opt"><input type="checkbox" name="skills" value="التعليم أو تحفيظ القرآن"><span>التعليم أو تحفيظ القرآن</span></label>
+            <label class="opt"><input type="checkbox" name="skills" value="تنظيم المبادرات والفعاليات"><span>تنظيم المبادرات والفعاليات</span></label>
+            <label class="opt"><input type="checkbox" name="skills" value="الأعمال الميدانية"><span>توزيع المساعدات والأعمال الميدانية</span></label>
+            <label class="opt"><input type="checkbox" name="skills" value="التصميم وصناعة المحتوى"><span>التصميم وصناعة المحتوى والتصوير</span></label>
+            <label class="opt"><input type="checkbox" name="skills" value="المحاسبة والإدارة"><span>المحاسبة والإدارة وإعداد التقارير</span></label>
+            <label class="opt"><input type="checkbox" name="skills" value="التقنية وتطوير التطبيقات"><span>التقنية وتطوير التطبيقات والمواقع</span></label>
+            <label class="opt"><input type="checkbox" name="skills" value="التواصل وخدمة المستفيدين"><span>التواصل وخدمة المستفيدين</span></label>
+          </div>
+          <p class="qtitle" style="margin-top:13px">ما الوقت الذي يناسبك غالبًا؟</p><div class="options">
+            <label class="opt"><input type="radio" name="volunteerTime" value="أيام الأسبوع صباحًا"><span>أيام الأسبوع صباحًا</span></label>
+            <label class="opt"><input type="radio" name="volunteerTime" value="أيام الأسبوع مساءً"><span>أيام الأسبوع مساءً</span></label>
+            <label class="opt"><input type="radio" name="volunteerTime" value="نهاية الأسبوع"><span>نهاية الأسبوع</span></label>
+            <label class="opt"><input type="radio" name="volunteerTime" value="عن بُعد"><span>عن بُعد</span></label>
+            <label class="opt full"><input type="radio" name="volunteerTime" value="حسب المبادرة"><span>حسب طبيعة المبادرة والوقت المتاح</span></label>
+          </div></div>
+          <div class="q"><p class="qtitle">هل ترغب أن تتواصل معك المؤسسة بشأن فرص التطوع؟</p><label class="opt"><input type="checkbox" id="contactConsent"><span>نعم، أوافق على التواصل معي لهذا الغرض بعد إدخال بياناتي اختياريًا.</span></label>
+            <div id="contactFields" class="hidden" style="margin-top:12px;display:grid;gap:10px"><input class="textinput" name="name" maxlength="60" autocomplete="name" placeholder="الاسم (اختياري)"><input class="textinput" name="contact" maxlength="20" autocomplete="tel" placeholder="رقم الهاتف أو واتساب (اختياري)" inputmode="tel"><p class="hint">لا تُدخل بيانات شخص آخر.</p></div>
+          </div>
+        </div>
+        <div class="q"><p class="qtitle">10. ما أهم نصيحة أو ملاحظة تقدمها للمؤسسة؟</p><textarea name="feedback" maxlength="600" placeholder="مساحة مفتوحة لرأيك…"></textarea></div>
+        <div class="q"><p class="qtitle">11. ما مدى استعدادك للتوصية بمتابعة المؤسسة؟</p><p class="hint">من 0 (غير مستعد إطلاقًا) إلى 10 (مستعد جدًا). السؤال اختياري.</p><div style="display:flex;gap:7px;flex-wrap:wrap" id="ratingOptions"></div><input type="hidden" name="recommendation" id="recommendation"></div>
+        <div class="privacy">🔒 نحترم خصوصيتك. لا نطلب اسمك أو رقمك لإرسال الرأي. بيانات التواصل اختيارية، وتُستخدم فقط إذا وافقت على التواصل بشأن فرص التطوع.</div>
+      </div>
+      <div id="formError" class="error hidden" role="alert">يرجى مراجعة الاختيارات المطلوبة قبل المتابعة.</div>
+      <div class="actions"><button type="button" id="backBtn" class="btn secondary hidden">السابق</button><button type="button" id="nextBtn" class="btn primary">التالي</button><button type="submit" id="submitBtn" class="btn primary hidden">إرسال رأيي 💚</button></div>
+      <p class="note">مشاركتك اختيارية بالكامل، ولا تُلزمك بتبرع أو تطوع.</p>
+    </form>
+  </section>
+  <section class="card success hidden" id="successCard" aria-live="polite">
+    <div class="check">✓</div><h2>شكرًا لأنك شاركتنا رأيك 💚</h2>
+    <p>تم فتح تطبيق واتساب لإرسال إجاباتك إلى المؤسسة. اضغط «إرسال» داخل واتساب لإتمام العملية.</p>
+    <p class="hint">إذا لم يفتح واتساب تلقائيًا، يرجى التأكد من تثبيته على جهازك.</p>
+    <button type="button" class="btn secondary" id="restartBtn" style="margin-top:9px">العودة إلى الاستبيان</button>
+    <a class="btn secondary" href="index.html" style="display:block;margin-top:9px;text-decoration:none">العودة للتطبيق</a>
+  </section>
+</div>
+<footer class="foot"><strong>مؤسسة كنوز الخير للتنمية</strong><br><span class="gold">خيرٌ لكل الناس</span> · معًا… نصنع فرقًا</footer>
+</div>
+<script>
+(function(){
+ var PH='201091866443';
+ var form=document.getElementById('surveyForm'),pages=[].slice.call(document.querySelectorAll('.page')),next=document.getElementById('nextBtn'),back=document.getElementById('backBtn'),submit=document.getElementById('submitBtn'),error=document.getElementById('formError'),bar=document.getElementById('progressbar'),stepLabel=document.getElementById('stepLabel'),progressLabel=document.getElementById('progressLabel');
+ var page=0;
+ document.getElementById('logo').addEventListener('error',function(){this.style.visibility='hidden'});
+ function showError(t){error.textContent=t;error.classList.remove('hidden')}
+ function update(){pages.forEach(function(p,i){p.classList.toggle('hidden',i!==page)});back.classList.toggle('hidden',page===0);next.classList.toggle('hidden',page===pages.length-1);submit.classList.toggle('hidden',page!==pages.length-1);bar.style.width=((page+1)/pages.length*100)+'%';stepLabel.textContent='القسم '+(page+1)+' من '+pages.length;progressLabel.textContent=Math.round((page+1)/pages.length*100)+'%';error.classList.add('hidden')}
+ function checked(name){return [].slice.call(form.querySelectorAll('input[name="'+name+'"]:checked')).map(function(x){return x.value})}
+ function enforceMax(group,max,msg){[].slice.call(document.querySelectorAll('input[name="'+group+'"]')).forEach(function(input){input.addEventListener('change',function(){if(checked(group).length>max){input.checked=false;showError(msg)}else error.classList.add('hidden')})})}
+ enforceMax('motivation',2,'يمكنك اختيار إجابتين على الأكثر.');
+ enforceMax('causes',3,'يمكنك اختيار 3 مجالات على الأكثر.');
+ function goTo(p){page=p;update();window.scrollTo({top:0,behavior:'smooth'})}
+ next.addEventListener('click',function(){goTo(Math.min(page+1,pages.length-1))});
+ back.addEventListener('click',function(){goTo(Math.max(page-1,0))});
+ document.getElementById('otherCauseCheck').addEventListener('change',function(e){var o=document.getElementById('otherCause');o.classList.toggle('hidden',!e.target.checked);if(!e.target.checked)o.value=''});
+ function volWanted(){var v=checked('volunteerInterest')[0];return v==='نعم'||v==='ربما'}
+ [].slice.call(document.querySelectorAll('input[name="volunteerInterest"]')).forEach(function(i){i.addEventListener('change',function(){document.getElementById('volunteerDetails').classList.toggle('hidden',!volWanted())})});
+ document.getElementById('contactConsent').addEventListener('change',function(e){document.getElementById('contactFields').classList.toggle('hidden',!e.target.checked)});
+ var rating=document.getElementById('ratingOptions'),hiddenRating=document.getElementById('recommendation');
+ function paint(sel){[].slice.call(rating.children).forEach(function(el,j){var on=j===sel;el.style.background=on?'#124b35':'#edf3ee';el.style.color=on?'white':'#124b35';el.setAttribute('aria-pressed',String(on))})}
+ for(var i=0;i<=10;i++){(function(i){var b=document.createElement('button');b.type='button';b.textContent=i;b.className='btn secondary';b.style.cssText='min-width:42px;padding:7px 0';b.setAttribute('aria-label','التقييم '+i);b.setAttribute('aria-pressed','false');b.addEventListener('click',function(){hiddenRating.value=i;paint(i)});rating.appendChild(b)})(i)}
+ function val(n){var e=form.elements[n];return e&&e.value?e.value.trim():''}
+ function join(a){return a.join('، ')}
+ function buildMessage(){
+   var m='السلام عليكم، هذه إجابات استبيان كنوز الخير:\n\n',a;
+   if((a=checked('participation')).length)m+='1. تفضيلات المشاركة: '+join(a)+'\n';
+   if((a=checked('motivation')).length)m+='2. المحفزات: '+join(a)+'\n';
+   a=checked('causes');var oc=val('otherCause');
+   if(a.length){m+='3. المجالات المطلوبة: '+join(a);if(oc)m+=' (مجال آخر: '+oc+')';m+='\n'}
+   if(val('idea'))m+='4. مبادرة مقترحة: '+val('idea')+'\n';
+   if((a=checked('trust')).length)m+='5. ما يهمه لمعرفة الشفافية: '+join(a)+'\n';
+   if((a=checked('updates')).length)m+='6. طريقة الاطلاع على النتائج: '+a[0]+'\n';
+   if((a=checked('barriers')).length)m+='7. ما يسهل مشاركته: '+join(a)+'\n';
+   var vi=checked('volunteerInterest')[0];
+   if(vi)m+='8. الرغبة في التطوع: '+vi+'\n';
+   if(volWanted()){
+     if((a=checked('skills')).length)m+='9. المهارات: '+join(a)+'\n';
+     if((a=checked('volunteerTime')).length)m+='   الوقت المناسب: '+a[0]+'\n';
+   }
+   if(val('feedback'))m+='10. ملاحظات: '+val('feedback')+'\n';
+   if(val('recommendation')!=='')m+='11. التقييم للتوصية: '+val('recommendation')+'/10\n';
+   if(volWanted()&&document.getElementById('contactConsent').checked){
+     var n=val('name'),c=val('contact');
+     if(n||c){m+='\n--- بيانات التواصل ---\n';if(n)m+='الاسم: '+n+'\n';if(c)m+='رقم التواصل: '+c+'\n'}
+   }
+   return m;
+ }
+ form.addEventListener('submit',function(e){
+   e.preventDefault();
+   if(checked('motivation').length>2||checked('causes').length>3){showError('يرجى مراجعة عدد الاختيارات المسموح بها.');return}
+   var msg=buildMessage();
+   if(msg.split('\n').length<5){showError('أجب عن سؤال واحد على الأقل قبل الإرسال.');return}
+   document.getElementById('questionsCard').classList.add('hidden');
+   document.getElementById('successCard').classList.remove('hidden');
+   window.scrollTo({top:0,behavior:'smooth'});
+   var url='https://wa.me/'+PH+'?text='+encodeURIComponent(msg.slice(0,1500)),w=null;
+   try{w=window.open(url,'_blank','noopener,noreferrer')}catch(x){}
+   if(!w)location.href=url;
+ });
+ document.getElementById('restartBtn').addEventListener('click',function(){
+   form.reset();hiddenRating.value='';
+   document.getElementById('otherCause').classList.add('hidden');
+   document.getElementById('volunteerDetails').classList.add('hidden');
+   document.getElementById('contactFields').classList.add('hidden');
+   paint(-1);
+   document.getElementById('successCard').classList.add('hidden');
+   document.getElementById('questionsCard').classList.remove('hidden');
+   goTo(0);
+ });
+ update();
+})();
+</script>
+</body>
+</html>
