@@ -12,6 +12,34 @@
 :root {
   --green: #13402f;
   --green-light: #1e6b4b;
+  --line: #d4e4da; /* تمت إضافته ليعمل زر العودة بشكل صحيح */
+}
+
+/* تنسيق زر العودة */
+.backlink {
+  margin-inline-start: auto;
+  font-size: 12.5px;
+  color: var(--green);
+  font-weight: 700;
+  text-decoration: none;
+  border: 1.5px solid var(--line);
+  background: #fff;
+  border-radius: 99px;
+  padding: 7px 14px;
+  transition: 0.2s ease;
+  display: inline-block;
+}
+
+.backlink:hover {
+  background: #f0f7f3;
+}
+
+/* ملاحظة: تأكد أن باقي أكواد التصميم الخاصة بك موجودة هنا أسفل هذه الأسطر */
+</style>
+</head>
+:root {
+  --green: #13402f;
+  --green-light: #1e6b4b;
   --mint: #eaf4ed;
   --gold: #d8b65b;
   --ink: #173b2c;
@@ -150,6 +178,7 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 3
       <h1>حضانة كنوز كيدز</h1>
       <p>التعليم • اللعب • التربية</p>
     </div>
+      <a class="backlink" href="index.html">العودة للتطبيق</a>
   </header>
 
   <!-- الغلاف الجديد -->
