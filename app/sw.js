@@ -34,7 +34,9 @@ self.addEventListener('activate', (event) => {
 });
 
 function stripQuery(input) {
-  var url = typeof input === 'string' ? input : (input && input.url ? input.url : String(input));
+  if (!input) return '';
+  var url = typeof input === 'string' ? input : (input.url ? input.url : String(input));
+  if (!url) return '';
   var u = new URL(url, self.location.href);
   u.search = '';
   return u.href;
@@ -47,6 +49,7 @@ self.addEventListener('fetch', (event) => {
   if (url.origin !== location.origin) return;
 
   const key = stripQuery(req);
+  if (!key) return;
 
   event.respondWith(
     fetch(req.url, { cache: 'no-store', credentials: 'same-origin' })
