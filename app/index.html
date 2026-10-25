@@ -15,7 +15,6 @@
 <meta name="format-detection" content="telephone=no">
 <link rel="canonical" href="https://rawad-store.github.io/konozalkhair/app/">
 
-<!-- وسوم المشاركة على وسائل التواصل (فيسبوك، واتساب، تيليجرام، لينكدإن) -->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ar_AR">
 <meta property="og:title" content="مؤسسة كنوز الخير للتنمية — خيرٌ لكل الناس">
@@ -27,11 +26,9 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 
-<!-- وسوم تويتر (إكس) -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://rawad-store.github.io/konozalkhair/app/app-preview.jpg">
 
-<!-- الأيقونات (Favicon & Apple Touch Icon) -->
 <link rel="icon" href="app-preview.jpg">
 <link rel="apple-touch-icon" href="app-icon.jpg">
 
@@ -107,8 +104,11 @@ h2{font-size:1.65rem;line-height:1.4;color:var(--pine);margin:36px 0 4px}
 @supports (aspect-ratio:1){.case .ph{height:auto;aspect-ratio:16/10}}
 .case .ph img{width:100%;height:100%;object-fit:cover;display:block}
 .case .badge{position:absolute;top:12px;inset-inline-start:12px;background:var(--alert);color:#fff;font-weight:700;font-size:.8rem;padding:2px 12px;border-radius:999px;line-height:1.7}
+.case .badge.done-badge-corner{background:#2a9d8f}
 .case .bd{padding:16px 18px 18px;display:flex;flex-direction:column;flex:1}
 .case.urgent{border-color:var(--alert)}
+.case.done{border-color:#2a9d8f;background:linear-gradient(180deg,var(--surf),#f6fdf9)}
+:root[data-theme="dark"] .case.done{background:linear-gradient(180deg,var(--surf),#0f2418)}
 .case h3{font-size:1.3rem;line-height:1.5}
 .case .bd .inl{display:inline-block;align-self:flex-start;background:var(--alert);color:#fff;font:700 .78rem "IBM Plex Sans Arabic",sans-serif;padding:0 10px;border-radius:999px;margin-bottom:6px}
 .case p{font-size:.92rem;color:var(--mute);line-height:1.8;margin-top:4px;white-space:pre-line;overflow-wrap:anywhere}
@@ -122,6 +122,20 @@ h2{font-size:1.65rem;line-height:1.4;color:var(--pine);margin:36px 0 4px}
 .empty{padding:26px 0;color:var(--mute)}.empty b{display:block;color:var(--ink);margin-bottom:4px}
 .sk{height:300px;border-radius:20px;background:linear-gradient(90deg,var(--tint),var(--line),var(--tint));background-size:200% 100%;animation:sh 1.4s infinite}
 @keyframes sh{to{background-position:-200% 0}}
+
+/* شفافية المبالغ */
+.amt{margin-top:12px;padding:10px 12px;background:var(--tint);border:1px solid var(--line);border-radius:12px;font-size:.82rem}
+.amt-row{display:flex;justify-content:space-between;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.amt-row span{white-space:nowrap}
+.amt-row strong{color:var(--ink);font-weight:700}
+.amt-row .ok strong{color:#2a7552}
+.amt-row .warn strong{color:var(--alert)}
+.bar{height:9px;background:#d7e4dc;border-radius:6px;overflow:hidden;position:relative}
+.bar>div{height:100%;background:linear-gradient(90deg,#2a9d8f,#13402f);border-radius:6px;transition:width .4s ease}
+:root[data-theme="dark"] .bar{background:#1a3327}
+.pct{font-size:.72rem;color:var(--mute);margin-top:4px;text-align:right}
+.done-badge{background:#e6f5ed;color:#13402f;padding:10px 12px;border-radius:12px;text-align:center;font-weight:700;margin-top:12px;border:1px solid #c9e5d6;font-size:.88rem}
+:root[data-theme="dark"] .done-badge{background:#14382a;color:#7ee6b4;border-color:#1f5c42}
 
 .week{display:flex;gap:6px;margin:6px 0 14px}
 .week span{flex:1;text-align:center;font-size:.74rem;color:var(--mute)}
@@ -390,6 +404,40 @@ function wa(m){
 function ymd(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
 var store={get:function(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 
+/* ====== دوال المبالغ ====== */
+function toNum(v){
+  if(v==null)return 0;
+  if(typeof v==='number')return isFinite(v)&&v>0?Math.floor(v):0;
+  var s=String(v).replace(/[,\s]/g,'');
+  var m=s.match(/\d+(\.\d+)?/);
+  if(!m)return 0;
+  var n=parseFloat(m[0]);
+  return isFinite(n)&&n>0?Math.floor(n):0;
+}
+function fmtNum(n){
+  n=toNum(n);
+  return n?n.toLocaleString('en-US'):'0';
+}
+function amountBlock(c){
+  var need = toNum(c.needed);
+  var col  = toNum(c.collected);
+  if(!need && !col) return '';
+  if(need>0 && col>=need){
+    return '<div class="done-badge" role="status">✅ تم اكتمال التبرع — جزى الله كل من ساهم خيرًا</div>';
+  }
+  var rem = Math.max(need-col,0);
+  var pct = need>0?Math.min(100,Math.round(col/need*100)):0;
+  return '<div class="amt" aria-label="حالة التبرع">'+
+    '<div class="amt-row">'+
+      (need?'<span>🎯 المطلوب: <strong>'+fmtNum(need)+'</strong> ج</span>':'')+
+      (col?'<span class="ok">💚 المحصّل: <strong>'+fmtNum(col)+'</strong> ج</span>':'')+
+      (rem?'<span class="warn">⏳ المتبقي: <strong>'+fmtNum(rem)+'</strong> ج</span>':'')+
+    '</div>'+
+    (need?'<div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+pct+'"><div style="width:'+pct+'%"></div></div>'+
+      '<div class="pct">'+pct+'% مكتمل</div>':'')+
+  '</div>';
+}
+
 (function(){var l=$('#logo');l.addEventListener('error',function(){l.style.visibility='hidden'})})();
 (function(){var im=$('#heroimg'),fb=function(){im.hidden=true;$('#herofb').hidden=false};im.addEventListener('error',fb);if(im.complete&&im.naturalWidth===0)fb()})();
 
@@ -531,11 +579,6 @@ function share(){shareData({title:'مؤسسة كنوز الخير للتنمية
 ['#share','#share3'].forEach(function(s){$(s).addEventListener('click',share)});
 
 /* الحالات */
-function money(v){
-  v=String(v==null?'':v).trim();if(!v)return '';
-  if(/^[\d,.\s]+$/.test(v)){var n=parseFloat(v.replace(/[,\s]/g,''));if(isFinite(n))return n.toLocaleString('en-US')+' جنيه'}
-  return v;
-}
 function sortCases(l){
   return l.map(function(c,i){return {c:c,i:i}}).sort(function(a,b){
     var ua=a.c&&a.c.urgent?1:0,ub=b.c&&b.c.urgent?1:0;return (ub-ua)||(b.i-a.i);
@@ -548,30 +591,67 @@ function renderCases(list,box,cnt,limit){
   if(!list.length){
     cnt.textContent='لا توجد حالات مفتوحة الآن';
     box.innerHTML='<div class="empty"><b>لا توجد حالات معروضة حاليًا</b>يمكنك إبلاغنا عن أسرة تحتاج مساعدة.<br><button class="btn line sm" type="button" style="margin-top:12px">أبلغ عن حالة</button></div>';
-    box.querySelector('button').addEventListener('click',function(){go('help','case')});return;
+    var eb=box.querySelector('button');
+    if(eb)eb.addEventListener('click',function(){go('help','case')});
+    return;
   }
   var n=list.length;
   cnt.textContent=n===1?'حالة واحدة مفتوحة':n===2?'حالتان مفتوحتان':n+(n<11?' حالات مفتوحة':' حالة مفتوحة');
   if(limit)list=list.slice(0,limit);
   list.forEach(function(c){
-    var el=document.createElement('article'),img=safeImg(c.image),desc=String(c.description||''),long=desc.length>130,need=money(c.needed);
-    el.className='case'+(c.urgent?' urgent':'');
-    el.innerHTML=(img?'<button class="ph" type="button" aria-label="تكبير الصورة"><img src="'+esc(img)+'" alt="" loading="lazy" decoding="async">'+(c.urgent?'<span class="badge">عاجلة</span>':'')+'</button>':'')+
-      '<div class="bd">'+(c.urgent&&!img?'<span class="inl">عاجلة</span>':'')+'<h3>'+esc(c.title||'حالة')+'</h3>'+
-      (desc?'<p class="'+(long?'cl':'')+'">'+esc(desc)+'</p>'+(long?'<button class="more" type="button" aria-expanded="false">عرض المزيد</button>':''):'')+
-      '<div class="meta"><div>'+(need?'المطلوب<b>'+esc(need)+'</b>':'')+'</div><div>'+esc(c.location||'')+'</div></div>'+
-      '<div class="cf"><button class="btn gold" type="button" data-d>تبرّع لهذه الحالة</button><button class="ib" type="button" data-s aria-label="شارك الحالة">'+ICON_SHARE+'</button></div></div>';
+    var el=document.createElement('article'),
+        img=safeImg(c.image),
+        desc=String(c.description||''),
+        long=desc.length>130,
+        need=toNum(c.needed),
+        col=toNum(c.collected),
+        done=need>0&&col>=need;
+    el.className='case'+(c.urgent?' urgent':'')+(done?' done':'');
+    el.innerHTML=
+      (img?'<button class="ph" type="button" aria-label="تكبير الصورة"><img src="'+esc(img)+'" alt="" loading="lazy" decoding="async">'+
+        (c.urgent&&!done?'<span class="badge">عاجلة</span>':'')+
+        (done?'<span class="badge done-badge-corner">✅ مكتملة</span>':'')+
+      '</button>':'')+
+      '<div class="bd">'+
+        (c.urgent&&!done&&!img?'<span class="inl">عاجلة</span>':'')+
+        '<h3>'+esc(c.title||'حالة')+'</h3>'+
+        (desc?'<p class="'+(long?'cl':'')+'">'+esc(desc)+'</p>'+(long?'<button class="more" type="button" aria-expanded="false">عرض المزيد</button>':'')+'':'')+
+        '<div class="meta">'+
+          '<div>'+esc(c.location||'')+'</div>'+
+        '</div>'+
+        amountBlock(c)+
+        '<div class="cf">'+
+          (done
+            ? '<button class="btn line" type="button" data-d disabled>تم الاكتمال</button>'
+            : '<button class="btn gold" type="button" data-d>تبرّع لهذه الحالة</button>')+
+          '<button class="ib" type="button" data-s aria-label="شارك الحالة">'+ICON_SHARE+'</button>'+
+        '</div>'+
+      '</div>';
+
     var im=el.querySelector('.ph img');
     if(im){
       im.addEventListener('error',function(){var p=this.parentNode;this.remove();p.disabled=true;p.style.height='60px';p.style.cursor='default'});
-      el.querySelector('.ph').addEventListener('click',function(){$('#lbi').src=img;openM('#lb')});
+      var ph=el.querySelector('.ph');
+      if(ph)ph.addEventListener('click',function(){$('#lbi').src=img;openM('#lb')});
     }
     var mb=el.querySelector('.more');
-    if(mb)mb.addEventListener('click',function(){var p=el.querySelector('p'),o=p.classList.toggle('cl');mb.textContent=o?'عرض المزيد':'عرض أقل';mb.setAttribute('aria-expanded',String(!o))});
-    el.querySelector('[data-d]').addEventListener('click',function(){
-      wa('السلام عليكم، أرغب في التبرع للحالة التالية:\n'+(c.title||'')+(desc?'\n'+desc.slice(0,300):'')+'\nالمبلغ المطلوب: '+(need||'حسب الاستطاعة'));
+    if(mb)mb.addEventListener('click',function(){
+      var p=el.querySelector('p'),o=p.classList.toggle('cl');
+      mb.textContent=o?'عرض المزيد':'عرض أقل';
+      mb.setAttribute('aria-expanded',String(!o));
     });
-    el.querySelector('[data-s]').addEventListener('click',function(){shareData({title:c.title||'حالة',text:(c.title||'')+'\nساهم في جبر خاطر أسرة عبر كنوز الخير.',url:SITE})});
+    var db=el.querySelector('[data-d]');
+    if(db&&!db.disabled)db.addEventListener('click',function(){
+      wa('السلام عليكم، أرغب في التبرع للحالة التالية:\n'+(c.title||'')+
+        (desc?'\n'+desc.slice(0,300):'')+
+        (need?'\nالمطلوب: '+fmtNum(need)+' جنيه':'')+
+        (col?'\nالمحصّل: '+fmtNum(col)+' جنيه':'')+
+        (need&&col<need?'\nالمتبقي: '+fmtNum(need-col)+' جنيه':''));
+    });
+    var sb=el.querySelector('[data-s]');
+    if(sb)sb.addEventListener('click',function(){
+      shareData({title:c.title||'حالة',text:(c.title||'')+'\nساهم في جبر خاطر أسرة عبر كنوز الخير.',url:SITE});
+    });
     box.appendChild(el);
   });
 }
@@ -586,18 +666,40 @@ function loadCases(){
   if(loading)return;loading=true;
   fetch('./cases.json?v='+Date.now(),{cache:'no-store'})
     .then(function(r){if(!r.ok)throw new Error('x');return r.json()})
-    .then(function(d){if(!Array.isArray(d))throw new Error('x');renderAll(d);try{localStorage.setItem('kk_cases_cache',JSON.stringify(d))}catch(e){}})
+    .then(function(d){
+      if(!Array.isArray(d))throw new Error('x');
+      d=d.map(function(c){
+        if(!c||typeof c!=='object')return null;
+        return {
+          id:c.id||0,
+          title:c.title||'',
+          description:c.description||'',
+          needed:toNum(c.needed),
+          collected:toNum(c.collected),
+          location:c.location||'',
+          urgent:!!c.urgent,
+          image:c.image||''
+        };
+      }).filter(function(c){return c!==null});
+      renderAll(d);
+      try{localStorage.setItem('kk_cases_cache',JSON.stringify(d))}catch(e){}
+    })
     .catch(function(){
       var c=store.get('kk_cases_cache',null);
       if(Array.isArray(c))renderAll(c);
       else{
         ['#cases-container','#cases-all'].forEach(function(id){
-          $(id).innerHTML='<div class="empty">تحقق من اتصالك بالإنترنت ثم أعد المحاولة.<br><button class="btn line sm" type="button" style="margin-top:12px">إعادة المحاولة</button></div>';
-          $(id+' button').addEventListener('click',loadCases);
+          var box=$(id);
+          if(!box)return;
+          box.innerHTML='<div class="empty">تحقق من اتصالك بالإنترنت ثم أعد المحاولة.<br><button class="btn line sm" type="button" style="margin-top:12px">إعادة المحاولة</button></div>';
+          var btn=box.querySelector('button');
+          if(btn)btn.addEventListener('click',loadCases);
         });
-        $('#cases-count').textContent=$('#cases-count2').textContent='تعذر تحميل الحالات';
+        $('#cases-count').textContent='تعذر تحميل الحالات';
+        $('#cases-count2').textContent='تعذر تحميل الحالات';
       }
-    }).then(function(){loading=false});
+    })
+    .then(function(){loading=false});
 }
 loadCases();
 
@@ -607,7 +709,8 @@ var isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='
 function installed(){return (window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true}
 function refreshInstall(){
   var ok=!installed(),dis=store.get('kk_inst_x',0);
-  $('#inst').hidden=!ok;$('#inst3').hidden=!ok;
+  $('#inst').hidden=!ok;
+  $('#inst3').hidden=!ok;
   $('#instbar').hidden=!(ok&&!dis&&(dp||isIOS));
 }
 function doInstall(){
@@ -619,7 +722,7 @@ function doInstall(){
 }
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dp=e;refreshInstall()});
 window.addEventListener('appinstalled',function(){dp=null;refreshInstall();toast('تم تثبيت التطبيق')});
-['#inst','#inst3','#instb'].forEach(function(s){$(s).addEventListener('click',doInstall)});
+['#inst','#inst3','#instb'].forEach(function(s){var el=$(s);if(el)el.addEventListener('click',doInstall)});
 $('#instx').addEventListener('click',function(){store.set('kk_inst_x',1);refreshInstall()});
 if(window.matchMedia)try{matchMedia('(display-mode: standalone)').addEventListener('change',refreshInstall)}catch(e){}
 refreshInstall();
@@ -638,7 +741,7 @@ var typed=false;
 document.addEventListener('input',function(e){var t=e.target;if(t&&t.classList&&t.classList.contains('in')&&t.id!=='amt')typed=true});
 function dirty(){return typed}
 function safeReload(){
-  if(dirty()){$('#upd').hidden=false;return}   // لا نفقد ما يكتبه المستخدم
+  if(dirty()){$('#upd').hidden=false;return}
   var last=0;try{last=+sessionStorage.getItem('kk_rl')||0}catch(e){}
   if(Date.now()-last<60000){$('#upd').hidden=false;return}
   try{sessionStorage.setItem('kk_rl',String(Date.now()))}catch(e){}
@@ -659,7 +762,8 @@ if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0){
     navigator.serviceWorker.register('./sw.js',{scope:'./',updateViaCache:'none'}).then(function(reg){
       var chk=function(){reg.update().catch(function(){});pageCheck()};
       chk();
-      window.addEventListener('online',chk);setInterval(chk,10*60*1000);
+      window.addEventListener('online',chk);
+      setInterval(chk,10*60*1000);
       document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});
     }).catch(function(){});
   });
